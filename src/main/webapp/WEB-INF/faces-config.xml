@@ -10,21 +10,6 @@
 	<lifecycle>
 		<phase-listener>br.com.locar.app.login.LoginErrorPhaseListener</phase-listener>
 	</lifecycle>
-	<converter>
-		<converter-id>permissaoConverter</converter-id>
-		<converter-class>br.com.locar.app.converter.PermissaoConverter</converter-class>
-	</converter>
-	<converter>
-		<converter-id>perfilUsuarioConverter</converter-id>
-		<converter-class>br.com.locar.app.converter.PerfilUsuarioConverter</converter-class>
-	</converter>
-	<converter>
-		<converter-id>usuarioConverter</converter-id>
-		<converter-class>br.com.locar.app.converter.UsuarioConverter</converter-class>
-	</converter>
-	<converter>
-		<converter-id>exemplarConverter</converter-id>
-		<converter-class>br.com.locar.app.converter.ExemplarConverter</converter-class>
-	</converter>
+	
 	
 </faces-config>
