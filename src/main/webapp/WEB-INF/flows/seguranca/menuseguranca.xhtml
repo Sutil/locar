@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/ui.xhtml">
+
+
+	<ui:define name="content">
+
+		<h:form>
+			<div class="bts">
+				Menu segurança
+				<ul>
+					<li><h:commandLink action="perfis">
+							<h:outputText value="Perfis" />
+							<i class="fa fa-wrench fa-4x" />
+						</h:commandLink></li>
+
+
+					<li>
+				<h:commandLink action="usuarios">
+						<h:outputText value="Usuários" />
+						<i class="fa fa-user fa-4x" />
+					</h:commandLink>
+					</li>
+					</ul>
+			</div>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+
