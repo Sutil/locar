@@ -41,10 +41,6 @@ public class PerfilUsuario implements Serializable{
     @Column(length = 60)
     private String nome;
     
-    private Integer cotaEmprestimo;
-    
-    private Integer duracaoDoEmprestimo;
-    
 
     @ElementCollection(fetch = FetchType.EAGER, targetClass = Permissao.class)
     @Enumerated(EnumType.STRING)
@@ -71,8 +67,6 @@ public class PerfilUsuario implements Serializable{
     	this.nome = bean.getNome();
     	this.permissoes = bean.getPermissoes();
     	this.version = bean.getVersion();
-    	this.cotaEmprestimo = bean.getCotaEmprestimo();
-    	this.duracaoDoEmprestimo = bean.getDuracaoDoEmprestimo();
     }
     
     public static PerfilUsuario newInstance(PerfilUsuarioBean bean) {
@@ -137,14 +131,5 @@ public class PerfilUsuario implements Serializable{
     public Integer getVersion() {
 		return version;
 	}
-    
-    public Integer getCotaEmprestimo() {
-		return cotaEmprestimo;
-	}
-    
-    public Integer getDuracaoDoEmprestimo() {
-		return duracaoDoEmprestimo;
-	}
-
 	
 }

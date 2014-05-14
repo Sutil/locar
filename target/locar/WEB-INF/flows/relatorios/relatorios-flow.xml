@@ -10,52 +10,8 @@
 	<persistence-context />
 
 	<view-state id="menurelatorios">
-	    <transition on="relatorioemprestimos" to="relatorioemprestimos" />
-	    <transition on="reservas" to="reservas" />
-	    <transition on="devolucoes" to="devolucoes" />
-	    <transition on="atrasadas" to="emprestimosatrasados" />
+	    
 	</view-state>
-	
-	<view-state id="relatorioemprestimos">
-		<on-entry>
-			<evaluate expression="relatorioEmprestimoController.newFiltro()" result="viewScope.filtro" />
-		</on-entry>
-		<transition on="pesquisar">
-			<evaluate expression="relatorioEmprestimoController.pesquisar(filtro)" result="viewScope.emprestimos" />
-		</transition>
-	   
-	</view-state>
-	
-	<view-state id="reservas">
-	   <on-entry>
-			<evaluate expression="relatorioController.getReservadas()" result="viewScope.obras" result-type="dataModel" />
-		</on-entry>
-	</view-state>
-	
-	<view-state id="devolucoes">
-	   
-	</view-state>
-	
-	<view-state id="maisretiradas">
-	   
-	</view-state>
-	
-	<view-state id="emprestimosativos">
-	   
-	</view-state>
-	
-	<view-state id="emprestimosatrasados">
-	   <on-entry>
-			<evaluate expression="relatorioController.getAtrasadas()" result="viewScope.emprestimos" result-type="dataModel" />
-		</on-entry>
-	</view-state>
-	
-	<view-state id="debitos">
-	   
-	</view-state>
-	
-	
-	
 	
 	
 </flow>

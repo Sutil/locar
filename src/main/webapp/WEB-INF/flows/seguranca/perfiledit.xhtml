@@ -16,19 +16,6 @@
 				<p:inputText id="nome" value="#{perfilBean.nome}" required="true"
 					requiredMessage="Informe o nome do perfil" />
 
-				<h:outputText
-					value="Cota para Empréstimo (Quantidade de exemplares)" />
-				<p:spinner value="#{perfilBean.cotaEmprestimo}" min="0" max="100"
-					validatorMessage="Valor inválido para a cota de empréstimo">
-					<f:validateDoubleRange minimum="0" maximum="100" />
-				</p:spinner>
-
-				<h:outputText value="Duração máximo permitida para empréstimo" />
-				<p:spinner value="#{perfilBean.duracaoDoEmprestimo}" min="0"
-					max="100"
-					validatorMessage="Valor inválido para a duração de empréstimo">
-					<f:validateDoubleRange minimum="0" maximum="100" />
-				</p:spinner>
 
 				<h:outputText value="Permissões do perfil:" />
 				<p:message for="pickerPermissoes" />

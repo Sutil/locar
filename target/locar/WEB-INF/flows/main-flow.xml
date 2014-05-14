@@ -6,7 +6,7 @@
 	abstract="true">
 
 	<end-state id="Home" view="externalRedirect:contextRelative:/spring/home" />
-	<end-state id="Obras" view="externalRedirect:contextRelative:/spring/obra" />
+	<end-state id="Veiculos" view="externalRedirect:contextRelative:/spring/veiculo" />
 	<end-state id="Seguranca"
 		view="externalRedirect:contextRelative:/spring/seguranca" />
 	<end-state id="Emprestimo"
@@ -16,7 +16,7 @@
 
 	<global-transitions>
 		<transition on="home" to="Home" />
-		<transition on="obras" to="Obras" />
+		<transition on="veiculos" to="Veiculos" />
 		<transition on="seguranca" to="Seguranca" />
 		<transition on="emprestimos" to="Emprestimo"></transition>
 		<transition on="seguranca" to="Seguranca"></transition>

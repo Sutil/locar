@@ -18,10 +18,6 @@ public class QPerfilUsuario extends EntityPathBase<PerfilUsuario> {
 
     public static final QPerfilUsuario perfilUsuario = new QPerfilUsuario("perfilUsuario");
 
-    public final NumberPath<Integer> cotaEmprestimo = createNumber("cotaEmprestimo", Integer.class);
-
-    public final NumberPath<Integer> duracaoDoEmprestimo = createNumber("duracaoDoEmprestimo", Integer.class);
-
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final StringPath nome = createString("nome");

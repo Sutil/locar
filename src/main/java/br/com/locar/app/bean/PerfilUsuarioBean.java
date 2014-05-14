@@ -19,16 +19,12 @@ public class PerfilUsuarioBean implements Serializable {
 	private String nome;
 	private List<Permissao> permissoes = Lists.newArrayList();
 	private DualListModel<Permissao> permissoesDualList = new DualListModel<Permissao>();
-	private Integer cotaEmprestimo;
-	private Integer duracaoDoEmprestimo;
 	
 	public PerfilUsuarioBean(PerfilUsuario perfil, List<Permissao> permissoesDisponiveis) {
 		this.id = perfil.getId();
 		this.nome = perfil.getNome();
 		this.permissoes = perfil.getPermissoes();
 		this.version = perfil.getVersion();
-		this.cotaEmprestimo = perfil.getCotaEmprestimo();
-		this.duracaoDoEmprestimo = perfil.getDuracaoDoEmprestimo();
 		permissoesDualList.setSource(permissoesDisponiveis);
 		permissoesDualList.setTarget(this.permissoes);
 	}
@@ -74,20 +70,6 @@ public class PerfilUsuarioBean implements Serializable {
 		return version;
 	}
 
-	public Integer getCotaEmprestimo() {
-		return this.cotaEmprestimo;
-	}
 	
-	public void setCotaEmprestimo(Integer cotaEmprestimo) {
-		this.cotaEmprestimo = cotaEmprestimo;
-	}
-
-	public Integer getDuracaoDoEmprestimo() {
-		return this.duracaoDoEmprestimo;
-	}
-	
-	public void setDuracaoDoEmprestimo(Integer duracaoDoEmprestimo) {
-		this.duracaoDoEmprestimo = duracaoDoEmprestimo;
-	}
 
 }
