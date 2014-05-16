@@ -8,10 +8,9 @@
 	
 	<persistence-context />
 
-	<view-state id="veiculo-list">
+	<view-state id="categoria-list">
 		<on-entry>
-			<evaluate expression="veiculoController.getVeiculos()" result="viewScope.veiculos" result-type="dataModel" />
-			<evaluate expression="'Veículo'" result="viewScope.titulo"  />
+			<evaluate expression="'Categoria'" result="viewScope.titulo"  />
 		</on-entry>
 		
 	</view-state>
