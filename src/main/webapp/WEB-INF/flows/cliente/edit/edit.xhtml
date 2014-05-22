@@ -1,0 +1,32 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	template="/WEB-INF/template/blank.xhtml">
+
+	<ui:define name="body">
+		<h:form id="formEdit">
+
+			<h:panelGrid columns="1">
+					Nome:
+					<p:inputText size="80" />
+					CPF:
+					<p:inputText size="80" />
+					Endereço:
+					<p:inputText size="80" />
+					Telefone:
+					<p:inputText size="80" />
+			</h:panelGrid>
+
+			<p:commandButton value="Adicionar preposto" action="addproposto"
+				update="@form" />
+			<p:commandButton value="Cancelar" action="cancelar" immediate="true" 
+			    onclick="dgEdit.hide();" ></p:commandButton>
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>
+

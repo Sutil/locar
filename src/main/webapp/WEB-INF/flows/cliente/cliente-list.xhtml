@@ -1,0 +1,63 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	template="/WEB-INF/template/ui.xhtml">
+
+	<ui:define name="content">
+		<p:messages autoUpdate="true" showSummary="true" showDetail="true" />
+		<h:form id="form">
+
+			<h:panelGrid columns="2" style="width:100%;">
+				<p:panel>
+					<h:panelGrid columns="1">
+						<p:commandButton value="Novo" icon="ui-icon-plus"
+							onclick="dgEdit.show();" action="edit" update=":formEdit" />
+					</h:panelGrid>
+				</p:panel>
+				<p:panel>
+					<h:panelGrid columns="6">
+						<p:inputText id="filtro" size="80"></p:inputText>
+						<p:watermark for="filtro" value="Pesquise por Nome ou CPF/CNPJ" />
+						<p:commandButton value="pesquisar" />
+						<p:spacer width="80" height="0" />
+						<p:selectBooleanCheckbox />
+						<h:outputText value="Mostrar Inativos" />
+					</h:panelGrid>
+				</p:panel>
+			</h:panelGrid>
+
+			<p:dataTable emptyMessage="Nenhum veículo encontrado"
+				value="#{clientes}" var="cliente">
+				<f:facet name="header">Lista de clientes</f:facet>
+				<p:column headerText="Nome/Razão Social">nome</p:column>
+				<p:column headerText="CPF/CNPJ">cpf</p:column>
+				<p:column headerText="Endereço">endereço</p:column>
+				<p:column headerText="Telefone">telefone</p:column>
+
+				<p:column style="width: 10%;">
+					<p:commandButton icon="ui-icon-pencil" oncomplete="dgEdit.show();" 
+					update=":formEdit" action="edit" />
+					<p:commandButton icon="ui-icon-close" onclick="dgDelete.show();" />
+				</p:column>
+			</p:dataTable>
+
+		</h:form>
+
+		<p:dialog widgetVar="dgEdit" modal="true" resizable="false" appendToBody="true"
+			header="Cadastrar/Editar Cliente">
+			<h:form id="formEdit">
+				
+			</h:form>
+		</p:dialog>
+		<p:confirmDialog widgetVar="dgDelete"
+			message="Deseja excluir este registro">
+			<p:commandButton value="Sim" onclick="dgDelete.hide();" />
+			<p:commandButton value="Não" onclick="dgDelete.hide();" />
+		</p:confirmDialog>
+
+	</ui:define>
+</ui:composition>
+

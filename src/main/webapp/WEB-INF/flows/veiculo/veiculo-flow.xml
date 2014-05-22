@@ -11,7 +11,7 @@
 	<view-state id="veiculo-list">
 		<on-entry>
 			<evaluate expression="veiculoController.getVeiculos()" result="viewScope.veiculos" result-type="dataModel" />
-			<evaluate expression="'Veículo'" result="viewScope.titulo"  />
+			<evaluate expression="'Veículos'" result="viewScope.titulo"  />
 		</on-entry>
 		
 	</view-state>

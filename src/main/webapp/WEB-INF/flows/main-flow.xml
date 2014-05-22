@@ -7,18 +7,20 @@
 
 	<end-state id="Home" view="externalRedirect:contextRelative:/spring/home" />
 	<end-state id="Veiculos" view="externalRedirect:contextRelative:/spring/veiculo" />
+	<end-state id="Categorias" view="externalRedirect:contextRelative:/spring/categoria" />
 	<end-state id="Seguranca"
 		view="externalRedirect:contextRelative:/spring/seguranca" />
-	<end-state id="Emprestimo"
-		view="externalRedirect:contextRelative:/spring/emprestimo" />
+	<end-state id="Clientes"
+		view="externalRedirect:contextRelative:/spring/cliente" />
 	<end-state id="Relatorios"
 		view="externalRedirect:contextRelative:/spring/relatorios" />
 
 	<global-transitions>
 		<transition on="home" to="Home" />
 		<transition on="veiculos" to="Veiculos" />
+		<transition on="categorias" to="Categorias" />
 		<transition on="seguranca" to="Seguranca" />
-		<transition on="emprestimos" to="Emprestimo"></transition>
+		<transition on="clientes" to="Clientes"></transition>
 		<transition on="seguranca" to="Seguranca"></transition>
 		<transition on="relatorios" to="Relatorios"></transition>
 	</global-transitions>

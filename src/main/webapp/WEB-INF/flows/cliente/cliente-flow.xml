@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+        parent="main-flow">
+        
+	
+
+	<view-state id="cliente-list">
+		<on-entry>
+			<evaluate expression="veiculoController.getVeiculos()" result="viewScope.clientes" result-type="dataModel" />
+			<evaluate expression="'Clientes'" result="viewScope.titulo"  />
+		</on-entry>
+		<transition on="edit" to="edit" ></transition>
+		
+	</view-state>
+	
+	<subflow-state id="edit" subflow="cliente/edit" >
+		<input name="mode" value="'embedded'" />
+		<transition on="preposto" to="preposto" ></transition>
+		<transition on="cancel" to="cliente-list" />
+	</subflow-state>
+	
+	<subflow-state id="preposto" subflow="cliente/preposto" >
+		<input name="mode" value="'embedded'" />
+		<transition on="cancel" to="cliente-list" />
+		<transition on="voltar" to="edit" />
+	</subflow-state>
+	
+	
+
+	
+</flow>

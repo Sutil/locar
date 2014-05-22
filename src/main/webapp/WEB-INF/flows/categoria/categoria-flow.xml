@@ -10,7 +10,7 @@
 
 	<view-state id="categoria-list">
 		<on-entry>
-			<evaluate expression="'Categoria'" result="viewScope.titulo"  />
+			<evaluate expression="'Categorias'" result="viewScope.titulo"  />
 		</on-entry>
 		
 	</view-state>
