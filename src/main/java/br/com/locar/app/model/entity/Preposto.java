@@ -2,6 +2,8 @@ package br.com.locar.app.model.entity;
 
 import java.io.Serializable;
 
+import com.google.common.base.Objects;
+
 public class Preposto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -9,6 +11,20 @@ public class Preposto implements Serializable {
 	private String nome;
 	private String cnh;
 	private String validadeCnh;
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Preposto){
+			Preposto other = (Preposto) obj;
+			return Objects.equal(this.nome, other.nome);
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(nome);
+	}
 
 	public String getNome() {
 		return nome;

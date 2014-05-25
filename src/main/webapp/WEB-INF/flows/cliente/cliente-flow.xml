@@ -9,23 +9,34 @@
 
 	<view-state id="cliente-list">
 		<on-entry>
-			<evaluate expression="veiculoController.getVeiculos()" result="viewScope.clientes" result-type="dataModel" />
+			<evaluate expression="clienteController.getClientes()" result="viewScope.clientes" result-type="dataModel" />
 			<evaluate expression="'Clientes'" result="viewScope.titulo"  />
 		</on-entry>
-		<transition on="edit" to="edit" ></transition>
+		<transition on="edit" to="edit" >
+			<evaluate expression="clienteController.novo()" result="conversationScope.cliente" />
+			
+		</transition>
 		
 	</view-state>
 	
 	<subflow-state id="edit" subflow="cliente/edit" >
 		<input name="mode" value="'embedded'" />
-		<transition on="preposto" to="preposto" ></transition>
+		<input name="cliente" value="cliente" />
+		<transition on="preposto" to="preposto" >
+			<set value="currentEvent.attributes.preposto" name="conversationScope.preposto" />
+			<set value="currentEvent.attributes.cliente" name="conversationScope.cliente" />
+		</transition>
 		<transition on="cancel" to="cliente-list" />
 	</subflow-state>
 	
 	<subflow-state id="preposto" subflow="cliente/preposto" >
 		<input name="mode" value="'embedded'" />
+		<input name="cliente" value="cliente"/>
+		<input name="preposto" value="preposto" />
 		<transition on="cancel" to="cliente-list" />
-		<transition on="voltar" to="edit" />
+		<transition on="voltar" to="edit" >
+			<set value="currentEvent.attributes.cliente" name="conversationScope.cliente" />
+		</transition>
 	</subflow-state>
 	
 	

@@ -1,6 +1,10 @@
 package br.com.locar.app.model.entity;
 
 import java.io.Serializable;
+import java.util.List;
+
+import com.google.common.base.Objects;
+import com.google.common.collect.Lists;
 
 public class Cliente implements Serializable {
 
@@ -10,7 +14,7 @@ public class Cliente implements Serializable {
 	private String cpf;
 	private String endereco;
 	private String telefone;
-	
+	private List<Preposto> prepostos = Lists.newArrayList();
 	
 
 	public Cliente(String nome, String cpf, String endereco, String telefone) {
@@ -18,6 +22,25 @@ public class Cliente implements Serializable {
 		this.cpf = cpf;
 		this.endereco = endereco;
 		this.telefone = telefone;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Cliente){
+			Cliente other = (Cliente) obj;
+			return Objects.equal(this.nome, other.nome);
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(nome);
+	}
+	
+	public void addPreposto(Preposto preposto){
+		System.out.println("adicionando preposto");
+		this.prepostos.add(preposto);
 	}
 
 	public String getNome() {
@@ -50,6 +73,14 @@ public class Cliente implements Serializable {
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+	
+	public List<Preposto> getPrepostos() {
+		return prepostos;
+	}
+	
+	public void setPrepostos(List<Preposto> prepostos) {
+		this.prepostos = prepostos;
 	}
 
 }

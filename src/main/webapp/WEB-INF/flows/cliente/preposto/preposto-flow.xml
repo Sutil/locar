@@ -4,16 +4,20 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/webflow
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
-
+	<input name="cliente" required="true"/>
+	<input name="preposto" required="true"/>
 
 	<view-state id="preposto">
 
 		<transition on="adicionar" to="voltar" >
+			<evaluate expression="cliente.addPreposto(preposto)" />
 		</transition>
 		<transition on="cancelar" to="cancel" />
 	</view-state>
 	
-	<end-state id="voltar"></end-state>
+	<end-state id="voltar">
+		<output name="cliente" value="cliente" />
+	</end-state>
 
 	<end-state id="cancel" />
 

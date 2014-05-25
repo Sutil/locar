@@ -4,17 +4,22 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/webflow
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
-
+	<input name="cliente" required="true"/>
 
 	<view-state id="edit">
-
+		<on-entry>
+			<evaluate expression="cliente.getPrepostos()" result="viewScope.prepostos" result-type="dataModel"  />
+			<evaluate expression="clienteController.verifica(cliente)" />
+		</on-entry>
 		<transition on="addproposto" to="preposto" >
+			<evaluate expression="clienteController.novoPreposto()" result="conversationScope.preposto" />
 		</transition>
 		<transition on="cancelar" to="cancel" />
 	</view-state>
 
 	<end-state id="preposto">
-		
+		<output name="cliente" value="cliente"/>
+		<output name="preposto" value="preposto"/>
 	</end-state>
 	<end-state id="cancel" />
 

@@ -10,12 +10,26 @@
 		<h:form id="formEdit" >
 			<h:panelGrid columns="1" >
 				Nome:
-				<p:inputText size="80" />
+				<p:message id="msgNome" for="nome" />
+				<p:inputText id="nome" required="true" size="80" value="#{preposto.nome}" 
+							requiredMessage="Informe o nome do preposto">
+					<p:ajax event="blur" process="@form" update="nome, msgNome" />
+				</p:inputText>
 				CNH:
-				<p:inputText size="80" />
+				<p:message id="msgCnh" for="cnh" />
+				<p:inputText id="cnh" required="true" size="80" value="#{preposto.cnh}" 
+							requiredMessage="Informe o numero da carteira de habilitação do preposto">
+					<p:ajax event="blur" process="@form" update="cnh, msgCnh" />
+				</p:inputText>
 				Validade CNH:
-				<p:inputMask mask="aaa-9999" size="10" ></p:inputMask>
-				teste
+				<p:message id="msgValidadeCnh" for="validadeCnh" />
+				<p:inputMask id="validadeCnh" mask="99/99/9999" value="#{preposto.validadeCnh}" required="true" 
+							requiredMessage="Informe a CNH do preposto"	>
+					<p:ajax event="blur" process="@form" update="validadeCnh, msgValidadeCnh" />
+				</p:inputMask>
+				
+				
+				
 			</h:panelGrid>
 			
 			<p:commandButton value="Adicionar" action="adicionar" update="@form" />

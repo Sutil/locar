@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 
 import br.com.locar.app.model.entity.Cliente;
+import br.com.locar.app.model.entity.Preposto;
 
 import com.google.common.collect.Lists;
 
@@ -20,6 +21,19 @@ public class ClienteController {
 		clientes.add(cliente);
 		clientes.add(cliente);
 		return clientes;
+	}
+	
+	public void verifica(Cliente c){
+		System.out.println(c.getNome());
+		System.out.println(c.getPrepostos().size());
+	}
+	
+	public Cliente novo(){
+		return new Cliente("", "", "", "");
+	}
+	
+	public Preposto novoPreposto(){
+		return new Preposto();
 	}
 
 }

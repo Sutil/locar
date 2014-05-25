@@ -11,15 +11,17 @@
 		<h:form id="form">
 			<div class="bts">
 				<ul>
+					<li><h:commandLink action="categorias" >
+							<h:outputText value="Categorias" />
+							<i class="fa fa-dot-circle-o fa-4x" />
+						</h:commandLink></li>
+						
+						
 					<li><h:commandLink action="veiculos">
 							<h:outputText value="Veículos" />
 							<i class="fa fa-truck fa-4x" />
 						</h:commandLink></li>
 
-					<li><h:commandLink action="categorias" >
-							<h:outputText value="Categorias" />
-							<i class="fa fa-dot-circle-o fa-4x" />
-						</h:commandLink></li>
 
 					<li><h:commandLink action="clientes" >
 							<h:outputText value="Clientes" />
@@ -27,10 +29,15 @@
 						</h:commandLink></li>
 
 
-						<li><h:commandLink >
-								<h:outputText value="Locação" />
-								<i class="fa fa-list-alt fa-4x" />
-							</h:commandLink></li>
+					<li><h:commandLink >
+							<h:outputText value="Locação" />
+							<i class="fa fa-list-alt fa-4x" />
+						</h:commandLink></li>
+						
+					<li><h:commandLink >
+							<h:outputText value="Reserva" />
+							<i class="fa fa-calendar fa-4x" />
+						</h:commandLink></li>
 
 					<li><h:commandLink >
 							<h:outputText value="Multas" />

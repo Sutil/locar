@@ -14,7 +14,7 @@
 				<p:panel>
 					<h:panelGrid columns="1">
 						<p:commandButton value="Novo" icon="ui-icon-plus"
-							onclick="dgEdit.show();" action="edit" update=":formEdit" />
+							oncomplete="dgEdit.show();" action="edit" update=":formEdit" />
 					</h:panelGrid>
 				</p:panel>
 				<p:panel>
@@ -47,7 +47,7 @@
 		</h:form>
 
 		<p:dialog widgetVar="dgEdit" modal="true" resizable="false" appendToBody="true"
-			header="Cadastrar/Editar Cliente">
+			header="Cadastrar/Editar Cliente" position="center" >
 			<h:form id="formEdit">
 				
 			</h:form>

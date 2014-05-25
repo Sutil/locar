@@ -10,20 +10,53 @@
 		<h:form id="formEdit">
 
 			<h:panelGrid columns="1">
-					Nome:
-					<p:inputText size="80" />
-					CPF:
-					<p:inputText size="80" />
+					Nome/Razão Social:
+					<p:message id="msgNome" for="nome" />
+				<p:inputText id="nome" size="80" required="true"
+					value="#{cliente.nome}" requiredMessage="Informe o nome do cliente">
+					<p:ajax event="blur" process="@form" update="nome, msgNome" />
+				</p:inputText>
+					CPF/CNPJ:
+					<p:message id="msgCpf" for="cpf" />
+				<p:inputText id="cpf" size="80" required="true"
+					value="#{cliente.cpf}" requiredMessage="Informe o CPF">
+					<p:ajax event="blur" process="@form" update="cpf, msgCpf" />
+				</p:inputText>
 					Endereço:
-					<p:inputText size="80" />
+					<p:message id="msgEndereco" for="endereco" />
+				<p:inputText id="endereco" size="80" value="#{cliente.endereco}"
+					required="true" requiredMessage="Informe o endereço do cliente">
+					<p:ajax event="blur" process="@form" update="endereco, msgEndereco" />
+				</p:inputText>
 					Telefone:
-					<p:inputText size="80" />
+					<p:message id="msgTelefone" for="telefone" />
+				<p:inputMask id="telefone" size="80" value="#{cliente.telefone}"
+					required="true" requiredMessage="Informe o telefone do cliente">
+					<p:ajax event="blur" process="@form" update="telefone, msgTelefone" />
+				</p:inputMask>
 			</h:panelGrid>
 
 			<p:commandButton value="Adicionar preposto" action="addproposto"
 				update="@form" />
-			<p:commandButton value="Cancelar" action="cancelar" immediate="true" 
-			    onclick="dgEdit.hide();" ></p:commandButton>
+			<p:dataTable value="#{prepostos}" var="p">
+				<f:facet name="header">Prepostos</f:facet>
+				<p:column headerText="Nome">
+					#{p.nome}
+				</p:column>
+				<p:column headerText="CNH">
+					#{p.cnh}
+				</p:column>
+				<p:column>
+					<p:commandButton icon="ui-icon-pencil" />
+					<p:commandButton icon="ui-icon-close" />
+				</p:column>
+			</p:dataTable>
+
+
+			<p:commandButton value="Salvar" action="cancelar"
+				update="@form" />
+			<p:commandButton value="Cancelar" action="cancelar" immediate="true"
+				onclick="dgEdit.hide();"></p:commandButton>
 		</h:form>
 
 
