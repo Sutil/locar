@@ -1,0 +1,111 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	template="/WEB-INF/template/ui.xhtml">
+
+	<ui:define name="content">
+		<h:form id="form">
+			<p:messages autoUpdate="true" showSummary="true" showDetail="true" />
+
+			<h:panelGrid columns="2" style="width:100%;">
+				<p:panel>
+					<h:panelGrid columns="1">
+						<p:commandButton value="Novo" icon="ui-icon-plus"
+							oncomplete="dgEdit.show();" update=":formEdit" />
+					</h:panelGrid>
+				</p:panel>
+				<p:panel>
+					<h:panelGrid columns="6">
+						<p:inputText id="filtro" size="80"></p:inputText>
+						<p:watermark for="filtro"
+							value="Pesquise por nome do cliente ou veículo" />
+						<p:commandButton value="pesquisar" />
+						<p:spacer width="80" height="0" />
+						<p:selectBooleanCheckbox />
+						<h:outputText value="Mostrar Cancelados" />
+					</h:panelGrid>
+				</p:panel>
+			</h:panelGrid>
+
+			<p:dataTable emptyMessage="Sem locações" value="#{locacoes}"
+				var="loc">
+				<f:facet name="header">Lista de locações</f:facet>
+				<p:column headerText="Cliente">nome</p:column>
+				<p:column headerText="Veículo">veiculo</p:column>
+				<p:column headerText="Endereço">retirada</p:column>
+				<p:column headerText="Devolução">devolução</p:column>
+				<p:column headerText="Valor">0,00</p:column>
+
+				<p:column style="width: 10%;">
+					<p:commandButton icon="ui-icon-close" value="Cancelar"
+						onclick="dgDelete.show();" />
+				</p:column>
+			</p:dataTable>
+
+		</h:form>
+
+		<p:dialog widgetVar="dgEdit" modal="true" resizable="false"
+			appendToBody="true" header="Escolher de cliente" position="center"
+			showEffect="slide" hideEffect="slide" >
+			<h:form id="formEdit">
+				<h:panelGrid columns="1">
+				Pesquise por nome, razão social, cpf ou CNPJ:
+				<p:inputText id="pesquisa" size="80" />
+					<p:watermark value="Termos da pesquisa" for="pesquisa" />
+
+				</h:panelGrid>
+				<p:commandButton value="Cancelar" onclick="dgEdit.hide();" immediate="true" />
+				<p:commandButton value="Próximo" onclick="dgEdit.hide(); dgVeiculo.show();"  />
+			</h:form>
+		</p:dialog>
+		
+		<p:dialog widgetVar="dgVeiculo" modal="true" header="Escolha de veículo"
+					showEffect="slide" hideEffect="slide" >
+				<h:panelGrid columns="1" >
+					Pesquise por marca, modelo, placa ou renavam:
+					<p:inputText size="80" />
+				
+				</h:panelGrid>
+				<p:commandButton value="Cancelar" onclick="dgVeiculo.hide();" immediate="true" />
+				<p:commandButton value="Anterior" />
+				<p:commandButton value="Próximo" onclick="dgVeiculo.hide(); dgConfirmacao.show();" />
+				
+		</p:dialog>
+		
+		<p:dialog widgetVar="dgConfirmacao" modal="true" >
+			<h:panelGrid columns="2" >
+				<h:outputText value="Cliente:" ></h:outputText>
+				<h:outputText value="Joaquim Barbosa" ></h:outputText>
+				<h:outputText value="Veículo:" ></h:outputText>
+				<h:outputText value="Celta - branco - 2 portas" ></h:outputText>
+				<h:outputText value="Valor proteção ocupantes:" ></h:outputText>
+				<h:outputText value="R$ 35,00" ></h:outputText>
+				
+				<h:outputText value="Valor por diária:" ></h:outputText>
+				<h:outputText value="R$ 70,00" ></h:outputText>
+				
+				<h:outputText value="Número de diárias:" ></h:outputText>
+				<h:outputText value="3" ></h:outputText>
+				
+				<h:outputText value="Valor total: " ></h:outputText>
+				<h:outputText value="R$ 245,00" ></h:outputText>
+				
+				
+			</h:panelGrid>
+			
+			<p:commandButton value="Confirmar" />
+			<p:commandButton value="Cancelar" onclick="dgConfirmacao.hide();" immediate="true" />
+		</p:dialog>
+		
+		<p:confirmDialog widgetVar="dgDelete"
+			message="Deseja cancelar esta locação">
+			<p:commandButton value="Sim" onclick="dgDelete.hide();" />
+			<p:commandButton value="Não" onclick="dgDelete.hide();" />
+		</p:confirmDialog>
+
+	</ui:define>
+</ui:composition>
+

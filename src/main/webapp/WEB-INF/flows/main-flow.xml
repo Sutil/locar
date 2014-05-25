@@ -12,6 +12,8 @@
 		view="externalRedirect:contextRelative:/spring/seguranca" />
 	<end-state id="Clientes"
 		view="externalRedirect:contextRelative:/spring/cliente" />
+	<end-state id="Locacoes"
+		view="externalRedirect:contextRelative:/spring/locacao" />
 	<end-state id="Relatorios"
 		view="externalRedirect:contextRelative:/spring/relatorios" />
 
@@ -21,6 +23,7 @@
 		<transition on="categorias" to="Categorias" />
 		<transition on="seguranca" to="Seguranca" />
 		<transition on="clientes" to="Clientes"></transition>
+		<transition on="locacoes" to="Locacoes"></transition>
 		<transition on="seguranca" to="Seguranca"></transition>
 		<transition on="relatorios" to="Relatorios"></transition>
 	</global-transitions>

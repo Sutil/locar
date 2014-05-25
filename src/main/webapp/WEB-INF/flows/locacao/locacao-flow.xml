@@ -4,19 +4,13 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/webflow
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
         parent="main-flow">
-        
-	
-	<persistence-context />
 
-	<view-state id="categoria-list">
+	<view-state id="locacao-list">
 		<on-entry>
-			<evaluate expression="'Categorias'" result="viewScope.titulo"  />
-			<evaluate expression="veiculoController.getVeiculos()" result="viewScope.categorias" result-type="dataModel" />
+			<evaluate expression="veiculoController.getVeiculos()" result="viewScope.locacoes" result-type="dataModel" />
+			<evaluate expression="'Locações'" result="viewScope.titulo"  />
 		</on-entry>
 		
 	</view-state>
-	
-	
-
 	
 </flow>

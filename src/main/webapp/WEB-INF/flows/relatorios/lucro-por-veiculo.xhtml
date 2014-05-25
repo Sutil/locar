@@ -1,0 +1,80 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	template="/WEB-INF/template/ui.xhtml">
+
+	<ui:define name="script-header">
+		<!--Load the AJAX API-->
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+		<script type="text/javascript">
+			// Load the Visualization API and the piechart package.
+			google.load('visualization', '1.0', {
+				'packages' : [ 'corechart' ]
+			});
+
+			// Set a callback to run when the Google Visualization API is loaded.
+			google.setOnLoadCallback(drawChart);
+
+			// Callback that creates and populates a data table,
+			// instantiates the pie chart, passes in the data and
+			// draws it.
+			function drawChart() {
+
+				// Create the data table.
+				var data = new google.visualization.DataTable();
+				data.addColumn('string', 'Topping');
+				data.addColumn('number', 'Slices');
+				data
+						.addRows([ 
+						        [ 'Celta preto - 4 portas', 3 ], 
+						        [ 'Pálio cinza - 2 portas', 1 ],
+								[ 'Vectra vermelho - 4 portas', 1 ], 
+								[ 'Prisma cinza - 4 portas', 1 ],
+								[ 'Mile azul - 2 portas', 2 ] ]);
+
+				// Set chart options
+				var options = {
+					'title' : 'Lucro por veículo',
+					'width' : 450,
+					'height' : 400
+				};
+
+				// Instantiate and draw our chart, passing in some options.
+				var chart = new google.visualization.PieChart(document
+						.getElementById('chart_div'));
+				chart.draw(data, options);
+			}
+		</script>
+	</ui:define>
+
+	<ui:define name="content">
+
+		<h:panelGrid columns="2" style="width:100%" >
+
+
+			<p:dataTable emptyMessage="Nenhum veículo encontrado"
+				value="#{veiculos}" var="veiculo">
+				<f:facet name="header">Lista de veículos</f:facet>
+				<p:column headerText="Categoria">Categoria</p:column>
+				<p:column headerText="Marca">Marca</p:column>
+				<p:column headerText="Modelo">Modelo</p:column>
+				<p:column headerText="Ano">Ano</p:column>
+				<p:column headerText="Placa">Placa</p:column>
+				<p:column headerText="Ano">Renavan</p:column>
+				<p:column style="width: 10%;">
+					<p:commandButton icon="ui-icon-pencil" onclick="dgEdit.show();" />
+					<p:commandButton icon="ui-icon-close" onclick="dgDelete.show();" />
+				</p:column>
+			</p:dataTable>
+
+
+			<div id="chart_div"></div>
+
+		</h:panelGrid>
+
+	</ui:define>
+</ui:composition>
+

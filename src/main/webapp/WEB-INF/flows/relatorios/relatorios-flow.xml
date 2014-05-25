@@ -10,7 +10,16 @@
 	<persistence-context />
 
 	<view-state id="menurelatorios">
-	    
+		<on-entry>
+			<evaluate expression="'Relatórios'" result="flowScope.titulo" />
+		</on-entry>
+	    <transition on="lucro-por-veiculo" to="lucro-por-veiculo" ></transition>
+	</view-state>
+	
+	<view-state id="lucro-por-veiculo">
+		<on-entry>
+			<evaluate expression="veiculoController.getVeiculos()" result="viewScope.veiculos" result-type="dataModel" />
+		</on-entry>
 	</view-state>
 	
 	
