@@ -24,8 +24,6 @@ public class ClienteController {
 	}
 	
 	public void verifica(Cliente c){
-		System.out.println(c.getNome());
-		System.out.println(c.getPrepostos().size());
 	}
 	
 	public Cliente novo(){
