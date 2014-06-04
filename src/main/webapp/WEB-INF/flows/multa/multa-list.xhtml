@@ -1,0 +1,119 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	template="/WEB-INF/template/ui.xhtml">
+
+	<ui:define name="content">
+		<h:form id="form">
+			<p:messages autoUpdate="true" showSummary="true" showDetail="true" />
+
+			<h:panelGrid columns="2" style="width:100%;">
+				<p:panel>
+					<h:panelGrid columns="1">
+						<p:commandButton value="Novo" icon="ui-icon-plus"
+							oncomplete="dgEdit.show();" update=":formEdit" />
+					</h:panelGrid>
+				</p:panel>
+				<p:panel>
+					<h:panelGrid columns="6">
+						<p:inputText id="filtro" size="80"></p:inputText>
+						<p:watermark for="filtro"
+							value="Pesquise por nome do cliente ou veículo" />
+						<p:commandButton value="pesquisar" />
+						<p:spacer width="80" height="0" />
+						<p:selectBooleanCheckbox />
+						<h:outputText value="Mostrar Cancelados" />
+					</h:panelGrid>
+				</p:panel>
+			</h:panelGrid>
+
+			<p:dataTable emptyMessage="Sem multas" value="#{multas}"
+				var="mul">
+				<f:facet name="header">Lista de multas</f:facet>
+				<p:column headerText="Data">nome</p:column>
+				<p:column headerText="Gravidade da Infração">Grave</p:column>
+				<p:column headerText="Natureza da Infração">Avanço semaforo</p:column>
+				<p:column headerText="Valor">0,00</p:column>
+				<p:column headerText="Cliente">Alex</p:column>
+
+				<p:column style="width: 10%;">
+					<p:commandButton value="Opções"
+						onclick="dgDelete.show();" />
+				</p:column>
+			</p:dataTable>
+
+		</h:form>
+
+		<p:dialog widgetVar="dgEdit" modal="true" resizable="false"
+			appendToBody="true" header="Inserção de multas" position="center"
+			showEffect="slide" hideEffect="slide" >
+			<h:form id="formEdit">
+				Insira a data da multa e a placa do veículo
+				<h:panelGrid columns="1">
+				Data
+				<p:inputText id="pesquisa" size="40" />
+					<p:watermark value="Data" for="pesquisa" />
+				Placa:
+				<p:inputText id="placa" size="40" />
+					<p:watermark value="placa" for="placa" />
+				</h:panelGrid>
+				
+				<h:panelGrid columns="1" >
+				<h:outputText value="Pálio azul duas portas - placa ACD-8796" />
+				<h:outputText value="Cliente: Alex de Oliveira" />
+				
+				
+				</h:panelGrid>
+				<p:commandButton value="Cancelar" onclick="dgEdit.hide();" immediate="true" />
+				<p:commandButton value="Próximo" onclick="dgEdit.hide(); dgVeiculo.show();"  />
+			</h:form>
+		</p:dialog>
+		
+		<p:dialog widgetVar="dgVeiculo" modal="true" header="Inserção de multa"
+					showEffect="slide" hideEffect="slide" >
+				<h:panelGrid columns="1" >
+					Gravidade da infração
+					<p:inputText size="40" />
+					Natureza da infração
+					<p:inputText size="40" />
+				
+				</h:panelGrid>
+				<p:commandButton value="Cancelar" onclick="dgVeiculo.hide();" immediate="true" />
+				<p:commandButton value="Anterior" />
+				<p:commandButton value="Próximo" onclick="dgVeiculo.hide(); dgConfirmacao.show();" />
+				
+		</p:dialog>
+		
+		<p:dialog widgetVar="dgConfirmacao" modal="true" >
+			<h:panelGrid columns="2" >
+				<h:outputText value="Data:" ></h:outputText>
+				<h:outputText value="15/04/2014" ></h:outputText>
+				<h:outputText value="Cliente:" ></h:outputText>
+				<h:outputText value="Joaquim Barbosa" ></h:outputText>
+				<h:outputText value="Veículo:" ></h:outputText>
+				<h:outputText value="Pálio Azul - 2 portas" ></h:outputText>
+				<h:outputText value="Valor da multa:" ></h:outputText>
+				<h:outputText value="R$ 97,00" ></h:outputText>
+				
+				
+				
+				
+			</h:panelGrid>
+			
+			<p:commandButton value="Confirmar" />
+			<p:commandButton value="Cancelar" onclick="dgConfirmacao.hide();" immediate="true" />
+		</p:dialog>
+		
+		<p:confirmDialog widgetVar="dgDelete"
+			message="Opções de multa">
+			<p:commandButton value="Baixar" onclick="dgDelete.hide();" />
+			<p:commandButton value="Quitar" onclick="dgDelete.hide();" />
+			<p:commandButton value="Estornar" onclick="dgDelete.hide();" />
+		</p:confirmDialog>
+
+	</ui:define>
+</ui:composition>
+

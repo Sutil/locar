@@ -6,15 +6,18 @@ import org.springframework.stereotype.Controller;
 
 import br.com.locar.app.model.entity.Cliente;
 import br.com.locar.app.model.entity.Preposto;
+import br.com.locar.app.repository.ClienteDao;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 
 @Controller
 public class ClienteController {
-	
-	public List<Cliente> getClientes(){
+
+	public List<Cliente> getClientes() {
 		List<Cliente> clientes = Lists.newArrayList();
-		Cliente cliente = new Cliente("Antonio", "98765421388", "Avenida Colombo", "(44)9889-9888");
+		Cliente cliente = new Cliente("Antonio", "98765421388",
+				"Avenida Colombo", "(44)9889-9888");
 		clientes.add(cliente);
 		clientes.add(cliente);
 		clientes.add(cliente);
@@ -22,16 +25,33 @@ public class ClienteController {
 		clientes.add(cliente);
 		return clientes;
 	}
-	
-	public void verifica(Cliente c){
+
+	public void verifica(Cliente c) {
 	}
-	
-	public Cliente novo(){
+
+	public Cliente novo() {
 		return new Cliente("", "", "", "");
 	}
-	
-	public Preposto novoPreposto(){
+
+	public Preposto novoPreposto() {
 		return new Preposto();
 	}
 
+	public List<Preposto> autocompletePreposto(String value) {
+		System.out.println(value);
+		List<Cliente> lista = ClienteDao.getInstance().getLista();
+		List<Preposto> prepostos = Lists.newArrayList();
+		List<Preposto> retorno = Lists.newArrayList();
+		for (Cliente c : lista) {
+			prepostos.addAll(c.getPrepostos());
+		}
+		if (!Strings.isNullOrEmpty(value)) {
+			for (Preposto p : prepostos) {
+				if (p.getNome().toUpperCase().contains(value.toUpperCase())) {
+					retorno.add(p);
+				}
+			}
+		}
+		return retorno;
+	}
 }

@@ -11,7 +11,21 @@ public class Preposto implements Serializable {
 	private String nome;
 	private String cnh;
 	private String validadeCnh;
+	private Cliente cliente;
 	
+	public Preposto() {
+	}
+	
+	
+	
+	public Preposto(String nome, String cnh, String validadeCnh) {
+		this.nome = nome;
+		this.cnh = cnh;
+		this.validadeCnh = validadeCnh;
+	}
+
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if(obj instanceof Preposto){
@@ -48,6 +62,14 @@ public class Preposto implements Serializable {
 
 	public void setValidadeCnh(String validadeCnh) {
 		this.validadeCnh = validadeCnh;
+	}
+	
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+	
+	public Cliente getCliente() {
+		return cliente;
 	}
 
 }

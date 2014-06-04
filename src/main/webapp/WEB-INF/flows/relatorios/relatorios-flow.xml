@@ -5,7 +5,7 @@
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
         parent="main-flow" >
 
-	
+	<secured attributes="ROLE_DIRETOR"/>
 	
 	<persistence-context />
 
@@ -14,11 +14,19 @@
 			<evaluate expression="'Relatórios'" result="flowScope.titulo" />
 		</on-entry>
 	    <transition on="lucro-por-veiculo" to="lucro-por-veiculo" ></transition>
+	    <transition on="multas-locacoes" to="multas-locacoes" ></transition>
 	</view-state>
 	
 	<view-state id="lucro-por-veiculo">
 		<on-entry>
 			<evaluate expression="veiculoController.getVeiculos()" result="viewScope.veiculos" result-type="dataModel" />
+			<evaluate expression="veiculoController.getFiltro()" result="viewScope.filtro" ></evaluate>
+		</on-entry>
+	</view-state>
+	
+	<view-state id="multas-locacoes">
+		<on-entry>
+			<evaluate expression="relatorioLocacoesMultasController.getRelatorio()" result="viewScope.itens" result-type="dataModel" />
 		</on-entry>
 	</view-state>
 	

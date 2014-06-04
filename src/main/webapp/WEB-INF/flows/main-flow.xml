@@ -16,6 +16,10 @@
 		view="externalRedirect:contextRelative:/spring/locacao" />
 	<end-state id="Relatorios"
 		view="externalRedirect:contextRelative:/spring/relatorios" />
+	<end-state id="Reservas"
+		view="externalRedirect:contextRelative:/spring/reserva" />
+		<end-state id="Multas"
+		view="externalRedirect:contextRelative:/spring/multa" />
 
 	<global-transitions>
 		<transition on="home" to="Home" />
@@ -26,6 +30,8 @@
 		<transition on="locacoes" to="Locacoes"></transition>
 		<transition on="seguranca" to="Seguranca"></transition>
 		<transition on="relatorios" to="Relatorios"></transition>
+		<transition on="reservas" to="Reservas"></transition>
+		<transition on="multas" to="Multas"></transition>
 	</global-transitions>
 
 

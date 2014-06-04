@@ -11,43 +11,44 @@
 		<h:form id="form">
 			<div class="bts">
 				<ul>
-					<li><h:commandLink action="categorias" >
+					<li><h:commandLink action="categorias">
 							<h:outputText value="Categorias" />
 							<i class="fa fa-dot-circle-o fa-4x" />
 						</h:commandLink></li>
-						
-						
+
+
 					<li><h:commandLink action="veiculos">
 							<h:outputText value="Veículos" />
 							<i class="fa fa-truck fa-4x" />
 						</h:commandLink></li>
 
 
-					<li><h:commandLink action="clientes" >
+					<li><h:commandLink action="clientes">
 							<h:outputText value="Clientes" />
 							<i class="fa fa-group fa-4x" />
 						</h:commandLink></li>
 
 
-					<li><h:commandLink action="locacoes" >
+					<li><h:commandLink action="locacoes">
 							<h:outputText value="Locações" />
 							<i class="fa fa-list-alt fa-4x" />
 						</h:commandLink></li>
-						
-					<li><h:commandLink >
+
+					<li><h:commandLink action="reservas">
 							<h:outputText value="Reserva" />
 							<i class="fa fa-calendar fa-4x" />
 						</h:commandLink></li>
 
-					<li><h:commandLink >
+					<li><h:commandLink action="multas">
 							<h:outputText value="Multas" />
 							<i class="fa fa-paste fa-4x" />
 						</h:commandLink></li>
-					<li><h:commandLink action="relatorios">
-							<h:outputText value="Relatórios" />
-							<i class="fa fa-bar-chart-o fa-4x" />
-						</h:commandLink></li>
-
+					<sec:authorize ifAnyGranted="ROLE_DIRETOR">
+						<li><h:commandLink action="relatorios">
+								<h:outputText value="Relatórios" />
+								<i class="fa fa-bar-chart-o fa-4x" />
+							</h:commandLink></li>
+					</sec:authorize>
 
 				</ul>
 			</div>

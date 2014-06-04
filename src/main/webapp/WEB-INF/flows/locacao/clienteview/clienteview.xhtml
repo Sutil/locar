@@ -1,0 +1,44 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/blank.xhtml">
+
+	<ui:define name="body">
+		<h:form id="formEdit">
+			<h:panelGrid columns="1">
+				Pesquise por nome, razão social, cpf ou CNPJ:
+					
+					<p:message id="msgPreposto" for="preposto" />
+				<p:autoComplete id="preposto"
+					completeMethod="#{clienteController.autocompletePreposto}"
+					converter="prepostoConverter" var="prep" itemLabel="#{prep.nome}"
+					itemValue="#{prep}" value="#{bean.preposto}" required="true"
+					requiredMessage="Informe o nome do retirante">
+					<p:ajax event="itemSelect" process="@form" update="@form"></p:ajax>
+				</p:autoComplete>
+
+
+				<p:panel rendered="#{bean.preposto != null}">
+					<h:panelGrid columns="2">
+						<h:outputText value="Preposto: " />
+						<h:outputText value="#{bean.preposto.nome}" />
+						<h:outputText value="Cliente: " />
+						<h:outputText value="#{bean.preposto.cliente.nome}" />
+						<h:outputText value="CPF/CNPJ: " />
+						<h:outputText value="#{bean.preposto.cliente.cpf}" />
+						<h:outputText value="Endereço: " />
+						<h:outputText value="#{bean.preposto.cliente.endereco}" />
+					</h:panelGrid>
+				</p:panel>
+
+
+				</h:panelGrid>
+			<p:commandButton value="Cancelar" action="cancelar" onclick="dgEdit.hide();"
+				immediate="true" />
+			<p:commandButton value="Próximo" update="@form" action="ok" />
+		</h:form>
+	</ui:define>
+
+</ui:composition>

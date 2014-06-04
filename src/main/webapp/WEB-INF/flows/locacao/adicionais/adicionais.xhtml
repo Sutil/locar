@@ -1,0 +1,67 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/blank.xhtml">
+
+	<ui:define name="body">
+		<h:form id="formEdit">
+
+			<h:panelGrid columns="1">
+
+
+				<p:panel id="panelAdicionais">
+					<h:outputText value="Adicionais" style="font-weigth: bold;" />
+					<h:panelGrid columns="3">
+
+						<p:selectBooleanCheckbox value="#{bean.protecaoParcial}">
+							<p:ajax event="change" update="@form" />
+						</p:selectBooleanCheckbox>
+						<h:outputText value="Proteção parcial " />
+						<h:outputText value="#{bean.veiculo.categoria.protecaoParcial}" />
+						<p:selectBooleanCheckbox value="#{bean.protecaoOcupantes}">
+							<p:ajax event="change" update="@form" />
+						</p:selectBooleanCheckbox>
+						<h:outputText value="Proteção ocupantes" />
+						<h:outputText value="#{bean.veiculo.categoria.protecaoOcupantes}" />
+						<p:selectBooleanCheckbox value="#{bean.protecaoTerceiros}">
+							<p:ajax event="change" update="@form" />
+						</p:selectBooleanCheckbox>
+						<h:outputText value="Proteção terceiros" />
+						<h:outputText value="#{bean.veiculo.categoria.protecaoTerceiros}" />
+
+					</h:panelGrid>
+				</p:panel>
+
+				<p:panel>
+					<h:panelGrid columns="2">
+						<h:outputText value="Preposto: " />
+						<h:outputText value="#{bean.preposto.nome}" />
+						<h:outputText value="Cliente: " />
+						<h:outputText value="#{bean.preposto.cliente.nome}" />
+						<h:outputText value="Endereço: " />
+						<h:outputText value="#{bean.preposto.cliente.endereco}" />
+
+						<h:outputText value="Veículo:" rendered="#{bean.veiculo != null}"
+							style="padding-top: 10px;" />
+						<h:outputText
+							value="#{bean.veiculo.marca} - #{bean.veiculo.modelo}"
+							rendered="#{bean.veiculo != null}" />
+						<h:outputText value="#{bean.valor}" style="font-size: 25px;" />
+
+					</h:panelGrid>
+				</p:panel>
+
+
+
+			</h:panelGrid>
+			<p:commandButton value="Cancelar" action="cancelar"
+				onclick="dgEdit.hide();" immediate="true" />
+			<p:commandButton value="Anterior" update="@form" action="anterior"
+				immediate="true" />
+			<p:commandButton value="Gerar locação" update="@form" action="ok" oncomplete="dgEdit.hide();" />
+		</h:form>
+	</ui:define>
+
+</ui:composition>

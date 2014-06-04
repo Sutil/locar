@@ -1,0 +1,55 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/blank.xhtml">
+
+	<ui:define name="body">
+		<h:form id="formEdit">
+			<h:panelGrid columns="1">
+				Pesquise por marca ou modelo:
+					
+				<p:message id="msgPreposto" for="preposto" />
+				<p:autoComplete id="preposto"
+					completeMethod="#{veiculoController.autocompleteVeiculo}"
+					converter="veiculoConverter" var="v" itemLabel="#{v.marca} - #{v.modelo} - #{v.ano}"
+					itemValue="#{v}" value="#{bean.veiculo}" required="true"
+					requiredMessage="Informe o veículo">
+					<p:ajax event="itemSelect" process="@form" update="preposto, msgPreposto" />
+				</p:autoComplete>
+				
+				
+				<h:outputText id="msgDevolucao" value="Data devolução:" />
+				<p:message for="devolucao" ></p:message>
+				<p:calendar id="devolucao" value="#{bean.devolucao}" required="true" 
+				 				requiredMessage="Informe a data de devolução" >
+				 			<p:ajax event="dateSelect" process="@form" update="devolucao, msgDevolucao" listener="#{bean.checkDate}" ></p:ajax>
+				 				 
+				 </p:calendar>
+
+				<p:panel>
+				<h:panelGrid columns="2" >
+					<h:outputText value="Preposto: " />
+					<h:outputText value="#{bean.preposto.nome}"  />
+					<h:outputText value="Cliente: " />
+					<h:outputText value="#{bean.preposto.cliente.nome}" />
+					<h:outputText value="Endereço: " />
+					<h:outputText value="#{bean.preposto.cliente.endereco}" />
+					
+					<h:outputText value="Veículo:" rendered="#{bean.veiculo != null}" style="padding-top: 10px;" />
+					<h:outputText value="#{bean.veiculo.marca} - #{bean.veiculo.modelo}" rendered="#{bean.veiculo != null}" />
+				</h:panelGrid>
+				</p:panel>
+				
+
+
+				</h:panelGrid>
+			<p:commandButton value="Cancelar" action="cancelar" onclick="dgEdit.hide();"
+				immediate="true" />
+			<p:commandButton value="Anterior" update="@form" action="anterior" immediate="true" />
+			<p:commandButton value="Próximo" update="@form" action="ok"   />
+		</h:form>
+	</ui:define>
+
+</ui:composition>
