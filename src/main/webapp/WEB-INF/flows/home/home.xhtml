@@ -43,7 +43,7 @@
 							<h:outputText value="Multas" />
 							<i class="fa fa-paste fa-4x" />
 						</h:commandLink></li>
-					<sec:authorize ifAnyGranted="ROLE_DIRETOR">
+					<sec:authorize ifAnyGranted="ROLE_DIRETOR, ROLE_ADMIN">
 						<li><h:commandLink action="relatorios">
 								<h:outputText value="Relatórios" />
 								<i class="fa fa-bar-chart-o fa-4x" />
