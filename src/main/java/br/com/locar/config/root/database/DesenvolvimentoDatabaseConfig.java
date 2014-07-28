@@ -20,7 +20,7 @@ public class DesenvolvimentoDatabaseConfig implements DatabaseConfig {
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
 		factoryBean.setDataSource(dataSource());
-		factoryBean.setPersistenceUnitName("mysql");
+		factoryBean.setPersistenceUnitName("postgres");
 		return factoryBean;
 	}
 
@@ -28,10 +28,10 @@ public class DesenvolvimentoDatabaseConfig implements DatabaseConfig {
 	@Override
 	public DataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/locar");
-		dataSource.setUsername("root");
-		dataSource.setPassword("fidelidade");
+		dataSource.setDriverClassName("org.postgresql.Driver");
+		dataSource.setUrl("jdbc:postgresql://localhost:5432/locar");
+		dataSource.setUsername("postgres");
+		dataSource.setPassword("admin");
 		dataSource.setTestOnBorrow(true);
 		dataSource.setTestOnReturn(true);
 		dataSource.setTestWhileIdle(true);

@@ -10,7 +10,7 @@ body {
 }
 
 #header {
-	background: #1fa67a url("#{resource['favicon.png']}") repeat-x left bottom;
+	background: #1fa67a;
 	padding: 0px 100px 65px;
 }
 /** logo **/
