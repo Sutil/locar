@@ -3,6 +3,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:sec="http://www.springframework.org/security/tags"
 	template="/WEB-INF/template/ui.xhtml">
 
@@ -14,11 +15,15 @@
 				<p:panel>
 					<h:panelGrid columns="1">
 						<p:commandButton value="Novo" icon="ui-icon-plus"
-							onclick="dgEdit.show();" />
+							oncomplete="dgEdit.show();" action="novo" update=":formEdit" />
 					</h:panelGrid>
 				</p:panel>
 				<p:panel>
 					<h:panelGrid columns="6">
+					
+						<p:autoComplete completeMethod="#{categoriaController.autocomplete}"  
+									    converter="categoriaConverter" var="cat" itemValue="#{cat}" itemLabel="#{cat.nome}"	
+									    	></p:autoComplete>
 						<p:inputText id="filtro" size="80"></p:inputText>
 						<p:watermark for="filtro" value="Pesquise pelo nome da categoria" />
 						<p:commandButton value="pesquisar" />
@@ -52,16 +57,11 @@
 		<p:dialog widgetVar="dgEdit" modal="true" header="Cadastrar/Editar Categoria"  >
 			<h:form id="formEdit">
 				<h:panelGrid columns="1">
-				Categoria:
-				<p:selectOneMenu>
-						<f:selectItem itemLabel="Categoria1" />
-						<f:selectItem itemLabel="Categoria1" />
-					</p:selectOneMenu>
 				Nome da Categoria:
-				<p:inputText size="80"></p:inputText>
+				<p:inputText size="80" value="#{bean.nome}" />
 				
 				Valor da diária:
-				<p:inputText size="80"></p:inputText>
+				<pe:inputNumber></pe:inputNumber>
 				
 				Valor proteção parcial:
 				<p:inputText size="80"></p:inputText>

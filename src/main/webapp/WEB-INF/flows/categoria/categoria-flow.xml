@@ -11,8 +11,10 @@
 	<view-state id="categoria-list">
 		<on-entry>
 			<evaluate expression="'Categorias'" result="viewScope.titulo"  />
-			<evaluate expression="veiculoController.getVeiculos()" result="viewScope.categorias" result-type="dataModel" />
 		</on-entry>
+		<transition on="novo" >
+			<evaluate expression="categoriaController.newBean()" result="viewScope.bean" />
+		</transition>
 		
 	</view-state>
 	

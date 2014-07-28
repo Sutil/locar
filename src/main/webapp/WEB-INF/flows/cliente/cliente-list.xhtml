@@ -32,9 +32,9 @@
 			<p:dataTable emptyMessage="Nenhum veículo encontrado"
 				value="#{clientes}" var="cliente">
 				<f:facet name="header">Lista de clientes</f:facet>
-				<p:column headerText="Nome/Razão Social">nome</p:column>
-				<p:column headerText="CPF/CNPJ">cpf</p:column>
-				<p:column headerText="Endereço">endereço</p:column>
+				<p:column headerText="Nome/Razão Social">#{cliente.nome}</p:column>
+				<p:column headerText="CPF/CNPJ">#{cliente.cpf}</p:column>
+				<p:column headerText="Endereço">#{cliente.endereco}</p:column>
 				<p:column headerText="Telefone">telefone</p:column>
 
 				<p:column style="width: 10%;">

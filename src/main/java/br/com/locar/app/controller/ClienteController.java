@@ -26,8 +26,7 @@ public class ClienteController {
 		return clientes;
 	}
 
-	public void verifica(Cliente c) {
-	}
+	
 
 	public Cliente novo() {
 		return new Cliente("", "", "", "");

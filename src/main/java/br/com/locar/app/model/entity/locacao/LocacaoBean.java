@@ -10,7 +10,6 @@ import javax.faces.context.FacesContext;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
-import org.primefaces.event.DateSelectEvent;
 
 import br.com.locar.app.model.entity.Categoria;
 import br.com.locar.app.model.entity.Preposto;
@@ -52,7 +51,7 @@ public class LocacaoBean implements Serializable {
 		return valor;
 	}
 
-	public void checkDate(DateSelectEvent event) {
+	public void checkDate() {
 		System.out.println("escolher data");
 		System.out.println(devolucao);
 		if (devolucao != null) {

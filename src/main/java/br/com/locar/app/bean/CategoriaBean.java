@@ -1,65 +1,50 @@
-package br.com.locar.app.model.entity;
+package br.com.locar.app.bean;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import br.com.locar.app.model.entity.Categoria;
 
-import com.google.common.base.Objects;
-
-@Entity
-public class Categoria extends Entidade {
+public class CategoriaBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue
 	private Long id;
-	
 	private String nome;
-	private BigDecimal diario;
+	private BigDecimal diaria;
 	private BigDecimal protecaoParcial;
-	private BigDecimal protecaoTotal;
 	private BigDecimal protecaoOcupantes;
 	private BigDecimal protecaoTerceiros;
 	private BigDecimal taxaDevolucaoLojaDiferente;
 	private BigDecimal taxaDevolucaoDocumentos;
+	
+	public CategoriaBean() {
+	}
+	
+	private CategoriaBean(Categoria categoria){
+		this.id = categoria.getId();
+		this.nome = categoria.getNome();
+		this.diaria = categoria.getDiario();
+		this.protecaoParcial = categoria.getProtecaoParcial();
+		this.protecaoOcupantes = categoria.getProtecaoOcupantes();
+		this.protecaoTerceiros = categoria.getProtecaoTerceiros();
+		this.taxaDevolucaoLojaDiferente = categoria.getTaxaDevolucaoLojaDiferente();
+		this.taxaDevolucaoDocumentos = categoria.getTaxaDevolucaoDocumentos();
+	}
+	
+	public static CategoriaBean newInstance(Categoria categoria){
+		checkNotNull(categoria, "Categoria não pode ser nulo. Impossível editar.");
+		return new CategoriaBean(categoria);
+	}
 
-	public Categoria() {
-	}
-
-	public Categoria(String nome, BigDecimal diario,
-			BigDecimal protecaoParcial, BigDecimal protecaoTotal,
-			BigDecimal protecaoOcupantes, BigDecimal protecaoTerceiros,
-			BigDecimal taxaDevolucaoLojaDiferente,
-			BigDecimal taxaDevolucaoDocumentos) {
-		this.nome = nome;
-		this.diario = diario;
-		this.protecaoParcial = protecaoParcial;
-		this.protecaoTotal = protecaoTotal;
-		this.protecaoOcupantes = protecaoOcupantes;
-		this.protecaoTerceiros = protecaoTerceiros;
-		this.taxaDevolucaoLojaDiferente = taxaDevolucaoLojaDiferente;
-		this.taxaDevolucaoDocumentos = taxaDevolucaoDocumentos;
-	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		if(obj instanceof Categoria){
-			Categoria other = (Categoria) obj;
-			return Objects.equal(this.nome, other.nome);
-		}
-		return false;
-	}
-	
-	@Override
-	public int hashCode() {
-		return Objects.hashCode(nome);
-	}
-	
 	public Long getId() {
 		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getNome() {
@@ -70,12 +55,12 @@ public class Categoria extends Entidade {
 		this.nome = nome;
 	}
 
-	public BigDecimal getDiario() {
-		return diario;
+	public BigDecimal getDiaria() {
+		return diaria;
 	}
 
-	public void setDiario(BigDecimal diario) {
-		this.diario = diario;
+	public void setDiaria(BigDecimal diaria) {
+		this.diaria = diaria;
 	}
 
 	public BigDecimal getProtecaoParcial() {
@@ -84,14 +69,6 @@ public class Categoria extends Entidade {
 
 	public void setProtecaoParcial(BigDecimal protecaoParcial) {
 		this.protecaoParcial = protecaoParcial;
-	}
-
-	public BigDecimal getProtecaoTotal() {
-		return protecaoTotal;
-	}
-
-	public void setProtecaoTotal(BigDecimal protecaoTotal) {
-		this.protecaoTotal = protecaoTotal;
 	}
 
 	public BigDecimal getProtecaoOcupantes() {

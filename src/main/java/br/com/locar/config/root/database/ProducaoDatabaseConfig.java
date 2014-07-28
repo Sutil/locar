@@ -18,7 +18,7 @@ public class ProducaoDatabaseConfig implements DatabaseConfig {
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
 		factoryBean.setDataSource(dataSource());
-		factoryBean.setPersistenceUnitName("mysql");
+		factoryBean.setPersistenceUnitName("postgres");
 		return factoryBean;
 	}
 
@@ -26,11 +26,10 @@ public class ProducaoDatabaseConfig implements DatabaseConfig {
 	@Override
 	public DataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
-//		dataSource.setUrl("jdbc:oracle:thin:@(DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = sutil-scan.endereco.intranet)(PORT = 1521)) (FAILOVER = ON) (CONNECT_DATA = (SERVER = DEDICATED)(SERVICE_NAME = sutil)(FAILOVER_MODE = (TYPE = SELECT) (METHOD = BASIC) (RETRIES = 64) (DELAY = 4))))");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/locar");
-		dataSource.setUsername("root");
-		dataSource.setPassword("fidelidade");
+		dataSource.setDriverClassName("org.postgresql.Driver");
+		dataSource.setUrl("jdbc:postgresql://ec2-54-197-238-242.compute-1.amazonaws.com:5432/d8rab1tonqv454");
+		dataSource.setUsername("pwdykjgspvnael");
+		dataSource.setPassword("_4Y17UmM3uPQkRVkKt6bu2JHuq");
 		dataSource.setTestOnBorrow(true);
 		dataSource.setTestOnReturn(true);
 		dataSource.setTestWhileIdle(true);

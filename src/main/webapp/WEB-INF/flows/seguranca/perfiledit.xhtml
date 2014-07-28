@@ -22,10 +22,10 @@
 				<p:pickList id="pickerPermissoes" converter="permissaoConverter"
 					value="#{perfilBean.permissoesDualList}" var="per" required="true"
 					requiredMessage="Vincule ao menos uma permissão" itemValue="#{per}"
+					showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains"
 					itemLabel="#{per.codigo}">
 					<f:facet name="sourceCaption">Disponíveis</f:facet>
 					<f:facet name="targetCaption">Vinculados</f:facet>
-					<p:ajax event="transfer" update="@this" />
 				</p:pickList>
 				<p:commandButton value="Cancelar" action="cancelar" immediate="true" />
 				<p:commandButton value="Salvar" action="salvar" update="@form" />
