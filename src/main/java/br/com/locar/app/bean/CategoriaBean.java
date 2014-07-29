@@ -26,7 +26,7 @@ public class CategoriaBean implements Serializable {
 	private CategoriaBean(Categoria categoria){
 		this.id = categoria.getId();
 		this.nome = categoria.getNome();
-		this.diaria = categoria.getDiario();
+		this.diaria = categoria.getDiaria();
 		this.protecaoParcial = categoria.getProtecaoParcial();
 		this.protecaoOcupantes = categoria.getProtecaoOcupantes();
 		this.protecaoTerceiros = categoria.getProtecaoTerceiros();

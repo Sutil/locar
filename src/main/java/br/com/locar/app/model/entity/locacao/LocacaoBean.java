@@ -41,7 +41,7 @@ public class LocacaoBean implements Serializable {
 
 	public BigDecimal getValor() {
 		Categoria c = veiculo.getCategoria();
-		BigDecimal valor = c.getDiario();
+		BigDecimal valor = c.getDiaria();
 		valor = valor.add(protecaoOcupantes ? c.getProtecaoOcupantes()
 				: BigDecimal.ZERO);
 		valor = valor.add(protecaoParcial ? c.getProtecaoParcial()

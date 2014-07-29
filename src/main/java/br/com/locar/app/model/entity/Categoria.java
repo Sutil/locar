@@ -18,7 +18,7 @@ public class Categoria extends Entidade {
 	private Long id;
 	
 	private String nome;
-	private BigDecimal diario;
+	private BigDecimal diaria;
 	private BigDecimal protecaoParcial;
 	private BigDecimal protecaoTotal;
 	private BigDecimal protecaoOcupantes;
@@ -29,13 +29,13 @@ public class Categoria extends Entidade {
 	public Categoria() {
 	}
 
-	public Categoria(String nome, BigDecimal diario,
+	public Categoria(String nome, BigDecimal diaria,
 			BigDecimal protecaoParcial, BigDecimal protecaoTotal,
 			BigDecimal protecaoOcupantes, BigDecimal protecaoTerceiros,
 			BigDecimal taxaDevolucaoLojaDiferente,
 			BigDecimal taxaDevolucaoDocumentos) {
 		this.nome = nome;
-		this.diario = diario;
+		this.diaria = diaria;
 		this.protecaoParcial = protecaoParcial;
 		this.protecaoTotal = protecaoTotal;
 		this.protecaoOcupantes = protecaoOcupantes;
@@ -70,12 +70,12 @@ public class Categoria extends Entidade {
 		this.nome = nome;
 	}
 
-	public BigDecimal getDiario() {
-		return diario;
+	public BigDecimal getDiaria() {
+		return diaria;
 	}
 
-	public void setDiario(BigDecimal diario) {
-		this.diario = diario;
+	public void setDiaria(BigDecimal diaria) {
+		this.diaria = diaria;
 	}
 
 	public BigDecimal getProtecaoParcial() {
