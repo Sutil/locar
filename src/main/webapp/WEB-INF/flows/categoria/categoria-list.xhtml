@@ -20,35 +20,29 @@
 				</p:panel>
 				<p:panel>
 					<h:panelGrid columns="6">
-					
-						<p:autoComplete completeMethod="#{categoriaController.autocomplete}"  
-									    converter="categoriaConverter" var="cat" itemValue="#{cat}" itemLabel="#{cat.nome}"	
-									    	></p:autoComplete>
-						<p:inputText id="filtro" size="80"></p:inputText>
+						<p:inputText id="filtro" size="80" value="#{filtro.nomeCategoria}" ></p:inputText>
 						<p:watermark for="filtro" value="Pesquise pelo nome da categoria" />
-						<p:commandButton value="pesquisar" />
+						<p:commandButton value="pesquisar" action="pesquisar" update="@form" />
 						<p:spacer width="80" height="0" />
-						<p:selectBooleanCheckbox />
-						<h:outputText value="Mostrar Inativos" />
+						<p:selectBooleanCheckbox value="#{filtro.mostraInativos}" />
+						<h:outputText value="Mostrar excluídos" />
 					</h:panelGrid>
 				</p:panel>
 			</h:panelGrid>
 
-			<p:dataTable emptyMessage="Nenhum categoria encontrado"
-				value="#{categorias}" var="categoria">
+			<p:dataTable id="table" emptyMessage="Nenhum categoria encontrado"
+				value="#{categorias}" var="cat">
 				<f:facet name="header">Lista de categorias</f:facet>
-				<p:column headerText="Categoria" >Categoria</p:column>
-				<p:column headerText="Valor Diária">0,00</p:column>
-				<p:column headerText="Valor Proteção Parcial">0,00</p:column>
-				<p:column headerText="Valor Proteção Total">0,00</p:column>
-				<p:column headerText="Valor Proteção Ocupantes">0,00</p:column>
-				<p:column headerText="Taxa de Devolução">0,00</p:column>
-				<p:column headerText="Taxa Reposição de Documentos">0,00</p:column>
+				<p:column headerText="Categoria" >#{cat.nome}</p:column>
+				<p:column headerText="Valor Diária">#{cat.diaria}</p:column>
+				<p:column headerText="Valor Proteção Parcial">#{cat.protecaoParcial}</p:column>
+				<p:column headerText="Valor Proteção Ocupantes">#{cat.protecaoOcupantes}</p:column>
+				<p:column headerText="Taxa Reposição de Documentos">#{cat.taxaDevolucaoDocumentos}</p:column>
 				
 				
 				<p:column style="width: 10%;">
-					<p:commandButton icon="ui-icon-pencil" onclick="dgEdit.show();" />
-					<p:commandButton icon="ui-icon-close" onclick="dgDelete.show();" />
+					<p:commandButton icon="ui-icon-pencil" oncomplete="dgEdit.show();" action="selecionar" update=":formEdit" />
+					<p:commandButton rendered="#{cat.ativo}" icon="ui-icon-close" onclick="dgDelete.show();" action="selecionarParaExcluir" update=":formDelete" />
 				</p:column>
 			</p:dataTable>
 
@@ -61,33 +55,29 @@
 				<p:inputText size="80" value="#{bean.nome}" />
 				
 				Valor da diária:
-				<pe:inputNumber></pe:inputNumber>
+				<pe:inputNumber value="#{bean.diaria}"  ></pe:inputNumber>
 				
 				Valor proteção parcial:
-				<p:inputText size="80"></p:inputText>
-				
-				Valor proteção total:
-				<p:inputText size="80"></p:inputText>
+				<pe:inputNumber value="#{bean.protecaoParcial}"></pe:inputNumber>
 				
 				Valor proteção ocupantes:
-				<p:inputText size="80" />
-				
-				Taxa de devoluçao em loja diferente:
-				<p:inputText size="80" />
+				<pe:inputNumber value="#{bean.protecaoOcupantes}"></pe:inputNumber>
 				
 				Taxa de reposição de documentos:
-				<p:inputText size="80" />
+				<pe:inputNumber value="#{bean.taxaDevolucaoDocumentos}" />
 
 				</h:panelGrid>
-				<p:commandButton value="Salvar" onclick="dgEdit.hide();" />
+				<p:commandButton value="Salvar" oncomplete="dgEdit.hide();" action="salvar" />
 				<p:commandButton value="Cancelar" immediate="true"
 					onclick="dgEdit.hide();" />
 			</h:form>
 		</p:dialog>
 		<p:confirmDialog widgetVar="dgDelete"
-			message="Deseja excluir este registro">
-			<p:commandButton value="Sim" onclick="dgDelete.hide();" />
-			<p:commandButton value="Não" onclick="dgDelete.hide();" />
+			message="Deseja excluir este registro?">
+			<h:form id="formDelete">
+				<p:commandButton value="Sim" onclick="dgDelete.hide();" action="desativar" />
+				<p:commandButton value="Não" onclick="dgDelete.hide();" />
+			</h:form>
 		</p:confirmDialog>
 
 	</ui:define>

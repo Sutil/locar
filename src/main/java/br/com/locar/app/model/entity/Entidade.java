@@ -12,7 +12,7 @@ public class Entidade implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Enumerated(EnumType.STRING)
-	protected Status status;
+	protected Status status = Status.ATIVO;
 	
 	public void desativar(){
 		this.status = Status.INATIVO;

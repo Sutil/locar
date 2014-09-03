@@ -14,7 +14,7 @@
 	<http>
 		<form-login login-page="/login.faces" />
 		<intercept-url pattern="/spring/**" access="ROLE_USER" />
-		<logout logout-success-url="/login.faces" logout-url="/logout" />
+		<logout logout-success-url="/spring/home" logout-url="/logout" />
 		<access-denied-handler error-page="/accessDenied.faces" />
 
 		<!-- <anonymous /> -->

@@ -21,7 +21,7 @@ public class VeiculoDao {
 	
 	
 	VeiculoDao(){
-		Categoria categoria = new Categoria("Luxo", new BigDecimal("55.00"), new BigDecimal("25.00"), new BigDecimal("80.00"), new BigDecimal("30.00"), new BigDecimal("45.00"), new BigDecimal("40.00"), new BigDecimal("150.00"));
+		Categoria categoria = new Categoria(null, "Luxo", new BigDecimal("55.00"), new BigDecimal("25.00"), new BigDecimal("80.00"), new BigDecimal("30.00"), new BigDecimal("45.00"), new BigDecimal("40.00"), new BigDecimal("150.00"));
 		Veiculo veiculo = new Veiculo(categoria, "Chevrolet", "Vectra", 2014, "AAA-5588", "65498788");
 		Veiculo veiculo1 = new Veiculo(categoria, "Chevrolet", "Celta", 2014, "AAA-5588", "65498788");
 		Veiculo veiculo2 = new Veiculo(categoria, "Chevrolet", "Prisma", 2014, "AAA-5588", "65498788");

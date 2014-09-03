@@ -10,12 +10,29 @@
 
 	<view-state id="categoria-list">
 		<on-entry>
+			<evaluate expression="categoriaController.newFiltro()" result="viewScope.filtro" />
 			<evaluate expression="'Categorias'" result="viewScope.titulo"  />
 		</on-entry>
 		<transition on="novo" >
 			<evaluate expression="categoriaController.newBean()" result="viewScope.bean" />
 		</transition>
-		
+		<transition on="salvar" >
+			<evaluate expression="categoriaController.salvar(bean)"  />
+		</transition>
+		<transition on="pesquisar" >
+			<evaluate expression="categoriaController.pesquisarPorNome(filtro)" 
+			result="viewScope.categorias" 
+			result-type="dataModel" />
+		</transition>
+		<transition on="selecionarParaExcluir" >
+			<evaluate expression="categorias.selectedRow" result="viewScope.selecionado" />
+		</transition>
+		<transition on="selecionar" >
+			<evaluate expression="categoriaController.selecionar(categorias.selectedRow)" result="viewScope.bean" />
+		</transition>
+		<transition on="desativar" >
+			<evaluate expression="categoriaController.desativar(selecionado)"></evaluate>
+		</transition>
 	</view-state>
 	
 	

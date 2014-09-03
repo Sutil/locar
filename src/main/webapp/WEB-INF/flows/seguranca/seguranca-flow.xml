@@ -34,6 +34,7 @@
 	
 	
 	<view-state id="perfiledit">
+		
 		<transition on="cancelar" to="cancel" />
 		<transition on="salvar" to="perfillist">
 			<evaluate expression="segurancaController.salvarPerfil(perfilBean)"  />

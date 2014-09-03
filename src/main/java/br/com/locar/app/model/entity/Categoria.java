@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import br.com.locar.app.bean.CategoriaBean;
+
 import com.google.common.base.Objects;
 
 @Entity
@@ -29,11 +31,12 @@ public class Categoria extends Entidade {
 	public Categoria() {
 	}
 
-	public Categoria(String nome, BigDecimal diaria,
+	public Categoria(Long id, String nome, BigDecimal diaria,
 			BigDecimal protecaoParcial, BigDecimal protecaoTotal,
 			BigDecimal protecaoOcupantes, BigDecimal protecaoTerceiros,
 			BigDecimal taxaDevolucaoLojaDiferente,
 			BigDecimal taxaDevolucaoDocumentos) {
+		this.id = id;
 		this.nome = nome;
 		this.diaria = diaria;
 		this.protecaoParcial = protecaoParcial;
@@ -43,6 +46,14 @@ public class Categoria extends Entidade {
 		this.taxaDevolucaoLojaDiferente = taxaDevolucaoLojaDiferente;
 		this.taxaDevolucaoDocumentos = taxaDevolucaoDocumentos;
 	}
+	
+	public static Categoria newIntance(CategoriaBean bean){
+		return new Categoria(bean.getId(), bean.getNome(), 
+				bean.getDiaria(), bean.getProtecaoParcial(), 
+				null, bean.getProtecaoOcupantes(), bean.getProtecaoTerceiros(), 
+				bean.getTaxaDevolucaoLojaDiferente(), bean.getTaxaDevolucaoDocumentos());
+	}
+	
 	
 	@Override
 	public boolean equals(Object obj) {
@@ -56,6 +67,10 @@ public class Categoria extends Entidade {
 	@Override
 	public int hashCode() {
 		return Objects.hashCode(nome);
+	}
+	
+	public boolean isAtivo(){
+		return status == Status.ATIVO;
 	}
 	
 	public Long getId() {
