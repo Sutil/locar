@@ -2,6 +2,7 @@ package br.com.locar.app.model.entity;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -19,6 +20,7 @@ public class Categoria extends Entidade {
 	@GeneratedValue
 	private Long id;
 	
+	@Column(unique = true)
 	private String nome;
 	private BigDecimal diaria;
 	private BigDecimal protecaoParcial;

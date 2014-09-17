@@ -1,6 +1,7 @@
 package br.com.locar.app.model.dao;
 
 import static br.com.locar.app.model.entity.QCategoria.categoria;
+import static com.google.common.base.Preconditions.checkArgument;
 
 import java.util.List;
 
@@ -14,33 +15,56 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.locar.app.bean.CategoriaBean;
 import br.com.locar.app.bean.CategoriaFiltro;
 import br.com.locar.app.model.entity.Categoria;
+import br.com.locar.app.model.entity.QCategoria;
 
 import com.mysema.query.jpa.impl.JPAQuery;
 
-public class CategoriaRepositoryImpl implements CategoriaRepositoryCustom{
-	
+public class CategoriaRepositoryImpl implements CategoriaRepositoryCustom {
+
 	@PersistenceContext
 	EntityManager entityManager;
-	
-	
+
 	@Override
 	@Transactional
 	public void desativar(Categoria categoria) {
-		try{
+		try {
 			categoria.desativar();
 			entityManager.merge(categoria);
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Categoria desativada.", ""));
-		}
-		catch(Exception e){
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao desativar categoria.", e.getMessage()));
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO,
+							"Categoria desativada.", ""));
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Erro ao desativar categoria.", e.getMessage()));
 		}
 	}
-	
+
 	@Override
 	@Transactional
-	public void salvar(CategoriaBean bean){
-		Categoria categoria = Categoria.newIntance(bean);
-		entityManager.merge(categoria);
+	public void salvar(CategoriaBean bean) {
+		try {
+			Categoria categoria = Categoria.newIntance(bean);
+			
+			JPAQuery query = new JPAQuery(entityManager);
+			query.from(QCategoria.categoria).where(QCategoria.categoria.nome.eq(categoria.getNome()));
+			List<Categoria> list = query.list(QCategoria.categoria);
+			checkArgument(list.isEmpty(), "Já existe uma categoria com este nome.");
+			
+			
+			entityManager.merge(categoria);
+			FacesContext.getCurrentInstance().addMessage(
+					"",
+					new FacesMessage(FacesMessage.SEVERITY_INFO,
+							"Salvo com sucesso", ""));
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(
+					"",
+					new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Erro ao salvar", e.getMessage()));
+		}
 	}
 
 	@Override
@@ -50,9 +74,5 @@ public class CategoriaRepositoryImpl implements CategoriaRepositoryCustom{
 		query.where(filtro.toPredicate());
 		return query.list(categoria);
 	}
-	
-	
-	
-	
 
 }
