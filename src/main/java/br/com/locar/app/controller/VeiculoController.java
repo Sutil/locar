@@ -1,34 +1,28 @@
 package br.com.locar.app.controller;
 
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import br.com.locar.app.bean.Filtro;
 import br.com.locar.app.model.entity.Veiculo;
 import br.com.locar.app.repository.VeiculoDao;
-
-import com.google.common.collect.Lists;
 
 @Controller
 public class VeiculoController {
 	
-	public List<String> getVeiculos(){
-		List<String> veiculos = Lists.newArrayList();
-		veiculos.add("");
-		veiculos.add("");
-		veiculos.add("");
-		veiculos.add("");
-		veiculos.add("");
-		return veiculos;
+	@Autowired
+	private VeiculoDao veiculoDao;
+	
+	public Veiculo novo(){
+		return new Veiculo();
 	}
 	
-	public List<Veiculo> autocompleteVeiculo(String value){
-		return VeiculoDao.getInstance().getLista();
+	
+	public void salvar(Veiculo veiculo){
+		veiculoDao.salvar(veiculo);
 	}
 	
-	public Filtro getFiltro(){
-		return new Filtro();
+	public void inativar(Veiculo veiculo){
+		veiculoDao.inativar();
 	}
 
 }

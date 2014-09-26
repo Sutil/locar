@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import br.com.locar.app.model.entity.Veiculo;
 
-public class Filtro implements Serializable{
+public class FiltroVeiculo implements Serializable{
 
 	/**
 	 * 

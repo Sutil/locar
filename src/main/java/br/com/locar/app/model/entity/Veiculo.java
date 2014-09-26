@@ -2,12 +2,20 @@ package br.com.locar.app.model.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 import com.google.common.base.Objects;
 
+@Entity
 public class Veiculo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue
+	private Long id;
 	private Categoria categoria;
 	private String marca;
 	private String modelo;
