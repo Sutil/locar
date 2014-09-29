@@ -8,4 +8,6 @@ import br.com.locar.repository.ListQueryDslPredicateExecutor;
 public interface CategoriaRepository extends JpaRepository<Categoria, Long>, 
 ListQueryDslPredicateExecutor<Categoria>, CategoriaRepositoryCustom {
 
+	
+
 }

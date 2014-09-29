@@ -43,7 +43,6 @@ public class CategoriaRepositoryImpl implements CategoriaRepositoryCustom {
 	}
 
 	@Override
-	@Transactional
 	public void salvar(CategoriaBean bean) {
 		try {
 			Categoria categoria = Categoria.newIntance(bean);
@@ -54,7 +53,7 @@ public class CategoriaRepositoryImpl implements CategoriaRepositoryCustom {
 			checkArgument(list.isEmpty(), "Já existe uma categoria com este nome.");
 			
 			
-			entityManager.merge(categoria);
+			salvar(categoria);
 			FacesContext.getCurrentInstance().addMessage(
 					"",
 					new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -65,6 +64,12 @@ public class CategoriaRepositoryImpl implements CategoriaRepositoryCustom {
 					new FacesMessage(FacesMessage.SEVERITY_ERROR,
 							"Erro ao salvar", e.getMessage()));
 		}
+	}
+	
+	@Override
+	@Transactional
+	public void salvar(Categoria categoria) {
+		entityManager.merge(categoria);
 	}
 
 	@Override
