@@ -6,7 +6,7 @@ import br.com.locar.app.model.entity.Veiculo;
 import br.com.locar.repository.ListQueryDslPredicateExecutor;
 
 
-public interface VeiculoDao extends JpaRepository<Veiculo, Long>, ListQueryDslPredicateExecutor<Veiculo>, VeiculoDaoCustom {
+public interface VeiculoRepository extends JpaRepository<Veiculo, Long>, ListQueryDslPredicateExecutor<Veiculo>, VeiculoRepositoryCustom {
 	
 
 }

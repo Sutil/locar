@@ -13,7 +13,7 @@ public interface CategoriaRepositoryCustom {
 	
 	public void salvar(CategoriaBean bean);
 	
-	public void salvar(Categoria categoria);
+	public Categoria salvar(Categoria categoria);
 	
 	public List<Categoria> pesquisar(CategoriaFiltro filtro);
 	

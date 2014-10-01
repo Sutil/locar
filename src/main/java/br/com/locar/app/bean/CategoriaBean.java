@@ -31,7 +31,7 @@ public class CategoriaBean implements Serializable {
 		this.protecaoOcupantes = categoria.getProtecaoOcupantes();
 		this.protecaoTerceiros = categoria.getProtecaoTerceiros();
 		this.taxaDevolucaoLojaDiferente = categoria.getTaxaDevolucaoLojaDiferente();
-		this.taxaDevolucaoDocumentos = categoria.getTaxaDevolucaoDocumentos();
+		this.taxaDevolucaoDocumentos = categoria.getTaxaReposicaoDocumentos();
 	}
 	
 	public static CategoriaBean newInstance(Categoria categoria){

@@ -1,7 +1,6 @@
 package br.com.locar.app.model.dao;
 
 import static br.com.locar.app.model.entity.QCategoria.categoria;
-import static com.google.common.base.Preconditions.checkArgument;
 
 import java.util.List;
 
@@ -46,19 +45,13 @@ public class CategoriaRepositoryImpl implements CategoriaRepositoryCustom {
 	public void salvar(CategoriaBean bean) {
 		try {
 			Categoria categoria = Categoria.newIntance(bean);
-			
-			JPAQuery query = new JPAQuery(entityManager);
-			query.from(QCategoria.categoria).where(QCategoria.categoria.nome.eq(categoria.getNome()));
-			List<Categoria> list = query.list(QCategoria.categoria);
-			checkArgument(list.isEmpty(), "Já existe uma categoria com este nome.");
-			
-			
 			salvar(categoria);
 			FacesContext.getCurrentInstance().addMessage(
 					"",
 					new FacesMessage(FacesMessage.SEVERITY_INFO,
 							"Salvo com sucesso", ""));
-		} catch (Exception e) {
+		} 
+		catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(
 					"",
 					new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -68,8 +61,14 @@ public class CategoriaRepositoryImpl implements CategoriaRepositoryCustom {
 	
 	@Override
 	@Transactional
-	public void salvar(Categoria categoria) {
-		entityManager.merge(categoria);
+	public Categoria salvar(Categoria categoria) {
+		JPAQuery query = new JPAQuery(entityManager);
+		query.from(QCategoria.categoria).where(QCategoria.categoria.nome.equalsIgnoreCase(categoria.getNome()));
+		List<Categoria> list = query.list(QCategoria.categoria);
+		if(!list.isEmpty()){
+			throw new RuntimeException("Já existe uma categoria com este nome.");
+		}
+		return entityManager.merge(categoria);
 	}
 
 	@Override

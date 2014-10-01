@@ -2,7 +2,7 @@ package br.com.locar.app.repository;
 
 import br.com.locar.app.model.entity.Veiculo;
 
-public class VeiculoDaoImpl implements VeiculoDaoCustom{
+public class VeiculoRepositoryImpl implements VeiculoRepositoryCustom{
 
 	@Override
 	public void salvar(Veiculo veiculo) {

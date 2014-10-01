@@ -1,5 +1,7 @@
 package br.com.locar.app.model.entity;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
@@ -10,6 +12,7 @@ import javax.persistence.Id;
 import br.com.locar.app.bean.CategoriaBean;
 
 import com.google.common.base.Objects;
+import com.google.common.base.Strings;
 
 @Entity
 public class Categoria extends Entidade {
@@ -19,7 +22,7 @@ public class Categoria extends Entidade {
 	@Id
 	@GeneratedValue
 	private Long id;
-	
+
 	@Column(unique = true)
 	private String nome;
 	private BigDecimal diaria;
@@ -28,16 +31,17 @@ public class Categoria extends Entidade {
 	private BigDecimal protecaoOcupantes;
 	private BigDecimal protecaoTerceiros;
 	private BigDecimal taxaDevolucaoLojaDiferente;
-	private BigDecimal taxaDevolucaoDocumentos;
+	private BigDecimal taxaReposicaoDocumentos;
 
 	public Categoria() {
 	}
 
-	public Categoria(Long id, String nome, BigDecimal diaria,
+	private Categoria(Long id, String nome, BigDecimal diaria,
 			BigDecimal protecaoParcial, BigDecimal protecaoTotal,
 			BigDecimal protecaoOcupantes, BigDecimal protecaoTerceiros,
 			BigDecimal taxaDevolucaoLojaDiferente,
-			BigDecimal taxaDevolucaoDocumentos) {
+			BigDecimal taxaReposicaoDocumentos) {
+
 		this.id = id;
 		this.nome = nome;
 		this.diaria = diaria;
@@ -46,35 +50,63 @@ public class Categoria extends Entidade {
 		this.protecaoOcupantes = protecaoOcupantes;
 		this.protecaoTerceiros = protecaoTerceiros;
 		this.taxaDevolucaoLojaDiferente = taxaDevolucaoLojaDiferente;
-		this.taxaDevolucaoDocumentos = taxaDevolucaoDocumentos;
+		this.taxaReposicaoDocumentos = taxaReposicaoDocumentos;
 	}
-	
-	public static Categoria newIntance(CategoriaBean bean){
-		return new Categoria(bean.getId(), bean.getNome(), 
-				bean.getDiaria(), bean.getProtecaoParcial(), 
-				null, bean.getProtecaoOcupantes(), bean.getProtecaoTerceiros(), 
-				bean.getTaxaDevolucaoLojaDiferente(), bean.getTaxaDevolucaoDocumentos());
+
+	public static Categoria newIntance(CategoriaBean bean) {
+		return newInstance(bean.getId(), bean.getNome(), bean.getDiaria(),
+				bean.getProtecaoParcial(), null, bean.getProtecaoOcupantes(),
+				bean.getProtecaoTerceiros(),
+				bean.getTaxaDevolucaoLojaDiferente(),
+				bean.getTaxaDevolucaoDocumentos());
 	}
-	
-	
+
+	public static Categoria newInstance(Long id, String nome,
+			BigDecimal diaria, BigDecimal protecaoParcial,
+			BigDecimal protecaoTotal, BigDecimal protecaoOcupantes,
+			BigDecimal protecaoTerceiros,
+			BigDecimal taxaDevolucaoLojaDiferente,
+			BigDecimal taxaReposicaoDocumentos) {
+
+		checkArgument(!Strings.isNullOrEmpty(nome),
+				"Nome da categoria não foi informado.");
+		checkArgument(diaria != null && BigDecimal.ZERO.compareTo(diaria) < 0, "Valor da diaria Inválido.");
+		checkArgument(protecaoParcial != null
+				&& BigDecimal.ZERO.compareTo(protecaoParcial) < 0, "Valor da proteção parcial inválido.");
+		checkArgument(protecaoTotal != null
+				&& BigDecimal.ZERO.compareTo(protecaoTotal) < 0, "valor proteção total invalido.");
+		checkArgument(protecaoOcupantes != null
+				&& BigDecimal.ZERO.compareTo(protecaoOcupantes) < 0, "Valor da porteção de ocupantes inválido");
+		checkArgument(protecaoTerceiros != null
+				&& BigDecimal.ZERO.compareTo(protecaoTerceiros) < 0, "Valor da proteção de terceiros.");
+		checkArgument(taxaDevolucaoLojaDiferente != null
+				&& BigDecimal.ZERO.compareTo(taxaDevolucaoLojaDiferente) < 0, "Valor da taxa de devolução em loja diferente é inválido.");
+		checkArgument(taxaReposicaoDocumentos != null
+				&& BigDecimal.ZERO.compareTo(taxaReposicaoDocumentos) < 0, "Valor da taxa de reposição de documentos é inválido");
+		return new Categoria(id, nome, diaria, protecaoParcial, protecaoTotal,
+				protecaoOcupantes, protecaoTerceiros,
+				taxaDevolucaoLojaDiferente, taxaReposicaoDocumentos);
+
+	}
+
 	@Override
 	public boolean equals(Object obj) {
-		if(obj instanceof Categoria){
+		if (obj instanceof Categoria) {
 			Categoria other = (Categoria) obj;
 			return Objects.equal(this.nome, other.nome);
 		}
 		return false;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hashCode(nome);
 	}
-	
-	public boolean isAtivo(){
+
+	public boolean isAtivo() {
 		return status == Status.ATIVO;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -136,12 +168,12 @@ public class Categoria extends Entidade {
 		this.taxaDevolucaoLojaDiferente = taxaDevolucaoLojaDiferente;
 	}
 
-	public BigDecimal getTaxaDevolucaoDocumentos() {
-		return taxaDevolucaoDocumentos;
+	public BigDecimal getTaxaReposicaoDocumentos() {
+		return taxaReposicaoDocumentos;
 	}
 
 	public void setTaxaDevolucaoDocumentos(BigDecimal taxaDevolucaoDocumentos) {
-		this.taxaDevolucaoDocumentos = taxaDevolucaoDocumentos;
+		this.taxaReposicaoDocumentos = taxaDevolucaoDocumentos;
 	}
 
 }

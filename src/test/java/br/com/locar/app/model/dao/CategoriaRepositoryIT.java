@@ -1,11 +1,11 @@
 package br.com.locar.app.model.dao;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
-import java.util.List;
 
+import org.junit.After;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,36 +21,77 @@ import br.com.locar.config.root.SteConfig;
 
 @ActiveProfiles("teste")
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {SteConfig.class})
+@ContextConfiguration(classes = { SteConfig.class })
 @Transactional
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class})
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class })
 public class CategoriaRepositoryIT {
-	
+
 	@Autowired
 	private CategoriaRepository repository;
 
-	@Test
-	public void test() {
-		Categoria categoria = new Categoria(
-				new Long(1L), "categoria1", 
-				new BigDecimal("50.00"), 
-				new BigDecimal("10.00"), 
-				null, 
-				new BigDecimal("35.00"), 
-				new BigDecimal("20.00"), 
-				new BigDecimal("27.00"), 
-				new BigDecimal("100.00"));
-		repository.salvar(categoria);
-		
-		final List<Categoria> list = repository.findAll();
-		assertFalse("A lista de categorias não pode ser vazia", list.isEmpty());
-		assertTrue("A lista de categorias deve conter um registro", list.size() == 1);
-		
+	@After
+	public void after() {
 		repository.deleteAll();
-		
-		List<Categoria> listaVazia = repository.findAll();
-		
-		assertTrue("A lista de categorias deve estar vazia.", listaVazia.isEmpty());
 	}
 
+	@Test
+	public void testCadastroCategoria() {
+		repository.deleteAll();
+		
+		Categoria categoria = Categoria.newInstance(1L, "Minha categoria",
+				new BigDecimal("10.00"), new BigDecimal("10.00"),
+				new BigDecimal("50.00"), new BigDecimal("10.00"),
+				new BigDecimal("10.00"), new BigDecimal("10.00"),
+				new BigDecimal("10.00"));
+
+		repository.salvar(categoria);
+
+		Assert.assertEquals("Deveria conter 1 registros ", 1, repository
+				.findAll().size());
+
+		repository.deleteAll();
+
+		Assert.assertTrue("nao deve conter registros", repository.findAll()
+				.isEmpty());
+
+	}
+
+	@Test
+	public void testValores() {
+		Categoria categoria = Categoria.newInstance(1L, "Minha categoria", new BigDecimal("10.00"),
+				new BigDecimal("10.00"), new BigDecimal("50.00"),
+				new BigDecimal("10.00"), new BigDecimal("10.00"),
+				new BigDecimal("10.00"), new BigDecimal("10.00"));
+		
+
+		Categoria saved = repository.salvar(categoria);
+		
+		assertEquals("Valor da diaria inconsistente.", new BigDecimal("10.00"), saved.getDiaria());
+		assertEquals("Valor protecao parcial inconsistente.", new BigDecimal("10.00"), saved.getProtecaoParcial());
+		assertEquals("Valor protecao total inconsistente", new BigDecimal("50.00"), saved.getProtecaoTotal());
+		assertEquals("Valor protecao ocupantes inconsitente", new BigDecimal("10.00"), saved.getProtecaoOcupantes());
+		assertEquals("Valor protecao terceiros inconsistente.", new BigDecimal("10.00"), saved.getProtecaoTerceiros());
+		assertEquals("Valor taxa devolucao loja deferente inconsistente.", new BigDecimal("10.00"),  saved.getTaxaDevolucaoLojaDiferente());
+		assertEquals("Valor reposicao docs inconsistente.", new BigDecimal("10.00"),saved.getTaxaReposicaoDocumentos());
+	}
+	
+	@Test(expected = RuntimeException.class)
+	public void testeCategoriasComMesmoNome(){
+		repository.deleteAll();
+		Categoria categoria1 = Categoria.newInstance(1L, "Minha categoria", new BigDecimal("10.00"),
+				new BigDecimal("10.00"), new BigDecimal("50.00"),
+				new BigDecimal("10.00"), new BigDecimal("10.00"),
+				new BigDecimal("10.00"), new BigDecimal("10.00"));
+		
+		Categoria categoria2 = Categoria.newInstance(2L, "Minha categoria", new BigDecimal("10.00"),
+				new BigDecimal("10.00"), new BigDecimal("50.00"),
+				new BigDecimal("10.00"), new BigDecimal("10.00"),
+				new BigDecimal("10.00"), new BigDecimal("10.00"));
+		
+		repository.salvar(categoria1);
+		Assert.assertTrue(repository.findAll().size() == 1);
+		repository.salvar(categoria2);
+		
+	}
+	
 }

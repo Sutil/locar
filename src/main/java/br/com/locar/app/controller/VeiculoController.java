@@ -4,13 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import br.com.locar.app.model.entity.Veiculo;
-import br.com.locar.app.repository.VeiculoDao;
+import br.com.locar.app.repository.VeiculoRepository;
 
 @Controller
 public class VeiculoController {
 	
 	@Autowired
-	private VeiculoDao veiculoDao;
+	private VeiculoRepository veiculoDao;
 	
 	public Veiculo novo(){
 		return new Veiculo();
