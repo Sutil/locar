@@ -10,36 +10,44 @@
 				<div id="header">
 					<div class="clearfix">
 						<div class="logo">
-							<p:graphicImage library="images" name="favicon.png" width="50" height="50" />
-							<span style="color: #fff; font-size: 30px;" > <h:outputText value="#{titulo}" style="color=#FFF;" ></h:outputText></span>
+							<p:graphicImage library="images" name="favicon.png" width="50"
+								height="50" />
+							<span style="color: #fff; font-size: 30px;"> <h:outputText
+									value="#{titulo}" style="color=#FFF;"></h:outputText></span>
 						</div>
-						
-						<div class="user" >
-							<h:outputLink id="user" >
+
+						<div class="user">
+							<h:outputLink id="user">
 								<h:outputText value="#{request.remoteUser}" />
 								<i class="fa fa-user fa-1x" />
 							</h:outputLink>
-							<p:overlayPanel for="user" showEvent="mouseover" styleClass="labelSair" >
-								<h:outputLink value="/locar/logout"  >
-									<h:outputText value="Sair" />
-									<i class="fa fa-sign-out fa-1x" />
-								</h:outputLink>
+							<p:overlayPanel for="user" showEvent="mouseover"
+								styleClass="labelSair">
+								<p:menu>
+									<p:menuitem value="Sair" url="/logout"
+										icon="ui-icon-arrowthick-1-e"></p:menuitem>
+									<p:menuitem value="Alterar senha" url="/spring/senha" icon="ui-icon-locked"></p:menuitem>
+								</p:menu>
 							</p:overlayPanel>
 						</div>
-						
+
 						<ul class="navigation">
-							<li><h:commandLink action="home"><h:outputText value="Home" /> </h:commandLink> </li>
-							<li><h:commandLink action="seguranca"><h:outputText value="Segurança" /> </h:commandLink> </li>
+							<li><h:commandLink action="home">
+									<h:outputText value="Home" />
+								</h:commandLink></li>
+							<li><h:commandLink action="seguranca">
+									<h:outputText value="Segurança" />
+								</h:commandLink></li>
 						</ul>
-						
-						
+
+
 
 					</div>
-					
-					
+
+
 				</div>
 			</h:form>
-			
+
 		</div>
 		<div id="main" class="admin">
 			<ui:insert name="content" />

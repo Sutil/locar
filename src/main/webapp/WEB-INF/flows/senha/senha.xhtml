@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/ui.xhtml">
+	
+	
+
+	
+	<ui:define name="content">
+		<h:form id="form" style="width: 30%; margin: auto;" >
+			<p:panel header="Alteração de senha" >
+				<p:messages autoUpdate="true" showDetail="true" showSummary="true" />
+				<h:outputText value="#{bean.usuario.login}, preencha os campos abaixo para alterar sua senha." ></h:outputText>
+				<h:panelGrid columns="1" >
+					<h:outputText value="Senha atual:" />
+					<p:password value="#{bean.senhaAtual}" ></p:password>
+					<h:outputText value="Nova senha:" />
+					<p:password value="#{bean.novaSenha}" ></p:password>
+					<h:outputText value="Confirma nova senha:" />
+					<p:password value="#{bean.confirmacaoNovaSenha}" ></p:password>
+					<p:commandButton value="Salvar" action="salvar" update="@form" icon="ui-icon-disk" />
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+		
+	</ui:define>
+</ui:composition>
+

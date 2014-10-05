@@ -4,42 +4,60 @@ import java.math.BigDecimal;
 
 import org.junit.Test;
 
+import br.com.locar.app.bean.CategoriaBean;
+
 public class CategoriaTest {
+	
+	@Test
+	public void categoriaHappyDay(){
+		CategoriaBean bean = montaBean(new BigDecimal("1.00"));
+		Categoria.newInstance(bean);
+	}
+
+	
 
 	@Test(expected = RuntimeException.class)
 	public void testNomeCategoriaNulo() {
-		Categoria.newInstance(1L, null, new BigDecimal("10.00"),
-				new BigDecimal("10.00"), new BigDecimal("50.00"),
-				new BigDecimal("10.00"), new BigDecimal("10.00"),
-				new BigDecimal("10.00"), new BigDecimal("10.00"));
+		CategoriaBean bean = new CategoriaBean();
+		bean.setId(1L);
+		bean.setNome(null);
+		Categoria.newInstance(bean);
+
 	}
 	
 	@Test(expected = RuntimeException.class)
 	public void testNomeCategoriaVazio() {
-		Categoria.newInstance(1L, "", new BigDecimal("10.00"),
-				new BigDecimal("10.00"), new BigDecimal("50.00"),
-				new BigDecimal("10.00"), new BigDecimal("10.00"),
-				new BigDecimal("10.00"), new BigDecimal("10.00"));
+		CategoriaBean bean = new CategoriaBean();
+		bean.setNome("");
+		Categoria.newInstance(bean);
 
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testValoresNulos() {
-		Categoria.newInstance(1L, "Minha categoria", null,
-				null, null,
-				null, null,
-				null, null);
+		CategoriaBean bean = new CategoriaBean();
+		Categoria.newInstance(bean);
 
 	}
 	
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testValoresNegativos() {
-		Categoria.newInstance(1L, "Minha categoria", new BigDecimal("-1.0"),
-				new BigDecimal("-1.0"), new BigDecimal("-1.0"),
-				new BigDecimal("-1.0"), new BigDecimal("-1.0"),
-				new BigDecimal("-1.0"), new BigDecimal("-1.0"));
+		CategoriaBean bean = montaBean(new BigDecimal("-1.00"));
 		
+		
+		Categoria.newInstance(bean);
+	}
+	
+	private CategoriaBean montaBean(BigDecimal valorDiaRiaEOutros) {
+		CategoriaBean bean = new CategoriaBean();
+		bean.setNome("Categoria teste");
+		bean.setDiaria(valorDiaRiaEOutros);
+		bean.setProtecaoOcupantes(valorDiaRiaEOutros);
+		bean.setProtecaoTerceiros(valorDiaRiaEOutros);
+		bean.setTaxaReposicaoDocumentos(valorDiaRiaEOutros);
+		bean.setTaxaDevolucaoLojaDiferente(valorDiaRiaEOutros);
+		return bean;
 	}
 
 }

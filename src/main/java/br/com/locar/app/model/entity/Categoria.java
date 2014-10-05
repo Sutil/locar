@@ -26,18 +26,16 @@ public class Categoria extends Entidade {
 	@Column(unique = true)
 	private String nome;
 	private BigDecimal diaria;
-	private BigDecimal protecaoParcial;
-	private BigDecimal protecaoTotal;
 	private BigDecimal protecaoOcupantes;
 	private BigDecimal protecaoTerceiros;
 	private BigDecimal taxaDevolucaoLojaDiferente;
 	private BigDecimal taxaReposicaoDocumentos;
 
+	
 	public Categoria() {
 	}
 
 	private Categoria(Long id, String nome, BigDecimal diaria,
-			BigDecimal protecaoParcial, BigDecimal protecaoTotal,
 			BigDecimal protecaoOcupantes, BigDecimal protecaoTerceiros,
 			BigDecimal taxaDevolucaoLojaDiferente,
 			BigDecimal taxaReposicaoDocumentos) {
@@ -45,25 +43,22 @@ public class Categoria extends Entidade {
 		this.id = id;
 		this.nome = nome;
 		this.diaria = diaria;
-		this.protecaoParcial = protecaoParcial;
-		this.protecaoTotal = protecaoTotal;
 		this.protecaoOcupantes = protecaoOcupantes;
 		this.protecaoTerceiros = protecaoTerceiros;
 		this.taxaDevolucaoLojaDiferente = taxaDevolucaoLojaDiferente;
 		this.taxaReposicaoDocumentos = taxaReposicaoDocumentos;
 	}
 
-	public static Categoria newIntance(CategoriaBean bean) {
+	public static Categoria newInstance(CategoriaBean bean) {
 		return newInstance(bean.getId(), bean.getNome(), bean.getDiaria(),
-				bean.getProtecaoParcial(), null, bean.getProtecaoOcupantes(),
+				bean.getProtecaoOcupantes(),
 				bean.getProtecaoTerceiros(),
 				bean.getTaxaDevolucaoLojaDiferente(),
-				bean.getTaxaDevolucaoDocumentos());
+				bean.getTaxaReposicaoDocumentos());
 	}
 
-	public static Categoria newInstance(Long id, String nome,
-			BigDecimal diaria, BigDecimal protecaoParcial,
-			BigDecimal protecaoTotal, BigDecimal protecaoOcupantes,
+	private static Categoria newInstance(Long id, String nome,
+			BigDecimal diaria, BigDecimal protecaoOcupantes,
 			BigDecimal protecaoTerceiros,
 			BigDecimal taxaDevolucaoLojaDiferente,
 			BigDecimal taxaReposicaoDocumentos) {
@@ -71,10 +66,6 @@ public class Categoria extends Entidade {
 		checkArgument(!Strings.isNullOrEmpty(nome),
 				"Nome da categoria não foi informado.");
 		checkArgument(diaria != null && BigDecimal.ZERO.compareTo(diaria) < 0, "Valor da diaria Inválido.");
-		checkArgument(protecaoParcial != null
-				&& BigDecimal.ZERO.compareTo(protecaoParcial) < 0, "Valor da proteção parcial inválido.");
-		checkArgument(protecaoTotal != null
-				&& BigDecimal.ZERO.compareTo(protecaoTotal) < 0, "valor proteção total invalido.");
 		checkArgument(protecaoOcupantes != null
 				&& BigDecimal.ZERO.compareTo(protecaoOcupantes) < 0, "Valor da porteção de ocupantes inválido");
 		checkArgument(protecaoTerceiros != null
@@ -83,7 +74,7 @@ public class Categoria extends Entidade {
 				&& BigDecimal.ZERO.compareTo(taxaDevolucaoLojaDiferente) < 0, "Valor da taxa de devolução em loja diferente é inválido.");
 		checkArgument(taxaReposicaoDocumentos != null
 				&& BigDecimal.ZERO.compareTo(taxaReposicaoDocumentos) < 0, "Valor da taxa de reposição de documentos é inválido");
-		return new Categoria(id, nome, diaria, protecaoParcial, protecaoTotal,
+		return new Categoria(id, nome, diaria,
 				protecaoOcupantes, protecaoTerceiros,
 				taxaDevolucaoLojaDiferente, taxaReposicaoDocumentos);
 
@@ -127,21 +118,6 @@ public class Categoria extends Entidade {
 		this.diaria = diaria;
 	}
 
-	public BigDecimal getProtecaoParcial() {
-		return protecaoParcial;
-	}
-
-	public void setProtecaoParcial(BigDecimal protecaoParcial) {
-		this.protecaoParcial = protecaoParcial;
-	}
-
-	public BigDecimal getProtecaoTotal() {
-		return protecaoTotal;
-	}
-
-	public void setProtecaoTotal(BigDecimal protecaoTotal) {
-		this.protecaoTotal = protecaoTotal;
-	}
 
 	public BigDecimal getProtecaoOcupantes() {
 		return protecaoOcupantes;

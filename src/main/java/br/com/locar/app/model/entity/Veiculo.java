@@ -1,12 +1,20 @@
 package br.com.locar.app.model.entity;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import br.com.locar.app.bean.VeiculoBean;
+import br.com.locar.app.model.types.Placa;
+import br.com.locar.app.model.types.Renavam;
+
 import com.google.common.base.Objects;
+import com.google.common.base.Strings;
 
 @Entity
 public class Veiculo implements Serializable {
@@ -20,21 +28,28 @@ public class Veiculo implements Serializable {
 	private String marca;
 	private String modelo;
 	private int ano;
-	private String placa;
-	private String renavam;
+	private Placa placa;
+	private Renavam renavam;
 
 	public Veiculo() {
-		// TODO Auto-generated constructor stub
 	}
 
-	public Veiculo(Categoria categoria, String marca, String modelo, int ano,
+	private Veiculo(Categoria categoria, String marca, String modelo, int ano,
 			String placa, String renavam) {
 		this.categoria = categoria;
 		this.marca = marca;
 		this.modelo = modelo;
 		this.ano = ano;
-		this.placa = placa;
-		this.renavam = renavam;
+		this.placa = Placa.fromString(placa);
+		this.renavam = Renavam.fromString(renavam);
+	}
+	
+	public static Veiculo newInstance(VeiculoBean bean){
+		checkNotNull(bean.getCategoria(), "Categoria não informada.");
+		checkArgument(!Strings.isNullOrEmpty(bean.getMarca()), "Marca não informada.");
+		checkArgument(!Strings.isNullOrEmpty(bean.getModelo()), "Modelo não informado.");
+		return new Veiculo(bean.getCategoria(), bean.getMarca(), bean.getModelo(), bean.getAno(), 
+				bean.getPlaca(), bean.getRenavam());
 	}
 	
 	@Override
@@ -55,48 +70,24 @@ public class Veiculo implements Serializable {
 		return categoria;
 	}
 
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
-	}
-
 	public String getMarca() {
 		return marca;
-	}
-
-	public void setMarca(String marca) {
-		this.marca = marca;
 	}
 
 	public String getModelo() {
 		return modelo;
 	}
 
-	public void setModelo(String modelo) {
-		this.modelo = modelo;
-	}
-
 	public int getAno() {
 		return ano;
 	}
 
-	public void setAno(int ano) {
-		this.ano = ano;
-	}
-
 	public String getPlaca() {
-		return placa;
-	}
-
-	public void setPlaca(String placa) {
-		this.placa = placa;
+		return placa.toString();
 	}
 
 	public String getRenavam() {
-		return renavam;
-	}
-
-	public void setRenavam(String renavam) {
-		this.renavam = renavam;
+		return renavam.toString();
 	}
 
 }

@@ -43,7 +43,7 @@ public class Usuario implements UserDetails, Serializable {
 
 	@NotEmpty
 	@Column(length = 64)
-	private String senha = "132";
+	private String senha = "123";
 
 	@ManyToOne
 	@JoinColumn(name = "perfil_fk")
@@ -54,10 +54,6 @@ public class Usuario implements UserDetails, Serializable {
 
 	private Usuario(String login) {
 		this.login = login;
-	}
-
-	public static Usuario newUsuario() {
-		return new Usuario();
 	}
 
 	public static Usuario newUsuario(String login) {
@@ -99,6 +95,13 @@ public class Usuario implements UserDetails, Serializable {
 	public String toString() {
 		return Objects.toStringHelper(this).add("login", login).toString();
 	}
+	
+	public void validaSenha(String senha){
+		System.out.println(senha +" == "+this.senha+" ??");
+		if(Strings.isNullOrEmpty(senha) || !senha.equals(this.senha)){
+			throw new RuntimeException("Senha inválida");
+		}
+	}
 
 	public Long getId() {
 		return id;
@@ -110,10 +113,6 @@ public class Usuario implements UserDetails, Serializable {
 
 	public void setLogin(String login) {
 		this.login = login;
-	}
-
-	public String getSenha() {
-		return senha;
 	}
 
 	public void setSenha(String senha) {
@@ -133,6 +132,10 @@ public class Usuario implements UserDetails, Serializable {
 
 	@Override
 	public String getPassword() {
+		return senha;
+	}
+	
+	public String getSenha() {
 		return senha;
 	}
 

@@ -1,4 +1,4 @@
-package br.com.locar.app.repository;
+package br.com.locar.app.model.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

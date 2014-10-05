@@ -14,7 +14,6 @@ public class CategoriaBean implements Serializable {
 	private Long id;
 	private String nome;
 	private BigDecimal diaria;
-	private BigDecimal protecaoParcial;
 	private BigDecimal protecaoOcupantes;
 	private BigDecimal protecaoTerceiros;
 	private BigDecimal taxaDevolucaoLojaDiferente;
@@ -27,7 +26,6 @@ public class CategoriaBean implements Serializable {
 		this.id = categoria.getId();
 		this.nome = categoria.getNome();
 		this.diaria = categoria.getDiaria();
-		this.protecaoParcial = categoria.getProtecaoParcial();
 		this.protecaoOcupantes = categoria.getProtecaoOcupantes();
 		this.protecaoTerceiros = categoria.getProtecaoTerceiros();
 		this.taxaDevolucaoLojaDiferente = categoria.getTaxaDevolucaoLojaDiferente();
@@ -63,14 +61,6 @@ public class CategoriaBean implements Serializable {
 		this.diaria = diaria;
 	}
 
-	public BigDecimal getProtecaoParcial() {
-		return protecaoParcial;
-	}
-
-	public void setProtecaoParcial(BigDecimal protecaoParcial) {
-		this.protecaoParcial = protecaoParcial;
-	}
-
 	public BigDecimal getProtecaoOcupantes() {
 		return protecaoOcupantes;
 	}
@@ -96,11 +86,11 @@ public class CategoriaBean implements Serializable {
 		this.taxaDevolucaoLojaDiferente = taxaDevolucaoLojaDiferente;
 	}
 
-	public BigDecimal getTaxaDevolucaoDocumentos() {
+	public BigDecimal getTaxaReposicaoDocumentos() {
 		return taxaDevolucaoDocumentos;
 	}
 
-	public void setTaxaDevolucaoDocumentos(BigDecimal taxaDevolucaoDocumentos) {
+	public void setTaxaReposicaoDocumentos(BigDecimal taxaDevolucaoDocumentos) {
 		this.taxaDevolucaoDocumentos = taxaDevolucaoDocumentos;
 	}
 

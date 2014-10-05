@@ -3,8 +3,9 @@ package br.com.locar.app.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import br.com.locar.app.bean.VeiculoBean;
+import br.com.locar.app.model.dao.VeiculoRepository;
 import br.com.locar.app.model.entity.Veiculo;
-import br.com.locar.app.repository.VeiculoRepository;
 
 @Controller
 public class VeiculoController {
@@ -12,13 +13,12 @@ public class VeiculoController {
 	@Autowired
 	private VeiculoRepository veiculoDao;
 	
-	public Veiculo novo(){
-		return new Veiculo();
+	public VeiculoBean novo(){
+		return new VeiculoBean();
 	}
 	
-	
-	public void salvar(Veiculo veiculo){
-		veiculoDao.salvar(veiculo);
+	public void salvar(VeiculoBean bean){
+		veiculoDao.salvar(bean);
 	}
 	
 	public void inativar(Veiculo veiculo){

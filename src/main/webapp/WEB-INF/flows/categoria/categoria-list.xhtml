@@ -11,7 +11,7 @@
 		<p:messages autoUpdate="true" showSummary="true" showDetail="true" />
 		<h:form id="form">
 
-			<h:panelGrid columns="2" style="width:100%;" >
+			<h:panelGrid columns="2" style="width:100%;">
 				<p:panel>
 					<h:panelGrid columns="1">
 						<p:commandButton value="Nova categoria" icon="ui-icon-plus"
@@ -20,9 +20,10 @@
 				</p:panel>
 				<p:panel>
 					<h:panelGrid columns="6">
-						<p:inputText id="filtro" size="80" value="#{filtro.nomeCategoria}" ></p:inputText>
+						<p:inputText id="filtro" size="80" value="#{filtro.nomeCategoria}"></p:inputText>
 						<p:watermark for="filtro" value="Pesquise pelo nome da categoria" />
-						<p:commandButton value="pesquisar" action="pesquisar" update="@form" />
+						<p:commandButton value="pesquisar" action="pesquisar"
+							update="@form" />
 						<p:spacer width="80" height="0" />
 						<p:selectBooleanCheckbox value="#{filtro.mostraInativos}" />
 						<h:outputText value="Mostrar excluídos" />
@@ -31,43 +32,74 @@
 			</h:panelGrid>
 
 			<p:dataTable id="table" emptyMessage="Nenhum categoria encontrado"
-				value="#{categorias}" var="cat">
+				value="#{categorias}" var="cat" rowStyleClass="#{cat.ativo ? '' : 'laranja'}" >
 				<f:facet name="header">Lista de categorias</f:facet>
-				<p:column headerText="Categoria" >#{cat.nome}</p:column>
-				<p:column headerText="Valor Diária">#{cat.diaria}</p:column>
-				<p:column headerText="Valor Proteção Parcial">#{cat.protecaoParcial}</p:column>
-				<p:column headerText="Valor Proteção Ocupantes">#{cat.protecaoOcupantes}</p:column>
-				<p:column headerText="Taxa Reposição de Documentos">#{cat.taxaDevolucaoDocumentos}</p:column>
-				
-				
-				<p:column style="width: 10%;">
-					<p:commandButton icon="ui-icon-pencil" oncomplete="dgEdit.show();" action="selecionar" update=":formEdit" />
-					<p:commandButton rendered="#{cat.ativo}" icon="ui-icon-close" onclick="dgDelete.show();" action="selecionarParaExcluir" update=":formDelete" />
+				<p:column headerText="Categoria">#{cat.nome}</p:column>
+				<p:column headerText="Valor Diária">
+					<h:outputText value="#{cat.diaria}">
+						<f:convertNumber pattern="#0.00" />
+					</h:outputText>
 				</p:column>
+				<p:column headerText="Valor Terceiros">
+					<h:outputText value="#{cat.protecaoTerceiros}">
+						<f:convertNumber pattern="#0.00" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Valor Proteção Ocupantes">
+					<h:outputText value="#{cat.protecaoOcupantes}">
+						<f:convertNumber pattern="#0.00" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Taxa Reposição de Documentos">
+					<h:outputText value="#{cat.taxaReposicaoDocumentos}">
+						<f:convertNumber pattern="#0.00" />
+					</h:outputText>
+				</p:column>
+				
+				<p:column headerText="Taxa devolução em loja diferente">
+					<h:outputText value="#{cat.taxaDevolucaoLojaDiferente}">
+						<f:convertNumber pattern="#0.00" />
+					</h:outputText>
+				</p:column>
+
+				<p:column style="width: 10%;">
+					<p:commandButton icon="ui-icon-pencil" oncomplete="dgEdit.show();"
+						action="selecionar" update=":formEdit" />
+					<p:commandButton rendered="#{cat.ativo}" icon="ui-icon-close"
+						onclick="dgDelete.show();" action="selecionarParaExcluir"
+						update=":formDelete" />
+				</p:column>
+				
+				
 			</p:dataTable>
 
 		</h:form>
 
-		<p:dialog widgetVar="dgEdit" modal="true" header="Cadastrar/Editar Categoria"  >
+		<p:dialog widgetVar="dgEdit" modal="true"
+			header="Cadastrar/Editar Categoria">
 			<h:form id="formEdit">
 				<h:panelGrid columns="1">
 				Nome da Categoria:
 				<p:inputText size="80" value="#{bean.nome}" />
 				
 				Valor da diária:
-				<pe:inputNumber value="#{bean.diaria}"  ></pe:inputNumber>
+				<pe:inputNumber value="#{bean.diaria}"></pe:inputNumber>
 				
-				Valor proteção parcial:
-				<pe:inputNumber value="#{bean.protecaoParcial}"></pe:inputNumber>
+				Valor proteção para terceiros:
+				<pe:inputNumber value="#{bean.protecaoTerceiros}"></pe:inputNumber>
 				
 				Valor proteção ocupantes:
 				<pe:inputNumber value="#{bean.protecaoOcupantes}"></pe:inputNumber>
 				
 				Taxa de reposição de documentos:
-				<pe:inputNumber value="#{bean.taxaDevolucaoDocumentos}" />
+				<pe:inputNumber value="#{bean.taxaReposicaoDocumentos}" />
+				
+				Taxa de devolução em loja diferente:
+				<pe:inputNumber value="#{bean.taxaDevolucaoLojaDiferente}" />
 
 				</h:panelGrid>
-				<p:commandButton value="Salvar" oncomplete="dgEdit.hide();" action="salvar" />
+				<p:commandButton value="Salvar" oncomplete="dgEdit.hide();"
+					action="salvar" />
 				<p:commandButton value="Cancelar" immediate="true"
 					onclick="dgEdit.hide();" />
 			</h:form>
@@ -75,7 +107,8 @@
 		<p:confirmDialog widgetVar="dgDelete"
 			message="Deseja excluir este registro?">
 			<h:form id="formDelete">
-				<p:commandButton value="Sim" onclick="dgDelete.hide();" action="desativar" />
+				<p:commandButton value="Sim" onclick="dgDelete.hide();"
+					action="desativar" />
 				<p:commandButton value="Não" onclick="dgDelete.hide();" />
 			</h:form>
 		</p:confirmDialog>

@@ -16,8 +16,6 @@ public class Locacao implements Serializable {
 	private Veiculo veiculo;
 	private Date retirada = new Date();
 	private Date devolucao;
-	private BigDecimal protecaoTotal = BigDecimal.ZERO;
-	private BigDecimal protecaoParcial = BigDecimal.ZERO;
 	private BigDecimal protecaoOcupantes = BigDecimal.ZERO;
 	private BigDecimal protecaoTerceiros = BigDecimal.ZERO;
 
@@ -33,12 +31,8 @@ public class Locacao implements Serializable {
 	private void instaciarValoresDasProtecoes(Categoria c, LocacaoBean bean) {
 		this.protecaoOcupantes = bean.isProtecaoOcupantes() ? c
 				.getProtecaoOcupantes() : BigDecimal.ZERO;
-		this.protecaoParcial = bean.isProtecaoParcial() ? c
-				.getProtecaoParcial() : BigDecimal.ZERO;
 		this.protecaoTerceiros = bean.isProtecaoTerceiros() ? c
 				.getProtecaoTerceiros() : BigDecimal.ZERO;
-		this.protecaoTotal = this.protecaoOcupantes.add(this.protecaoParcial)
-				.add(this.protecaoTerceiros);
 	}
 	
 
@@ -52,14 +46,6 @@ public class Locacao implements Serializable {
 
 	public Date getRetirada() {
 		return retirada;
-	}
-
-	public BigDecimal getProtecaoTotal() {
-		return protecaoTotal;
-	}
-
-	public BigDecimal getProtecaoParcial() {
-		return protecaoParcial;
 	}
 
 	public BigDecimal getProtecaoOcupantes() {
