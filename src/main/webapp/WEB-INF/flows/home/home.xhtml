@@ -11,6 +11,12 @@
 		<h:form id="form">
 			<div class="bts">
 				<ul>
+					<sec:authorize ifAnyGranted="ROLE_DIRETOR, ROLE_ADMIN">
+						<li><h:commandLink action="lojas">
+								<h:outputText value="Lojas" />
+								<i class="fa fa-home fa-4x" />
+							</h:commandLink></li>
+					</sec:authorize>
 					<li><h:commandLink action="categorias">
 							<h:outputText value="Categorias" />
 							<i class="fa fa-dot-circle-o fa-4x" />

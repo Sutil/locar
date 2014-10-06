@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+        parent="main-flow">
+        
+	
+	<persistence-context />
+
+	<view-state id="loja">
+		<on-entry>
+			<evaluate expression="lojaController.newFiltro()" result="viewScope.filtro" />
+			<evaluate expression="lojaController.pesquisar(filtro)" result="viewScope.lojas" result-type="dataModel" />
+		</on-entry>
+		<transition on="pesquisar" >
+			<evaluate expression="lojaController.pesquisar(filtro)" result="viewScope.lojas" result-type="dataModel" />
+		</transition>
+		<transition on="novo" >
+			<evaluate expression="lojaController.newBean()" result="viewScope.bean" />
+		</transition>
+		<transition on="editar">
+			<evaluate expression="lojaController.newBeanParaEdicao(lojas.selectedRow)" result="viewScope.bean" />
+		</transition>
+		<transition on="salvar" >
+			<evaluate expression="lojaController.salvar(bean)" />
+			<evaluate expression="lojaController.pesquisar(filtro)" result="viewScope.lojas" result-type="dataModel" />
+		</transition>
+	</view-state>
+	
+	
+	
+
+	
+</flow>

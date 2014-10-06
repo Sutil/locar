@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	template="/WEB-INF/template/ui.xhtml">
+
+	<ui:define name="content">
+		<p:messages autoUpdate="true" />
+		<h:form id="form">
+			<h:panelGrid columns="2" style="width:100%;">
+				<p:panel style="height:60px">
+					<h:panelGrid columns="4">
+						<p:commandButton value="Nova loja" icon="ui-icon-plus"
+							action="novo" update=":formEdit" oncomplete="dgEdit.show();" />
+						<p:spacer width="80" height="0" />
+						<p:selectBooleanCheckbox value="#{filtro.inativo}"
+							onchange="filtrar();" />
+						<h:outputText value="Mostrar excluídos" />
+						<p:remoteCommand name="filtrar" action="pesquisar" update="@form" />
+					</h:panelGrid>
+				</p:panel>
+			</h:panelGrid>
+			<p:dataTable value="#{lojas}" var="loja"
+				emptyMessage="A pesquisa não retornou nenhuma loja."
+				rowStyleClass="#{loja.ativo ? '' : 'laranja'}">
+				<f:facet name="header">Lista de lojas</f:facet>
+				<p:column headerText="Loja">#{loja.nome}</p:column>
+				<p:column headerText="Opções">
+					<p:commandButton  icon="ui-icon-pencil" />
+					<p:commandButton icon="ui-icon-close" />
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+
+
+		<p:dialog widgetVar="dgEdit" modal="true"
+			header="Cadastrar/Editar Loja">
+			<h:form id="formEdit">
+				<h:panelGrid columns="1">
+					<h:outputText value="Nome da loja:" />
+					<p:inputText value="#{bean.nome}" />
+
+					<h:panelGrid columns="2">
+						<p:commandButton value="Salvar" icon="ui-icon-disk"
+							oncomplete="dgEdit.hide();" update=":form" action="salvar" />
+						<p:commandButton value="Cancelar" icon="ui-icon-close"
+							onclick="dgEdit.hide();" immediate="true" />
+					</h:panelGrid>
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>

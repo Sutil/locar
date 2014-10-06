@@ -63,7 +63,7 @@
 				</p:column>
 
 				<p:column style="width: 10%;">
-					<p:commandButton icon="ui-icon-pencil" oncomplete="dgEdit.show();"
+					<p:commandButton rendered="#{cat.ativo}" icon="ui-icon-pencil" oncomplete="dgEdit.show();"
 						action="selecionar" update=":formEdit" />
 					<p:commandButton rendered="#{cat.ativo}" icon="ui-icon-close"
 						onclick="dgDelete.show();" action="selecionarParaExcluir"

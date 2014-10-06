@@ -20,6 +20,7 @@
 		view="externalRedirect:contextRelative:/spring/reserva" />
 		<end-state id="Multas"
 		view="externalRedirect:contextRelative:/spring/multa" />
+	<end-state id="Lojas" view="externalRedirect:contextRelative:/spring/loja" />
 
 	<global-transitions>
 		<transition on="home" to="Home" />
@@ -32,6 +33,7 @@
 		<transition on="relatorios" to="Relatorios"></transition>
 		<transition on="reservas" to="Reservas"></transition>
 		<transition on="multas" to="Multas"></transition>
+		<transition on="lojas" to="Lojas" ></transition>
 	</global-transitions>
 
 

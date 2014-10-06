@@ -94,10 +94,6 @@ public class Categoria extends Entidade {
 		return Objects.hashCode(nome);
 	}
 
-	public boolean isAtivo() {
-		return status == Status.ATIVO;
-	}
-
 	public Long getId() {
 		return id;
 	}

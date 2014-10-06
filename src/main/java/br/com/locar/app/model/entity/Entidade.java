@@ -14,6 +14,10 @@ public class Entidade implements Serializable {
 	@Enumerated(EnumType.STRING)
 	protected Status status = Status.ATIVO;
 	
+	public boolean isAtivo() {
+		return status == Status.ATIVO;
+	}
+	
 	public void desativar(){
 		this.status = Status.INATIVO;
 	}
