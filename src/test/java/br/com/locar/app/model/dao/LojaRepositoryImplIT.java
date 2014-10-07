@@ -94,5 +94,33 @@ public class LojaRepositoryImplIT {
 		repository.desativar(saved);
 		assertFalse("loja deve estar desativada", saved.isAtivo());
 	}
+	
+	@Test(expected = RuntimeException.class)
+	public void criaNovaLojaComNomeRepetido_saidaErro(){
+		LojaBean bean = new LojaBean();
+		bean.setNome("Loja teste");
+
+		repository.salvar(bean);
+		
+		LojaBean bean2 = new LojaBean();
+		bean2.setNome("Loja teste");
+		
+		repository.salvar(bean2);
+	}
+	
+	@Test
+	public void ativarLoja(){
+		LojaBean bean = new LojaBean();
+		bean.setNome("Loja teste");
+
+		Loja saved = repository.salvar(bean);
+		repository.desativar(saved);
+		
+		assertFalse("Loja deve estar desativada", saved.isAtivo());
+		
+		repository.ativar(saved);
+		assertTrue("Loja deve estar ativa", saved.isAtivo());
+		
+	}
 
 }

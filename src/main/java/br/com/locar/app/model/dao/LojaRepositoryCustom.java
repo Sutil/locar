@@ -10,6 +10,7 @@ public interface LojaRepositoryCustom {
 	
 	public Loja salvar(LojaBean bean);
 	public void desativar(Loja loja);
+	public void ativar(Loja loja);
 	public List<Loja> pesquisar(LojaFiltro filtro);
 
 }

@@ -8,7 +8,7 @@
 	template="/WEB-INF/template/ui.xhtml">
 
 	<ui:define name="content">
-		<p:messages autoUpdate="true" />
+		<p:messages autoUpdate="true" showDetail="true" />
 		<h:form id="form">
 			<h:panelGrid columns="2" style="width:100%;">
 				<p:panel style="height:60px">
@@ -29,8 +29,9 @@
 				<f:facet name="header">Lista de lojas</f:facet>
 				<p:column headerText="Loja">#{loja.nome}</p:column>
 				<p:column headerText="Opções">
-					<p:commandButton  icon="ui-icon-pencil" />
-					<p:commandButton icon="ui-icon-close" />
+					<p:commandButton icon="ui-icon-pencil" rendered="#{loja.ativo}" action="editar" update=":formEdit" oncomplete="dgEdit.show();" />
+					<p:commandButton icon="ui-icon-close" rendered="#{loja.ativo}" action="selecionar" update=":formDelete" oncomplete="dgDelete.show();" />
+					<p:commandButton value="Ativar" rendered="#{!loja.ativo}" action="ativar" update="@form" />
 				</p:column>
 
 			</p:dataTable>
@@ -53,5 +54,16 @@
 				</h:panelGrid>
 			</h:form>
 		</p:dialog>
+
+		<p:dialog widgetVar="dgDelete" modal="true" header="Excluir loja">
+			<h:form id="formDelete">
+				<h:outputText value="Deseja excluir a loja #{lojaSelecionada.nome}?" />
+				<h:panelGrid columns="2">
+					<p:commandButton value="Sim"  action="desativar" oncomplete="dgDelete.hide();" update=":form" />
+					<p:commandButton value="Não" immediate="true" onclick="dgDelete.hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
 	</ui:define>
 </ui:composition>

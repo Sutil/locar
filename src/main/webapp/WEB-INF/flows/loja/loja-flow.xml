@@ -26,6 +26,16 @@
 			<evaluate expression="lojaController.salvar(bean)" />
 			<evaluate expression="lojaController.pesquisar(filtro)" result="viewScope.lojas" result-type="dataModel" />
 		</transition>
+		<transition on="selecionar" >
+			<evaluate expression="lojas.selectedRow" result="viewScope.lojaSelecionada" />
+		</transition>
+		<transition on="desativar">
+			<evaluate expression="lojaController.desativar(lojaSelecionada)" />
+			<evaluate expression="lojaController.pesquisar(filtro)" result="viewScope.lojas" result-type="dataModel" />
+		</transition>
+		<transition on="ativar" >
+			<evaluate expression="lojaController.ativar(lojas.selectedRow)" />
+		</transition>
 	</view-state>
 	
 	
