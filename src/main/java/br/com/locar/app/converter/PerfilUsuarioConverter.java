@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 
 import br.com.locar.app.login.seguranca.PerfilUsuario;
-import br.com.locar.app.repository.PerfilUsuarioRepository;
+import br.com.locar.app.model.dao.PerfilUsuarioRepository;
 
 @Configurable
 @FacesConverter(value = "perfilUsuarioConverter", forClass=PerfilUsuario.class)

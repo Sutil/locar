@@ -97,7 +97,6 @@ public class Usuario implements UserDetails, Serializable {
 	}
 	
 	public void validaSenha(String senha){
-		System.out.println(senha +" == "+this.senha+" ??");
 		if(Strings.isNullOrEmpty(senha) || !senha.equals(this.senha)){
 			throw new RuntimeException("Senha inválida");
 		}

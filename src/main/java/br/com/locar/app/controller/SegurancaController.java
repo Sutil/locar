@@ -16,7 +16,7 @@ import br.com.locar.app.login.seguranca.PerfilUsuario;
 import br.com.locar.app.login.seguranca.Permissao;
 import br.com.locar.app.login.seguranca.Usuario;
 import br.com.locar.app.login.seguranca.repository.UsuarioRepository;
-import br.com.locar.app.repository.PerfilUsuarioRepository;
+import br.com.locar.app.model.dao.PerfilUsuarioRepository;
 
 import com.google.common.collect.Lists;
 

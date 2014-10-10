@@ -7,8 +7,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.springframework.transaction.annotation.Transactional;
-
 import br.com.locar.app.bean.CategoriaBean;
 import br.com.locar.app.bean.CategoriaFiltro;
 import br.com.locar.app.model.entity.Categoria;
@@ -22,7 +20,6 @@ public class CategoriaRepositoryImpl implements CategoriaRepositoryCustom {
 	EntityManager entityManager;
 
 	@Override
-	@Transactional
 	public void desativar(Categoria categoria) {
 		categoria.desativar();
 		entityManager.merge(categoria);
@@ -35,7 +32,6 @@ public class CategoriaRepositoryImpl implements CategoriaRepositoryCustom {
 	}
 
 	@Override
-	@Transactional
 	public Categoria salvar(Categoria categoriaParaSalvar) {
 		JPAQuery query = new JPAQuery(entityManager);
 		query.from(categoria);

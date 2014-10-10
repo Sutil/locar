@@ -11,18 +11,18 @@ import br.com.locar.app.model.entity.Veiculo;
 public class VeiculoController {
 	
 	@Autowired
-	private VeiculoRepository veiculoDao;
+	private VeiculoRepository veiculoRepository;
 	
 	public VeiculoBean novo(){
 		return new VeiculoBean();
 	}
 	
 	public void salvar(VeiculoBean bean){
-		veiculoDao.salvar(bean);
+		veiculoRepository.salvar(bean);
 	}
 	
 	public void inativar(Veiculo veiculo){
-		veiculoDao.inativar();
+		veiculoRepository.inativar();
 	}
 
 }

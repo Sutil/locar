@@ -70,10 +70,10 @@ public class PerfilUsuario implements Serializable{
     }
     
     public static PerfilUsuario newInstance(PerfilUsuarioBean bean) {
-		checkNotNull(bean);
-		checkArgument(!Strings.isNullOrEmpty(bean.getNome()));
-		checkNotNull(bean.getPermissoes());
-		checkArgument(!bean.getPermissoes().isEmpty());
+		checkNotNull(bean, "Bean não pode ser nulo");
+		checkArgument(!Strings.isNullOrEmpty(bean.getNome()), "Nome do perfil não informado.");
+		checkNotNull(bean.getPermissoes(), "Permissões do perfil não foram informadas.");
+		checkArgument(!bean.getPermissoes().isEmpty(), "Permissões do perfil não informadas.");
 		return new PerfilUsuario(bean);
 	}
 

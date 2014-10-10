@@ -3,80 +3,65 @@ package br.com.locar.app.bean;
 import java.io.Serializable;
 
 import br.com.locar.app.model.entity.Categoria;
+import br.com.locar.app.model.types.Renavan;
 
-public class VeiculoBean implements Serializable{
+public class VeiculoFiltro implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	private Long id;
+
 	private Categoria categoria;
 	private String marca;
 	private String modelo;
 	private int ano;
 	private String placa;
-	private String renavam;
-
-	public Long getId() {
-		return id;
-	}
-
-	public VeiculoBean setId(Long id) {
-		this.id = id;
-		return this;
-	}
+	private Renavan renavam;
 
 	public Categoria getCategoria() {
 		return categoria;
 	}
 
-	public VeiculoBean setCategoria(Categoria categoria) {
+	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
-		return this;
 	}
 
 	public String getMarca() {
 		return marca;
 	}
 
-	public VeiculoBean setMarca(String marca) {
+	public void setMarca(String marca) {
 		this.marca = marca;
-		return this;
 	}
 
 	public String getModelo() {
 		return modelo;
 	}
 
-	public VeiculoBean setModelo(String modelo) {
+	public void setModelo(String modelo) {
 		this.modelo = modelo;
-		return this;
 	}
 
 	public int getAno() {
 		return ano;
 	}
 
-	public VeiculoBean setAno(int ano) {
+	public void setAno(int ano) {
 		this.ano = ano;
-		return this;
 	}
 
 	public String getPlaca() {
 		return placa;
 	}
 
-	public VeiculoBean setPlaca(String placa) {
+	public void setPlaca(String placa) {
 		this.placa = placa;
-		return this;
 	}
 
-	public String getRenavam() {
+	public Renavan getRenavam() {
 		return renavam;
 	}
 
-	public VeiculoBean setRenavam(String renavam) {
+	public void setRenavam(Renavan renavam) {
 		this.renavam = renavam;
-		return this;
 	}
 
 }

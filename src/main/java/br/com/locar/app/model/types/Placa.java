@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.google.common.base.Objects;
 import com.google.common.base.Strings;
 
 public class Placa implements Serializable{
@@ -47,7 +48,22 @@ public class Placa implements Serializable{
 	private static String extrairLetras(String placa) {
 		Matcher mLetras = patternLetas.matcher(placa);
 		mLetras.find();
-		return mLetras.group();
+		return mLetras.group().toUpperCase();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Placa){
+			Placa other = (Placa) obj;
+			return Objects.equal(this.letras, other.letras) &&
+					Objects.equal(this.numeros, other.numeros);
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(letras, numeros);
 	}
 	
 	@Override

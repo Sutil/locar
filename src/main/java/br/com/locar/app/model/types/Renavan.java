@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 import com.google.common.base.Strings;
 
-public class Renavam implements Serializable{
+public class Renavan implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private static final String regex = "[\\d]+";
@@ -16,15 +16,15 @@ public class Renavam implements Serializable{
 	
 	private String renavam;
 	
-	private Renavam(String renavam) {
+	private Renavan(String renavam) {
 		this.renavam = renavam;
 	}
 	
-	public static Renavam fromString(String renavam){
-		checkArgument(!Strings.isNullOrEmpty(renavam), "Renavam não informado.");
+	public static Renavan fromString(String renavam){
+		checkArgument(!Strings.isNullOrEmpty(renavam), "Renavan não informado.");
 		Matcher matcher = pattern.matcher(renavam);
-		checkArgument(matcher.matches(), "Renavam invádo. Informe apenas números");
-		return new Renavam(renavam);
+		checkArgument(matcher.matches(), "Renavan invádo. Informe apenas números");
+		return new Renavan(renavam);
 	}
 	
 	@Override

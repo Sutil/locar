@@ -1,53 +1,70 @@
 package br.com.locar.app.model.dao;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.transaction.annotation.Transactional;
 
+import br.com.locar.app.AmbienteComCategoriaCadastrada;
+import br.com.locar.app.IntegrationTestConfig;
 import br.com.locar.app.bean.VeiculoBean;
 import br.com.locar.app.model.entity.Categoria;
 import br.com.locar.app.model.entity.Veiculo;
-import br.com.locar.config.root.SteConfig;
 
-@ActiveProfiles("teste")
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { SteConfig.class })
-@Transactional
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class })
-public class VeiculoRepositoryIT {
+
+public class VeiculoRepositoryIT extends IntegrationTestConfig {
 
 	@Autowired
 	private VeiculoRepository repository;
-
+	
+	@Autowired
+	private AmbienteComCategoriaCadastrada ambiente;;
+	
+	@Autowired
+	private CategoriaRepository categoriaRepository;
+	
+	@Before
+	public void beforw(){
+		ambiente.setUp();
+	}
+	
 	@After
-	public void after() {
+	public void nada(){
 		repository.deleteAll();
+		ambiente.turnDown();
 	}
 
 	@Test
-	public void testVeiculoHappyDay() {
-		fail();
+	public void testCadastroCarroHappyday() {
+		Categoria categoria = categoriaRepository.findAll().get(0);
+		VeiculoBean bean = criaBean(categoria, "marca", "modelo", 2000, "AAA-1010", "123456");
+		
+		
+		Veiculo saved = repository.salvar(bean);
+		assertNotNull("veiculo salvo não pode ser nulo", saved);
+		assertNotNull("Id do veiculo salvo não pode ser nulo.", saved.getId());
+		assertEquals("Categoria do veiculo deve ser igual ao do bean", bean.getCategoria(), saved.getCategoria());
+		assertEquals("Marca de veiculo deve ser igual a do bean", bean.getMarca(), saved.getMarca());
+		assertEquals("Modelo do veiculo deve ser igual ao do bean", bean.getModelo(), saved.getModelo());
+		assertEquals("Ano do veiculo deve ser igual ao do bean", bean.getAno(), saved.getAno());
+		assertEquals("Placa do veiculo deve ser igual a do bean", bean.getPlaca(), saved.getPlaca().toString());
+		assertEquals("Renavan do veiculo deve ser igual ao do bean", bean.getRenavam(), saved.getRenavam());
 	}
 
-	public Veiculo criaVeiculoBean(Categoria categoria, String marca,
+	public VeiculoBean criaBean(Categoria categoria, String marca,
 			String modelo, int ano, String placa, String renavam) {
 		VeiculoBean bean = new VeiculoBean();
-		bean.setCategoria(categoria);
-		bean.setModelo(modelo);
-		bean.setMarca(marca);
-		bean.setAno(ano);
-		bean.setPlaca(placa);
-		bean.setRenavam(renavam);
-		return Veiculo.newInstance(bean);
+		
+		return bean.
+		setCategoria(categoria).
+		setMarca(marca).
+		setModelo(modelo).
+		setAno(ano).
+		setPlaca(placa).
+		setRenavam(renavam);
 	}
 
 }
