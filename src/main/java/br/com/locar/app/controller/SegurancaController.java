@@ -16,7 +16,9 @@ import br.com.locar.app.login.seguranca.PerfilUsuario;
 import br.com.locar.app.login.seguranca.Permissao;
 import br.com.locar.app.login.seguranca.Usuario;
 import br.com.locar.app.login.seguranca.repository.UsuarioRepository;
+import br.com.locar.app.model.dao.LojaRepository;
 import br.com.locar.app.model.dao.PerfilUsuarioRepository;
+import br.com.locar.app.model.entity.Loja;
 
 import com.google.common.collect.Lists;
 
@@ -28,9 +30,16 @@ public class SegurancaController {
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private LojaRepository lojaRepository;
 
 	public List<PerfilUsuario> getPerfis() {
 		return perfilUsuarioRepository.findAll();
+	}
+	
+	public List<Loja> getLojas(){
+		return lojaRepository.findAll();
 	}
 
 	public PerfilUsuarioBean novoPerfil() {

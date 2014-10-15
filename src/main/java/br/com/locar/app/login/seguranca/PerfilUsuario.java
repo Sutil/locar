@@ -48,6 +48,7 @@ public class PerfilUsuario implements Serializable{
 
     PerfilUsuario() {
     }
+    
 
     private PerfilUsuario(String nome) {
             this.nome = nome;
@@ -81,7 +82,8 @@ public class PerfilUsuario implements Serializable{
     public boolean equals(Object obj) {
             if (obj instanceof PerfilUsuario) {
                     PerfilUsuario other = (PerfilUsuario) obj;
-                    return Objects.equal(this.nome, other.nome);
+                    return Objects.equal(this.nome, other.nome) &&
+                    		Objects.equal(this.id, other.id);
             }
             return false;
     }

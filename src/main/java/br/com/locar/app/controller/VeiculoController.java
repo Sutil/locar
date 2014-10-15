@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import br.com.locar.app.bean.VeiculoBean;
+import br.com.locar.app.bean.VeiculoFiltro;
 import br.com.locar.app.model.dao.VeiculoRepository;
 import br.com.locar.app.model.entity.Veiculo;
 
@@ -12,6 +13,10 @@ public class VeiculoController {
 	
 	@Autowired
 	private VeiculoRepository veiculoRepository;
+	
+	public VeiculoFiltro newFiltro(){
+		return new VeiculoFiltro();
+	}
 	
 	public VeiculoBean novo(){
 		return new VeiculoBean();

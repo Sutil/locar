@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.locar.app.IntegrationTestConfig;
 import br.com.locar.app.bean.PerfilUsuarioBean;
@@ -37,6 +38,7 @@ public class PerfilUsuarioRepositoryIT extends IntegrationTestConfig{
 	}
 	
 	@Test(expected = RuntimeException.class)
+	@Transactional
 	public void criaDoisPermissoesComMesmoNome_erro(){
 		List<Permissao> permissoes = Arrays.asList(Permissao.values());
 		PerfilUsuarioBean bean1 = new PerfilUsuarioBean(permissoes);

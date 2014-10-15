@@ -11,7 +11,7 @@
 		<h:form id="form">
 			<div class="bts">
 				<ul>
-					<sec:authorize ifAnyGranted="ROLE_DIRETOR, ROLE_ADMIN">
+					<sec:authorize ifAnyGranted="ROLE_DIRETOR, ROLE_GERENTE, ROLE_ADMIN">
 						<li><h:commandLink action="lojas">
 								<h:outputText value="Lojas" />
 								<i class="fa fa-home fa-4x" />

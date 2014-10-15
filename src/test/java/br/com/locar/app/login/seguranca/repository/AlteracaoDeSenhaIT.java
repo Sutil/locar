@@ -14,6 +14,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.locar.app.bean.AlteracaoDeSenhaBean;
+import br.com.locar.app.bean.UsuarioBean;
 import br.com.locar.app.login.seguranca.Usuario;
 import br.com.locar.config.root.SteConfig;
 
@@ -31,7 +32,9 @@ public class AlteracaoDeSenhaIT {
 	
 	@Before
 	public void before(){
-		usuario = Usuario.newUsuario("Teste");
+		UsuarioBean bean = new UsuarioBean();
+		bean.setLogin("Eduardo");
+		usuario = Usuario.newInstance(bean);
 		repository.save(usuario);
 	}
 	

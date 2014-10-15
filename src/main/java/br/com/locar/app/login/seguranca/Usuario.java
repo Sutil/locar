@@ -5,12 +5,15 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 
@@ -19,11 +22,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import br.com.locar.app.bean.UsuarioBean;
+import br.com.locar.app.model.entity.Loja;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSet.Builder;
+import com.google.common.collect.Lists;
 
 @Entity
 public class Usuario implements UserDetails, Serializable {
@@ -48,18 +53,17 @@ public class Usuario implements UserDetails, Serializable {
 	@ManyToOne
 	@JoinColumn(name = "perfil_fk")
 	private PerfilUsuario perfil;
+	
+	@ManyToMany
+	@JoinTable(name = "usuario_loja", 
+		joinColumns=        @JoinColumn(name="loja_fk", referencedColumnName = "id"),
+		inverseJoinColumns= @JoinColumn(name="usuario_fk", referencedColumnName= "id")
+	)
+	private List<Loja> lojas = Lists.newArrayList();
 
 	Usuario() {
 	}
 
-	private Usuario(String login) {
-		this.login = login;
-	}
-
-	public static Usuario newUsuario(String login) {
-		checkArgument(!Strings.isNullOrEmpty(login));
-		return new Usuario(login);
-	}
 	
 	private Usuario(UsuarioBean b){
 		this.id = b.getId();
@@ -67,6 +71,7 @@ public class Usuario implements UserDetails, Serializable {
 		this.senha = b.getSenha();
 		this.version = b.getVersion();
 		this.perfil = b.getPerfil();
+		this.lojas = b.getLojas();
 	}
 	
 	public static Usuario newInstance(UsuarioBean bean){
@@ -74,6 +79,7 @@ public class Usuario implements UserDetails, Serializable {
 		checkArgument(!Strings.isNullOrEmpty(bean.getLogin()), "Não é permitido LOGIN nulo ou vazio");
 		checkArgument(!Strings.isNullOrEmpty(bean.getSenha()), "Não foi definida uma senha para o usuário");
 		checkNotNull(bean.getPerfil(), "Defina um perfil para o usuário.");
+		checkArgument(bean.getLojas() != null && !bean.getLojas().isEmpty(), "Informe ao menos uma loja");
 		return new Usuario(bean);
 	}
 
@@ -120,6 +126,10 @@ public class Usuario implements UserDetails, Serializable {
 	
 	public PerfilUsuario getPerfil() {
 		return perfil;
+	}
+	
+	public List<Loja> getLojas() {
+		return lojas;
 	}
 
 	@Override

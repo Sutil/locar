@@ -1,67 +1,49 @@
 package br.com.locar.app.bean;
 
+import static br.com.locar.app.model.entity.QVeiculo.veiculo;
+
 import java.io.Serializable;
 
-import br.com.locar.app.model.entity.Categoria;
-import br.com.locar.app.model.types.Renavan;
+import br.com.locar.app.model.types.Placa;
+
+import com.google.common.base.Strings;
+import com.mysema.query.BooleanBuilder;
+import com.mysema.query.types.Predicate;
 
 public class VeiculoFiltro implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Categoria categoria;
-	private String marca;
-	private String modelo;
-	private int ano;
-	private String placa;
-	private Renavan renavam;
+	private String value;
 
-	public Categoria getCategoria() {
-		return categoria;
+	public String getValue() {
+		return value;
+	}
+	
+	public void setValue(String value) {
+		this.value = value;
+	}
+	
+	public Predicate toPredicate(){
+		BooleanBuilder builder = new BooleanBuilder();
+		if(Strings.isNullOrEmpty(value)){
+			return builder;
+		}
+		builder.or(veiculo.marca.containsIgnoreCase(value));
+		builder.or(veiculo.modelo.containsIgnoreCase(value));
+		contaisPlaca(builder);
+		return builder;
 	}
 
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
+	private void contaisPlaca(BooleanBuilder builder) {
+		try{
+			Placa placa = Placa.fromString(value);
+			builder.or(veiculo.placa.eq(placa));
+		}
+		catch(RuntimeException e){
+			
+		}
 	}
 
-	public String getMarca() {
-		return marca;
-	}
-
-	public void setMarca(String marca) {
-		this.marca = marca;
-	}
-
-	public String getModelo() {
-		return modelo;
-	}
-
-	public void setModelo(String modelo) {
-		this.modelo = modelo;
-	}
-
-	public int getAno() {
-		return ano;
-	}
-
-	public void setAno(int ano) {
-		this.ano = ano;
-	}
-
-	public String getPlaca() {
-		return placa;
-	}
-
-	public void setPlaca(String placa) {
-		this.placa = placa;
-	}
-
-	public Renavan getRenavam() {
-		return renavam;
-	}
-
-	public void setRenavam(Renavan renavam) {
-		this.renavam = renavam;
-	}
-
+	
 }

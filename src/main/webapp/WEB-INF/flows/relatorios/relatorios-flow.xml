@@ -5,7 +5,7 @@
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
         parent="main-flow" >
 
-	<secured attributes="ROLE_DIRETOR, ROLE_ADMIN" match="any" />
+	<secured attributes="ROLE_DIRETOR, ROLE_GERENTE, ROLE_ADMIN" match="any" />
 	
 	<persistence-context />
 

@@ -10,22 +10,35 @@
 	<ui:define name="content">
 		<div class="div-user">
 			<h:form id="form" style="width: 50%; margin: auto;">
+
 				<p:panel header="Usuário" style="width: 50%; margin: auto;">
+					<h:outputText value="* Compos obrigatórios" style="font-size: 10px;" />
+					
 					<h:panelGrid columns="1">
-				Login:
-				<p:message for="login"></p:message>
+						<p:spacer height="20" ></p:spacer>
+						<p:outputLabel value="Login:" for="login" />
+						<p:message for="login"></p:message>
 						<p:inputText id="login" value="#{userBean.login}" required="true"
 							requiredMessage="Informe o login" />
-				Perfil:
-				<p:message for="perfil" />
+						<p:outputLabel value="Perfil:" for="perfil" />
+						<p:message for="perfil" />
 						<p:selectOneMenu id="perfil" value="#{userBean.perfil}"
 							required="true" requiredMessage="Escolha um perfil"
 							converter="perfilUsuarioConverter">
-							<f:selectItem itemValue="#{null}" itemLabel="Escolha um perfil" />
+							<f:selectItem itemLabel="Escolha um perfil" itemValue="#{null}" 
+								noSelectionOption="true" itemDisabled="true" />
 							<f:selectItems value="#{perfis}" var="perfil"
 								itemLabel="#{perfil.nome}" itemValue="#{perfil}" />
 						</p:selectOneMenu>
 
+						<p:outputLabel value="Empresas:" for="empresas" />
+						<p:message for="empresas" />
+						<p:selectManyCheckbox id="empresas" required="true" converter="lojaConverter"
+							requiredMessage="Selecione ao menos uma empresa"
+							value="#{userBean.lojas}" layout="grid" columns="3">
+							<f:selectItems value="#{lojasDisponiveis}" var="l"
+								itemLabel="#{l.nome}" itemValue="#{l}" />
+						</p:selectManyCheckbox>
 						<h:panelGrid columns="2">
 							<p:commandButton value="Salvar" action="salvar" update="@form" />
 							<p:commandButton value="Cancelar" action="cancelar"

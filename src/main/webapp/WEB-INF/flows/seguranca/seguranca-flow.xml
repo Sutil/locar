@@ -62,6 +62,7 @@
 	<view-state id="useredit">
 		<on-entry>
 			<evaluate expression="segurancaController.getPerfis()" result="viewScope.perfis" />
+			<evaluate expression="segurancaController.getLojas()" result="viewScope.lojasDisponiveis" />
 		</on-entry>
 		<transition on="salvar" to="userList" >
 			<evaluate expression="segurancaController.salvarUsuario(userBean)" />

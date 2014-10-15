@@ -3,9 +3,13 @@ package br.com.locar.app.bean;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.Serializable;
+import java.util.List;
+
+import com.google.common.collect.Lists;
 
 import br.com.locar.app.login.seguranca.PerfilUsuario;
 import br.com.locar.app.login.seguranca.Usuario;
+import br.com.locar.app.model.entity.Loja;
 
 
 public class UsuarioBean implements Serializable {
@@ -22,6 +26,8 @@ public class UsuarioBean implements Serializable {
 	
 	private PerfilUsuario perfil;
 	
+	private List<Loja> lojas = Lists.newArrayList();
+	
 	public UsuarioBean(){}
 	
 	private UsuarioBean(Usuario user){
@@ -30,6 +36,7 @@ public class UsuarioBean implements Serializable {
 		this.login = user.getLogin();
 		this.senha = user.getSenha();
 		this.perfil = user.getPerfil();
+		this.lojas = user.getLojas();
 	}
 	
 	public static UsuarioBean newInstance(Usuario user){
@@ -77,6 +84,12 @@ public class UsuarioBean implements Serializable {
 		this.perfil = perfil;
 	}
 	
+	public void setLojas(List<Loja> lojas) {
+		this.lojas = lojas;
+	}
 	
+	public List<Loja> getLojas() {
+		return lojas;
+	}
 	
 }

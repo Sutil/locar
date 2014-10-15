@@ -10,7 +10,7 @@
 
 	<view-state id="veiculo-list">
 		<on-entry>
-			<evaluate expression="veiculoController.newFiltro" result="viewScope.filtro" />
+			<evaluate expression="veiculoController.newFiltro()" result="viewScope.filtro" />
 			<evaluate expression="'Veículos'" result="viewScope.titulo"  />
 		</on-entry>
 		

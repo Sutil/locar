@@ -10,18 +10,9 @@ import com.google.common.collect.Maps;
 public enum Permissao implements GrantedAuthority {
 
 	ROLE_USER("Permissões básicas"),
-	CRIAR_USUARIO("Criar Usuario"),
-	EDITAR_USUARIO("Editar Usuário"),
-	EXCLUIR_USUARIO("Excluir Usuário"),
-	CRIAR_PERFIL("Criar Perfil"),
-	EDIATAR_PERFIL("Editar Perfil"),
-	EXCLUIR_PERFIL("Excluir Perfil"),
-    CRIAR_EXEMPLAR("Criar Exemplar"), 
-    EDITAR_EXEMPLAR("Editar Exemplar"),
-    EXCLUIR_EXEMPLAR("Excluir Exemplar"),
-    EMPRESTAR_EXEMPLAR("Emprestar Exemplar"),
-    CADASTRAR_RENOVACAO("Cadastrar Renovação"),
-    REGISTRAR_DEVOLUCOES("Registrar Devoluções");
+	ROLE_DIRETOR("Diretor"),
+	ROLE_GERENTE("Gerente"),
+	ROLE_FUNCIONARIO("Funcionário");
     
 
     @Override
