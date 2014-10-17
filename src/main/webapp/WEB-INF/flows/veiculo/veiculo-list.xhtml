@@ -7,7 +7,7 @@
 	template="/WEB-INF/template/ui.xhtml">
 
 	<ui:define name="content">
-		<p:messages autoUpdate="true" showSummary="true" showDetail="true" />
+		<p:messages autoUpdate="true"  showDetail="true" />
 		<h:form id="form">
 
 			<h:panelGrid columns="2" style="width:100%;" >
@@ -37,7 +37,7 @@
 				<p:column headerText="Modelo">Modelo</p:column>
 				<p:column headerText="Ano">Ano</p:column>
 				<p:column headerText="Placa">Placa</p:column>
-				<p:column headerText="Ano">Renavan</p:column>
+				<p:column headerText="Ano">Renavam</p:column>
 				<p:column style="width: 10%;">
 					<p:commandButton icon="ui-icon-pencil" onclick="dgEdit.show();" />
 					<p:commandButton icon="ui-icon-close" onclick="dgDelete.show();" />
@@ -65,11 +65,17 @@
 				<p:outputLabel value="Placa" for="placa" />
 				<p:inputMask id="placa" mask="aaa-9999" size="80" value="#{bean.placa}" />
 				
-				<p:outputLabel value="Renavam" for="renavan" />
-				<p:inputText id="renavan" value="#{bean.renavan}"  size="80"  />
-
+				<p:outputLabel value="Renavam" for="renavam" />
+				<p:inputText id="renavam" value="#{bean.renavam}"  size="80"  />
+				
+				<p:outputLabel value="Local do veículo:" for="loja" />
+				<p:selectOneMenu id="loja" converter="lojaConverter" >
+					<f:selectItems value="#{lojas}" var="loja" itemValue="#{loja}" itemLabel="#{loja.nome}" />
+				</p:selectOneMenu>
+				
+				
 				</h:panelGrid>
-				<p:commandButton value="Salvar" onclick="dgEdit.hide();" />
+				<p:commandButton value="Salvar" action="salvar" update="@form"  />
 				<p:commandButton value="Cancelar" immediate="true"
 					onclick="dgEdit.hide();" />
 			</h:form>

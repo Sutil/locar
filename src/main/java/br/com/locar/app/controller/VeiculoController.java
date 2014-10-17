@@ -34,7 +34,7 @@ public class VeiculoController extends LocarController {
 		return new VeiculoFiltro();
 	}
 
-	public VeiculoBean novo() {
+	public VeiculoBean newBean() {
 		return new VeiculoBean();
 	}
 
@@ -42,7 +42,9 @@ public class VeiculoController extends LocarController {
 		return categoriaRepository.findAllActives();
 	}
 
+	@Transactional
 	public void salvar(VeiculoBean bean) {
+		System.out.println("salvando");
 		try {
 			veiculoRepository.salvar(bean);
 			message(SEVERITY_INFO, MSG_VEÍCULO_SALVO_COM_SUCESSO, "");
@@ -59,7 +61,7 @@ public class VeiculoController extends LocarController {
 		} catch (Exception e) {
 			message(SEVERITY_ERROR, MSG_ERRO_AO_EXCLUIR_VEÍCULO, e.getMessage());
 		}
-
 	}
+	
 
 }

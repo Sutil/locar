@@ -55,7 +55,4 @@ public class LojaRepositoryImpl implements LojaRepositoryCustom {
 		return query.from(loja).where(filtro.toPredicate()).list(loja);
 	}
 
-	
-	
-
 }

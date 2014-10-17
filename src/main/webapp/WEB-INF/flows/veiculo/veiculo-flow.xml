@@ -13,18 +13,19 @@
 			<evaluate expression="veiculoController.newFiltro()" result="viewScope.filtro" />
 			<evaluate expression="'Veículos'" result="viewScope.titulo" />
 			<evaluate expression="veiculoController.getCategoriasAtivas()" result="viewScope.categorias" />
+			<evaluate expression="veiculoController.getLojas()" result="viewScope.lojas" />
 		</on-entry>
 		<transition on="pesquisar">
 			<evaluate expression="veiculoController.pesquisar(filtro)"
 				result="viewScope.veiculos" result-type="dataModel" />
 		</transition>
 		<transition on="novo" >
-			<evaluate expression="veiculoControlller.newBean()" result="viewScope.bean" />
+			<evaluate expression="veiculoController.newBean()" result="viewScope.bean" />
+		</transition>
+		<transition on="salvar">
+			<evaluate expression="veiculoController.salvar(bean)" />
 		</transition>
 
 	</view-state>
-
-
-
 
 </flow>

@@ -55,6 +55,7 @@ public class Veiculo extends Entidade implements Serializable {
 		this.ano = ano;
 		this.placa = Placa.fromString(placa);
 		this.renavan = Renavan.fromString(renavam);
+		
 	}
 	
 	public static Veiculo newInstance(VeiculoBean bean){
