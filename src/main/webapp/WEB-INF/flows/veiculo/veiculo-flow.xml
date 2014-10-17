@@ -3,22 +3,28 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/webflow
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
-        parent="main-flow">
-        
-	
+	parent="main-flow">
+
+
 	<persistence-context />
 
 	<view-state id="veiculo-list">
 		<on-entry>
 			<evaluate expression="veiculoController.newFiltro()" result="viewScope.filtro" />
-			<evaluate expression="'Veículos'" result="viewScope.titulo"  />
+			<evaluate expression="'Veículos'" result="viewScope.titulo" />
+			<evaluate expression="veiculoController.getCategoriasAtivas()" result="viewScope.categorias" />
 		</on-entry>
-		
-		
-		
-	</view-state>
-	
-	
+		<transition on="pesquisar">
+			<evaluate expression="veiculoController.pesquisar(filtro)"
+				result="viewScope.veiculos" result-type="dataModel" />
+		</transition>
+		<transition on="novo" >
+			<evaluate expression="veiculoControlller.newBean()" result="viewScope.bean" />
+		</transition>
 
-	
+	</view-state>
+
+
+
+
 </flow>

@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.locar.app.bean.CategoriaBean;
 import br.com.locar.app.bean.CategoriaFiltro;
@@ -35,6 +36,7 @@ public class CategoriaController extends LocarController{
 		return categoriaRepository.findAll();
 	}
 	
+	@Transactional
 	public void salvar(CategoriaBean bean){
 		try {
 			categoriaRepository.salvar(bean);
@@ -45,6 +47,7 @@ public class CategoriaController extends LocarController{
 		
 	}
 	
+	@Transactional
 	public void desativar(Categoria categoria){
 		categoriaRepository.desativar(categoria);
 	}

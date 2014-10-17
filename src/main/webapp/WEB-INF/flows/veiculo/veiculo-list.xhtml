@@ -14,14 +14,14 @@
 				<p:panel>
 					<h:panelGrid columns="1">
 						<p:commandButton value="Novo" icon="ui-icon-plus"
-							onclick="dgEdit.show();" />
+							onclick="dgEdit.show();" action="novo" update=":formEdit" />
 					</h:panelGrid>
 				</p:panel>
 				<p:panel>
 					<h:panelGrid columns="6">
-						<p:inputText id="filtro" size="80" ></p:inputText>
+						<p:inputText id="filtro" size="80" value="#{filtro.value}" />
 						<p:watermark for="filtro" value="Pesquise por marca, modelo ou placa." />
-						<p:commandButton value="pesquisar" />
+						<p:commandButton value="pesquisar" action="pesquisar" update="@form" />
 						<p:spacer width="80" height="0" />
 						<p:selectBooleanCheckbox />
 						<h:outputText value="Mostrar Inativos" />
@@ -49,25 +49,24 @@
 		<p:dialog widgetVar="dgEdit" modal="true" header="Cadastrar/Editar Veículo"  >
 			<h:form id="formEdit">
 				<h:panelGrid columns="1">
-				Categoria:
-				<p:selectOneMenu>
-						<f:selectItem itemLabel="Categoria1" />
-						<f:selectItem itemLabel="Categoria1" />
+				<p:outputLabel value="Categoria:" for="categoria" />
+				<p:selectOneMenu id="categoria" value="#{bean.categoria}" converter="categoriaConverter" >
+						<f:selectItems value="#{categorias}" var="categ" itemLabel="#{categ.nome}" itemValue="#{categ}" />
 					</p:selectOneMenu>
-				Marca:
-				<p:inputText size="80"></p:inputText>
+				<p:outputLabel value="Marca:" for="marca" />
+				<p:inputText id="marca" size="80" value="#{bean.marca}" />
 				
-				Modelo:
-				<p:inputText size="80"></p:inputText>
+				<p:outputLabel value="Modelo:" for="modelo" />
+				<p:inputText id="modelo" size="80" value="#{bean.modelo}"  />
 				
-				Ano:
-				<p:inputMask mask="9999/9999" size="80"></p:inputMask>
+				<p:outputLabel value="Ano:" for="ano" />
+				<p:inputMask id="ano" mask="9999" size="80" value="#{bean.ano}" />
 				
-				Placa
-				<p:inputMask mask="aaa-9999" size="80" ></p:inputMask>
+				<p:outputLabel value="Placa" for="placa" />
+				<p:inputMask id="placa" mask="aaa-9999" size="80" value="#{bean.placa}" />
 				
-				Renavam
-				<p:inputText size="80" />
+				<p:outputLabel value="Renavam" for="renavan" />
+				<p:inputText id="renavan" value="#{bean.renavan}"  size="80"  />
 
 				</h:panelGrid>
 				<p:commandButton value="Salvar" onclick="dgEdit.hide();" />

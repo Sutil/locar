@@ -9,7 +9,7 @@ import br.com.locar.app.model.entity.Veiculo;
 public interface VeiculoRepositoryCustom {
 	
 	public Veiculo salvar(VeiculoBean veiculo);
-	public void inativar();
+	public Veiculo inativar(Veiculo veiculo);
 	public List<Veiculo> pesquisar(VeiculoFiltro filtro);
 
 }

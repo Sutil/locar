@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import br.com.locar.app.bean.CategoriaBean;
 import br.com.locar.app.bean.CategoriaFiltro;
 import br.com.locar.app.model.entity.Categoria;
+import br.com.locar.app.model.entity.Status;
 
 import com.mysema.query.jpa.impl.JPAQuery;
 import com.mysema.query.types.expr.BooleanExpression;
@@ -55,6 +56,14 @@ public class CategoriaRepositoryImpl implements CategoriaRepositoryCustom {
 		query.from(categoria);
 		query.where(filtro.toPredicate());
 		return query.list(categoria);
+	}
+	
+	@Override
+	public List<Categoria> findAllActives() {
+		return new JPAQuery(entityManager)
+		.from(categoria)
+		.where(categoria.status.eq(Status.ATIVO))
+		.list(categoria);
 	}
 
 }

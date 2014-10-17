@@ -7,12 +7,11 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import com.mysema.query.jpa.impl.JPAQuery;
-
 import br.com.locar.app.bean.VeiculoBean;
 import br.com.locar.app.bean.VeiculoFiltro;
-import br.com.locar.app.model.entity.QVeiculo;
 import br.com.locar.app.model.entity.Veiculo;
+
+import com.mysema.query.jpa.impl.JPAQuery;
 
 public class VeiculoRepositoryImpl implements VeiculoRepositoryCustom{
 	
@@ -25,8 +24,9 @@ public class VeiculoRepositoryImpl implements VeiculoRepositoryCustom{
 	}
 
 	@Override
-	public void inativar() {
-		//TODO inativar
+	public Veiculo inativar(Veiculo veiculo) {
+		veiculo.desativar();
+		return entitymanager.merge(veiculo);
 	}
 	
 	@Override

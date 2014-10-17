@@ -10,12 +10,9 @@ public interface CategoriaRepositoryCustom {
 	
 	
 	public void desativar(Categoria categoria);
-	
 	public void salvar(CategoriaBean bean);
-	
 	public Categoria salvar(Categoria categoria);
-	
 	public List<Categoria> pesquisar(CategoriaFiltro filtro);
-	
+	List<Categoria> findAllActives();
 
 }

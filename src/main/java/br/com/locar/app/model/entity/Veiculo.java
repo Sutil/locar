@@ -21,7 +21,7 @@ import com.google.common.base.Objects;
 import com.google.common.base.Strings;
 
 @Entity
-public class Veiculo implements Serializable {
+public class Veiculo extends Entidade implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
