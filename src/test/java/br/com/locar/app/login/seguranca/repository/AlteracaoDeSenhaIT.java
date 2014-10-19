@@ -13,9 +13,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.locar.app.AmbienteComPerfilELojaExistente;
 import br.com.locar.app.bean.AlteracaoDeSenhaBean;
 import br.com.locar.app.bean.UsuarioBean;
 import br.com.locar.app.login.seguranca.Usuario;
+import br.com.locar.app.model.dao.LojaRepository;
+import br.com.locar.app.model.dao.PerfilUsuarioRepository;
 import br.com.locar.config.root.SteConfig;
 
 @ActiveProfiles("teste")
@@ -30,10 +33,23 @@ public class AlteracaoDeSenhaIT {
 	@Autowired
 	private UsuarioRepository repository;
 	
+	@Autowired
+	private AmbienteComPerfilELojaExistente ambiente;
+	
+	@Autowired
+	private LojaRepository lojaRepository;
+	
+	@Autowired
+	private PerfilUsuarioRepository perfilReository;
+	
 	@Before
 	public void before(){
+		ambiente.setUp();
+		
 		UsuarioBean bean = new UsuarioBean();
 		bean.setLogin("Eduardo");
+		bean.setPerfil(perfilReository.findAll().get(0));
+		bean.setLojas(lojaRepository.findAll());
 		usuario = Usuario.newInstance(bean);
 		repository.save(usuario);
 	}
@@ -41,6 +57,8 @@ public class AlteracaoDeSenhaIT {
 	@After
 	public void after(){
 		repository.deleteAll();
+		
+		ambiente.turnDown();
 	}
 
 	@Test

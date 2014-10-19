@@ -4,6 +4,7 @@ import static br.com.locar.app.model.entity.QVeiculo.veiculo;
 
 import java.io.Serializable;
 
+import br.com.locar.app.model.entity.Status;
 import br.com.locar.app.model.types.Placa;
 
 import com.google.common.base.Strings;
@@ -15,6 +16,7 @@ public class VeiculoFiltro implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String value;
+	private boolean mostrarInativos;
 
 	public String getValue() {
 		return value;
@@ -24,8 +26,19 @@ public class VeiculoFiltro implements Serializable {
 		this.value = value;
 	}
 	
+	public boolean isMostrarInativos() {
+		return mostrarInativos;
+	}
+	
+	public void setMostrarInativos(boolean mostrarInativos) {
+		this.mostrarInativos = mostrarInativos;
+	}
+	
 	public Predicate toPredicate(){
 		BooleanBuilder builder = new BooleanBuilder();
+		if(!mostrarInativos){
+			builder.and(veiculo.status.eq(Status.ATIVO));
+		}
 		if(Strings.isNullOrEmpty(value)){
 			return builder;
 		}

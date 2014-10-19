@@ -32,6 +32,9 @@ public class Veiculo extends Entidade implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "categoria_fk")
 	private Categoria categoria;
+	
+	@ManyToOne
+	@JoinColumn(name = "loja_fk")
 	private Loja local;
 	private String marca;
 	private String modelo;
@@ -62,7 +65,8 @@ public class Veiculo extends Entidade implements Serializable {
 		checkNotNull(bean.getCategoria(), "Categoria não informada.");
 		checkArgument(!Strings.isNullOrEmpty(bean.getMarca()), "Marca não informada.");
 		checkArgument(!Strings.isNullOrEmpty(bean.getModelo()), "Modelo não informado.");
-		return new Veiculo(bean.getCategoria(), null, bean.getMarca(), bean.getModelo(), bean.getAno(), 
+		checkNotNull(bean.getLoja(), "Informe a localização do veículo.");
+		return new Veiculo(bean.getCategoria(), bean.getLoja(), bean.getMarca(), bean.getModelo(), bean.getAno(), 
 				bean.getPlaca(), bean.getRenavam());
 	}
 	

@@ -25,6 +25,12 @@
 		<transition on="salvar">
 			<evaluate expression="veiculoController.salvar(bean)" />
 		</transition>
+		<transition on="selecionar" >
+			<evaluate expression="veiculos.selectedRow" result="viewScope.veiculoSelecionado" />
+		</transition>
+		<transition on="inativar">
+			<evaluate expression="veiculoController.inativar(veiculoSelecionado)" />
+		</transition>
 
 	</view-state>
 

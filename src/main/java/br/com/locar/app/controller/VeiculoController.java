@@ -33,6 +33,10 @@ public class VeiculoController extends LocarController {
 	public VeiculoFiltro newFiltro() {
 		return new VeiculoFiltro();
 	}
+	
+	public List<Veiculo> pesquisar(VeiculoFiltro filtro){
+		return veiculoRepository.pesquisar(filtro);
+	}
 
 	public VeiculoBean newBean() {
 		return new VeiculoBean();

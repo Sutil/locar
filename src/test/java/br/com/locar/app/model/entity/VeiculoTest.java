@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import br.com.locar.app.bean.CategoriaBean;
 import br.com.locar.app.bean.VeiculoBean;
@@ -80,6 +81,8 @@ public class VeiculoTest {
 	
 	public VeiculoBean criaVeiculoBean(Categoria categoria, 
 			String marca, String modelo, int ano, String placa, String renavam){
+		Loja loja = Mockito.mock(Loja.class);
+		
 		VeiculoBean bean = new VeiculoBean();
 		bean.setCategoria(categoria);
 		bean.setModelo(modelo);
@@ -87,6 +90,7 @@ public class VeiculoTest {
 		bean.setAno(ano);
 		bean.setPlaca(placa);
 		bean.setRenavam(renavam);
+		bean.setLoja(loja);
 		return bean;
 	}
 
