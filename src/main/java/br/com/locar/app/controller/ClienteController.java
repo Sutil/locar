@@ -1,56 +1,64 @@
 package br.com.locar.app.controller;
 
-import java.util.List;
+import static javax.faces.application.FacesMessage.SEVERITY_ERROR;
+import static javax.faces.application.FacesMessage.SEVERITY_INFO;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 
+import br.com.locar.app.bean.ClienteFiltro;
+import br.com.locar.app.model.dao.ClienteRepository;
 import br.com.locar.app.model.entity.Cliente;
-import br.com.locar.app.model.entity.Preposto;
-import br.com.locar.app.repository.ClienteDao;
-
-import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
 
 @Controller
-public class ClienteController {
+public class ClienteController extends LocarController{
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
+	
+	public ClienteFiltro newFiltro(){
+		return new ClienteFiltro();
+	}
 
-	public List<Cliente> getClientes() {
-		List<Cliente> clientes = Lists.newArrayList();
-		Cliente cliente = new Cliente("Antonio", "98765421388",
-				"Avenida Colombo", "(44)9889-9888");
-		clientes.add(cliente);
-		clientes.add(cliente);
-		clientes.add(cliente);
-		clientes.add(cliente);
-		clientes.add(cliente);
-		return clientes;
+	public Cliente novo() {
+		return new Cliente();
+	}
+	
+	@Transactional
+	public void salvar(Cliente cliente){
+		try{
+			clienteRepository.salvar(cliente);
+			message(SEVERITY_INFO, "Cliente salvo com sucesso.", "");
+		}
+		catch(Exception e){
+			message(SEVERITY_ERROR, "Erro ao salvar", e.getMessage());
+		}
+	}
+	
+	@Transactional
+	public void inativar(Cliente cliente){
+		try{
+			clienteRepository.inativar(cliente);
+			message(SEVERITY_INFO, "Cliente excluído com sucesso.", "");
+		}
+		catch(Exception e){
+			message(SEVERITY_ERROR, "Erro ao excluir.", e.getMessage());
+		}
+	}
+	
+	@Transactional
+	public void ativar(Cliente cliente){
+		try{
+			clienteRepository.ativar(cliente);
+			message(SEVERITY_INFO, "Cliente reativado com sucesso.", "");
+		}
+		catch(Exception e){
+			message(SEVERITY_ERROR, "Erro ao reativar", e.getMessage());
+		}
 	}
 
 	
 
-	public Cliente novo() {
-		return new Cliente("", "", "", "");
-	}
-
-	public Preposto novoPreposto() {
-		return new Preposto();
-	}
-
-	public List<Preposto> autocompletePreposto(String value) {
-		System.out.println(value);
-		List<Cliente> lista = ClienteDao.getInstance().getLista();
-		List<Preposto> prepostos = Lists.newArrayList();
-		List<Preposto> retorno = Lists.newArrayList();
-		for (Cliente c : lista) {
-			prepostos.addAll(c.getPrepostos());
-		}
-		if (!Strings.isNullOrEmpty(value)) {
-			for (Preposto p : prepostos) {
-				if (p.getNome().toUpperCase().contains(value.toUpperCase())) {
-					retorno.add(p);
-				}
-			}
-		}
-		return retorno;
-	}
+	
 }

@@ -12,7 +12,6 @@ public class Locacao implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Preposto preposto;
 	private Veiculo veiculo;
 	private Date retirada = new Date();
 	private Date devolucao;
@@ -20,7 +19,6 @@ public class Locacao implements Serializable {
 	private BigDecimal protecaoTerceiros = BigDecimal.ZERO;
 
 	Locacao(LocacaoBean bean) {
-		this.preposto = bean.getPreposto();
 		this.veiculo = bean.getVeiculo();
 		this.devolucao = bean.getDevolucao();
 		instaciarValoresDasProtecoes(veiculo.getCategoria(), bean);
@@ -36,9 +34,6 @@ public class Locacao implements Serializable {
 	}
 	
 
-	public Preposto getPreposto() {
-		return preposto;
-	}
 
 	public Veiculo getVeiculo() {
 		return veiculo;

@@ -1,21 +1,26 @@
 package br.com.locar.app.model.entity;
 
-import java.io.Serializable;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 import com.google.common.base.Objects;
-import com.google.common.collect.Lists;
 
-public class Cliente implements Serializable {
+@Entity
+public class Cliente extends Entidade{
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue
+	private Long id;
 	private String nome;
 	private String cpf;
 	private String endereco;
 	private String telefone;
-	private List<Preposto> prepostos = Lists.newArrayList();
 	
+	public Cliente(){
+	}
 
 	public Cliente(String nome, String cpf, String endereco, String telefone) {
 		this.nome = nome;
@@ -28,21 +33,20 @@ public class Cliente implements Serializable {
 	public boolean equals(Object obj) {
 		if(obj instanceof Cliente){
 			Cliente other = (Cliente) obj;
-			return Objects.equal(this.nome, other.nome);
+			return Objects.equal(this.cpf, other.cpf);
 		}
 		return false;
 	}
 	
 	@Override
 	public int hashCode() {
-		return Objects.hashCode(nome);
+		return Objects.hashCode(cpf);
 	}
 	
-	public void addPreposto(Preposto preposto){
-		System.out.println("adicionando preposto");
-		this.prepostos.add(preposto);
+	public Object getId() {
+		return id;
 	}
-
+	
 	public String getNome() {
 		return nome;
 	}
@@ -73,14 +77,6 @@ public class Cliente implements Serializable {
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
-	}
-	
-	public List<Preposto> getPrepostos() {
-		return prepostos;
-	}
-	
-	public void setPrepostos(List<Preposto> prepostos) {
-		this.prepostos = prepostos;
 	}
 
 }

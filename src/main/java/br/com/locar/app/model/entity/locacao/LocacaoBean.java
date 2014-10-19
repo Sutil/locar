@@ -12,14 +12,12 @@ import org.joda.time.DateTime;
 import org.joda.time.Days;
 
 import br.com.locar.app.model.entity.Categoria;
-import br.com.locar.app.model.entity.Preposto;
 import br.com.locar.app.model.entity.Veiculo;
 
 public class LocacaoBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Preposto preposto;
 	private Veiculo veiculo;
 	private Date devolucao;
 
@@ -95,14 +93,6 @@ public class LocacaoBean implements Serializable {
 
 	public void setProtecaoTerceiros(boolean protecaoTerceiros) {
 		this.protecaoTerceiros = protecaoTerceiros;
-	}
-
-	public Preposto getPreposto() {
-		return preposto;
-	}
-
-	public void setPreposto(Preposto preposto) {
-		this.preposto = preposto;
 	}
 
 	public Veiculo getVeiculo() {

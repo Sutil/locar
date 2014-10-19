@@ -14,7 +14,7 @@
 				<p:panel>
 					<h:panelGrid columns="1">
 						<p:commandButton value="Novo" icon="ui-icon-plus"
-							oncomplete="dgEdit.show();" action="edit" update=":formEdit" />
+							oncomplete="dgEdit.show();" action="novo" update=":formEdit" />
 					</h:panelGrid>
 				</p:panel>
 				<p:panel>
@@ -30,26 +30,61 @@
 			</h:panelGrid>
 
 			<p:dataTable emptyMessage="Nenhum veículo encontrado"
-				value="#{clientes}" var="cliente">
+				value="#{clientes}" var="cli">
 				<f:facet name="header">Lista de clientes</f:facet>
-				<p:column headerText="Nome/Razão Social">#{cliente.nome}</p:column>
-				<p:column headerText="CPF/CNPJ">#{cliente.cpf}</p:column>
-				<p:column headerText="Endereço">#{cliente.endereco}</p:column>
-				<p:column headerText="Telefone">telefone</p:column>
+				<p:column headerText="Nome/Razão Social">#{cli.nome}</p:column>
+				<p:column headerText="CPF/CNPJ">#{cli.cpf}</p:column>
+				<p:column headerText="Endereço">#{cli.endereco}</p:column>
+				<p:column headerText="Telefone">#{cliente.telefone}</p:column>
 
 				<p:column style="width: 10%;">
-					<p:commandButton icon="ui-icon-pencil" oncomplete="dgEdit.show();" 
-					update=":formEdit" action="edit" />
+					<p:commandButton icon="ui-icon-pencil" oncomplete="dgEdit.show();"
+						update=":formEdit" action="edit" />
 					<p:commandButton icon="ui-icon-close" onclick="dgDelete.show();" />
 				</p:column>
 			</p:dataTable>
 
 		</h:form>
 
-		<p:dialog widgetVar="dgEdit" modal="true" resizable="false" appendToBody="true"
-			header="Cadastrar/Editar Cliente" position="center" >
+		<p:dialog widgetVar="dgEdit" modal="true" resizable="false" header="Cadastrar/Editar Cliente"
+			position="center">
 			<h:form id="formEdit">
-				
+				<h:panelGrid columns="1">
+					Nome/Razão Social:
+					<p:message id="msgNome" for="nome" />
+					<p:inputText id="nome" size="80" required="true"
+						value="#{cliente.nome}"
+						requiredMessage="Informe o nome do cliente">
+						<p:ajax event="blur" process="@form" update="nome, msgNome" />
+					</p:inputText>
+					CPF/CNPJ:
+					<p:message id="msgCpf" for="cpf" />
+					<p:inputText id="cpf" size="80" required="true"
+						value="#{cliente.cpf}" requiredMessage="Informe o CPF">
+						<p:ajax event="blur" process="@form" update="cpf, msgCpf" />
+					</p:inputText>
+					Endereço:
+					<p:message id="msgEndereco" for="endereco" />
+					<p:inputText id="endereco" size="80" value="#{cliente.endereco}"
+						required="true" requiredMessage="Informe o endereço do cliente">
+						<p:ajax event="blur" process="@form"
+							update="endereco, msgEndereco" />
+					</p:inputText>
+					Telefone:
+					<p:message id="msgTelefone" for="telefone" />
+					<p:inputMask id="telefone" size="80" value="#{cliente.telefone}" mask="(99) 9999-9999"
+						required="true" requiredMessage="Informe o telefone do cliente">
+						<p:ajax event="blur" process="@form"
+							update="telefone, msgTelefone" />
+					</p:inputMask>
+					
+					<p:commandButton value="Salvar" action="salvar" update="@form" />
+					<p:commandButton value="Cancelar" action="cancelar"
+						immediate="true" onclick="dgEdit.hide();"></p:commandButton>
+
+
+
+				</h:panelGrid>
 			</h:form>
 		</p:dialog>
 		<p:confirmDialog widgetVar="dgDelete"
