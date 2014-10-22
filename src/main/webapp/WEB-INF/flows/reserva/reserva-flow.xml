@@ -12,6 +12,9 @@
 		<transition on="novo" >
 			<evaluate expression="reservaController.newBean()" result="viewScope.bean" />
 		</transition>
+		<transition on="salvar" >
+			<evaluate expression="reservaController.salvar(bean)" />
+		</transition>
 		
 	</view-state>
 	

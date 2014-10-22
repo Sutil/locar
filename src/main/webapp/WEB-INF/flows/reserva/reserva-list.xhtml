@@ -189,13 +189,15 @@
 						<f:convertDateTime pattern="dd/MM/yyyy" ></f:convertDateTime>
 					</h:outputText>
 					
+					
+					<h:outputText value="Valor estimado da locação:" styleClass="label" />
 					<h:outputText value="#{bean.valorPreCalculado}" >
 						<f:convertNumber pattern="#0.00" />
 					</h:outputText>
 				</h:panelGrid>
 				<h:panelGrid columns="2">
-					<p:commandButton value="Salvar" />
-					<p:commandButton value="Canccelar" />
+					<p:commandButton value="Salvar" action="salvar" update=":form" />
+					<p:commandButton value="Canccelar" onclick="dgConfirm.hide();" immediate="true"  />
 				</h:panelGrid>
 			</h:form>
 		</p:dialog>
