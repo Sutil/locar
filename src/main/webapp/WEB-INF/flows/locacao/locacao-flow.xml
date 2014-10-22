@@ -7,47 +7,13 @@
 
 	<view-state id="locacao-list">
 		<on-entry>
-			<evaluate expression="veiculoController.getVeiculos()" result="viewScope.locacoes" result-type="dataModel" />
 			<evaluate expression="'Locações'" result="viewScope.titulo"  />
 		</on-entry>
-		<transition on="novo" to="cliente-view" >
+		<transition on="novo" >
 			<evaluate expression="locacaoController.novo()" result="conversationScope.bean" />
 		</transition>
 		
 		
 	</view-state>
-	
-	<subflow-state id="cliente-view" subflow="locacao/clienteview" >
-		<input name="mode" value="'embedded'" />
-		<input name="bean" value="bean" />
-		<transition on="cancel" to="locacao-list" />
-		<transition on="ok" to="veiculo-view" >
-			<set value="currentEvent.attributes.bean" name="conversationScope.bean" />
-		</transition>
-	</subflow-state>
-	
-	<subflow-state id="veiculo-view" subflow="locacao/veiculoview" >
-		<input name="mode" value="'embedded'" />
-		<input name="bean" value="bean" />
-		<transition on="cancel" to="locacao-list" />
-		<transition on="anterior" to="cliente-view"  >
-			<set value="currentEvent.attributes.bean" name="conversationScope.bean" />
-		</transition>
-		<transition on="ok" to="adicionais" >
-			<set value="currentEvent.attributes.bean" name="conversationScope.bean" />
-		</transition>
-	</subflow-state>
-	
-	<subflow-state id="adicionais" subflow="locacao/adicionais" >
-		<input name="mode" value="'embedded'" />
-		<input name="bean" value="bean" />
-		<transition on="cancel" to="locacao-list"  />
-		<transition on="anterior" to="veiculo-view" >
-			<set value="currentEvent.attributes.bean" name="conversationScope.bean" />
-		</transition>
-		<transition on="ok" to="locacao-list" >
-			
-		</transition>
-	</subflow-state>
 	
 </flow>

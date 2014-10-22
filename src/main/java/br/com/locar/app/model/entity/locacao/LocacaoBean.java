@@ -12,6 +12,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Days;
 
 import br.com.locar.app.model.entity.Categoria;
+import br.com.locar.app.model.entity.Cliente;
 import br.com.locar.app.model.entity.Veiculo;
 
 public class LocacaoBean implements Serializable {
@@ -20,24 +21,25 @@ public class LocacaoBean implements Serializable {
 
 	private Veiculo veiculo;
 	private Date devolucao;
+	private Cliente cliente;
+	
 
-	private boolean protecaoParcial;
 	private boolean protecaoOcupantes;
 	private boolean protecaoTerceiros;
 
-	public boolean isProtecaoTotal() {
-		return protecaoOcupantes && protecaoParcial && protecaoTerceiros;
-	}
+	
 
 	public void setProtecaoTotal(boolean protecaoTotal) {
 		if (protecaoTotal) {
 			this.protecaoOcupantes = true;
-			this.protecaoParcial = true;
 			this.protecaoTerceiros = true;
 		}
 	}
 
 	public BigDecimal getValor() {
+		if(veiculo == null){
+			return BigDecimal.ZERO;
+		}
 		Categoria c = veiculo.getCategoria();
 		BigDecimal valor = c.getDiaria();
 		valor = valor.add(protecaoOcupantes ? c.getProtecaoOcupantes()
@@ -71,13 +73,6 @@ public class LocacaoBean implements Serializable {
 		}
 	}
 
-	public boolean isProtecaoParcial() {
-		return protecaoParcial;
-	}
-
-	public void setProtecaoParcial(boolean protecaoParcial) {
-		this.protecaoParcial = protecaoParcial;
-	}
 
 	public boolean isProtecaoOcupantes() {
 		return protecaoOcupantes;
@@ -109,6 +104,14 @@ public class LocacaoBean implements Serializable {
 
 	public void setDevolucao(Date devolucao) {
 		this.devolucao = devolucao;
+	}
+	
+	public Cliente getCliente() {
+		return cliente;
+	}
+	
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 }

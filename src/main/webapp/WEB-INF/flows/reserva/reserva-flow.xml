@@ -7,9 +7,11 @@
 
 	<view-state id="reserva-list">
 		<on-entry>
-			<evaluate expression="veiculoController.getVeiculos()" result="viewScope.reservas" result-type="dataModel" />
 			<evaluate expression="'Reservas'" result="viewScope.titulo"  />
 		</on-entry>
+		<transition on="novo" >
+			<evaluate expression="reservaController.newBean()" result="viewScope.bean" />
+		</transition>
 		
 	</view-state>
 	

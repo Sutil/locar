@@ -10,21 +10,21 @@ import org.springframework.beans.factory.annotation.Configurable;
 
 import com.google.common.base.Strings;
 
-import br.com.locar.app.model.dao.VeiculoRepository;
-import br.com.locar.app.model.entity.Veiculo;
+import br.com.locar.app.model.dao.ClienteRepository;
+import br.com.locar.app.model.entity.Cliente;
 
 @Configurable
-@FacesConverter(forClass = Veiculo.class, value="veiculoConverter")
-public class VeiculoConverter implements Converter{
-
-	@Autowired
-	private VeiculoRepository veiculoRepository;
+@FacesConverter(forClass = Cliente.class, value = "clienteConverter")
+public class ClienteConverter implements Converter{
 	
+	@Autowired
+	private ClienteRepository clienteRepository;
+
 	@Override
 	public Object getAsObject(FacesContext arg0, UIComponent arg1, String value) {
 		if(!Strings.isNullOrEmpty(value)){
-			Long id = Long.parseLong(value);
-			return veiculoRepository.findOne(id);
+			long id = Long.parseLong(value);
+			return clienteRepository.findOne(id);
 		}
 		return null;
 	}
@@ -32,10 +32,10 @@ public class VeiculoConverter implements Converter{
 	@Override
 	public String getAsString(FacesContext arg0, UIComponent arg1, Object value) {
 		if(value != null){
-			Veiculo veiculo = (Veiculo) value;
-			return veiculo.getId().toString();
+			Cliente cliente = (Cliente) value;
+			return cliente.getId().toString();
 		}
-		return null;
+		return "";
 	}
 
 }

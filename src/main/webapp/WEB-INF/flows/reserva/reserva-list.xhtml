@@ -6,6 +6,43 @@
 	xmlns:sec="http://www.springframework.org/security/tags"
 	template="/WEB-INF/template/ui.xhtml">
 
+	<ui:define name="script-header">
+		<script>
+			PrimeFaces.locales['pt'] = {
+				closeText : 'Fechar',
+				prevText : 'Anterior',
+				nextText : 'Próximo',
+				currentText : 'Começo',
+				monthNames : [ 'Janeiro', 'Fevereiro', 'Março', 'Abril',
+						'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro',
+						'Outubro', 'Novembro', 'Dezembro' ],
+				monthNamesShort : [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+						'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez' ],
+				dayNames : [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta',
+						'Sexta', 'Sábado' ],
+				dayNamesShort : [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex',
+						'Sáb' ],
+				dayNamesMin : [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ],
+				weekHeader : 'Semana',
+				firstDay : 1,
+				isRTL : false,
+				showMonthAfterYear : false,
+				yearSuffix : '',
+				timeOnlyTitle : 'Só Horas',
+				timeText : 'Tempo',
+				hourText : 'Hora',
+				minuteText : 'Minuto',
+				secondText : 'Segundo',
+				currentText : 'Data Atual',
+				ampm : false,
+				month : 'Mês',
+				week : 'Semana',
+				day : 'Dia',
+				allDayText : 'Todo Dia'
+			};
+		</script>
+	</ui:define>
+
 	<ui:define name="content">
 		<h:form id="form">
 			<p:messages autoUpdate="true" showSummary="true" showDetail="true" />
@@ -13,7 +50,7 @@
 			<h:panelGrid columns="2" style="width:100%;">
 				<p:panel>
 					<h:panelGrid columns="1">
-						<p:commandButton value="Novo" icon="ui-icon-plus"
+						<p:commandButton value="Novo" icon="ui-icon-plus" action="novo"
 							oncomplete="dgEdit.show();" update=":formEdit" />
 					</h:panelGrid>
 				</p:panel>
@@ -48,64 +85,120 @@
 		</h:form>
 
 		<p:dialog widgetVar="dgEdit" modal="true" resizable="false"
-			appendToBody="true" header="Escolher de cliente" position="center"
-			showEffect="slide" hideEffect="slide" >
+			header="Reserva" position="center" showEffect="slide"
+			hideEffect="slide">
 			<h:form id="formEdit">
 				<h:panelGrid columns="1">
-				Pesquise por nome, razão social, cpf ou CNPJ:
-				<p:inputText id="pesquisa" size="80" />
-					<p:watermark value="Termos da pesquisa" for="pesquisa" />
+
+					<p:outputLabel value="Cliente:" for="pesquisaCliente" />
+					<p:message autoUpdate="true" for="pesquisaCliente" />
+					<p:autoComplete id="pesquisaCliente" size="60"
+						value="#{bean.cliente}" required="true"
+						requiredMessage="Selecione o cliente"
+						completeMethod="#{reservaController.completeCliente}" var="cli"
+						converterMessage="Selecione o cliente." itemLabel="#{cli.nome}"
+						itemValue="#{cli}" converter="clienteConverter"
+						forceSelection="true">
+						<p:column>
+							<h:outputText value="Nome: #{cli.nome}" />
+						</p:column>
+						<p:column>
+							<h:outputText value="Cpf: #{cli.cpf}" />
+						</p:column>
+
+					</p:autoComplete>
+					<p:watermark value="Pesquise por nome, razão social, CPF ou CNPJ"
+						for="pesquisaCliente" />
+
+					<p:outputLabel value="Veículo" for="veiculo"></p:outputLabel>
+					<p:message for="veiculo" />
+					<p:autoComplete id="veiculo" size="60" value="#{bean.veiculo}"
+						required="true" requiredMessage="Selecione o veículo."
+						completeMethod="#{reservaController.completeVeiculo}" var="vei"
+						converterMessage="Selecione o veículo" itemLabel="#{vei.modelo}"
+						itemValue="#{vei}" converter="veiculoConverter"
+						forceSelection="true">
+
+						<p:column>
+							<h:outputText value="#{vei.modelo}" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{vei.marca}" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{vei.placa}" />
+						</p:column>
+
+					</p:autoComplete>
+					<p:watermark value="Pesquise por modelo, marca ou placa."
+						for="veiculo"></p:watermark>
+
+					<h:outputText value="Data da reseva:"></h:outputText>
+					<h:panelGrid columns="2">
+						<h:panelGrid columns="1">
+							<p:outputLabel value="De:" for="inicio" />
+							<p:message for="inicio" />
+							<p:calendar id="inicio" value="#{bean.inicio}" locale="pt"
+								pattern="dd/MM/yyyy" required="true"
+								requiredMessage="Informe a data de início da reserva."></p:calendar>
+						</h:panelGrid>
+
+						<h:panelGrid columns="1">
+							<p:outputLabel value="Até:" for="fim" />
+							<p:message for="fim" />
+							<p:calendar id="fim" value="#{bean.fim}" locale="pt"
+								pattern="dd/MM/yyyy" required="true"
+								requiredMessage="Informe a data final da reserva."
+								converterMessage="Informe a data final da reserva." />
+						</h:panelGrid>
+
+					</h:panelGrid>
+
+
 
 				</h:panelGrid>
-				<p:commandButton value="Cancelar" onclick="dgEdit.hide();" immediate="true" />
-				<p:commandButton value="Próximo" onclick="dgEdit.hide(); dgVeiculo.show();"  />
+				<p:commandButton value="Reservar" update="@form, :formConfirm"
+					oncomplete="if(args &amp;&amp; !args.validationFailed){ dgEdit.hide(); dgConfirm.show() }" />
+				<p:commandButton value="Cancelar" immediate="true"
+					onclick="dgEdit.hide();" />
 			</h:form>
 		</p:dialog>
-		
-		<p:dialog widgetVar="dgVeiculo" modal="true" header="Escolha de veículo"
-					showEffect="slide" hideEffect="slide" >
-				<h:panelGrid columns="1" >
-					Pesquise por marca, modelo, placa ou renavam:
-					<p:inputText size="80" />
-				
-				</h:panelGrid>
-				<p:commandButton value="Cancelar" onclick="dgVeiculo.hide();" immediate="true" />
-				<p:commandButton value="Anterior" />
-				<p:commandButton value="Próximo" onclick="dgVeiculo.hide(); dgConfirmacao.show();" />
-				
-		</p:dialog>
-		
-		<p:dialog widgetVar="dgConfirmacao" modal="true" >
-			<h:panelGrid columns="2" >
-				<h:outputText value="Cliente:" ></h:outputText>
-				<h:outputText value="Joaquim Barbosa" ></h:outputText>
-				<h:outputText value="Veículo:" ></h:outputText>
-				<h:outputText value="Celta - branco - 2 portas" ></h:outputText>
-				<h:outputText value="Valor proteção ocupantes:" ></h:outputText>
-				<h:outputText value="R$ 35,00" ></h:outputText>
-				
-				<h:outputText value="Valor por diária:" ></h:outputText>
-				<h:outputText value="R$ 70,00" ></h:outputText>
-				
-				<h:outputText value="Número de diárias:" ></h:outputText>
-				<h:outputText value="3" ></h:outputText>
-				
-				<h:outputText value="Valor total: " ></h:outputText>
-				<h:outputText value="R$ 245,00" ></h:outputText>
-				
-				
-			</h:panelGrid>
-			
-			<p:commandButton value="Confirmar" />
-			<p:commandButton value="Cancelar" onclick="dgConfirmacao.hide();" immediate="true" />
-		</p:dialog>
-		
-		<p:confirmDialog widgetVar="dgDelete"
-			message="Deseja cancelar esta locação">
-			<p:commandButton value="Sim" onclick="dgDelete.hide();" />
-			<p:commandButton value="Não" onclick="dgDelete.hide();" />
-		</p:confirmDialog>
 
+		<p:dialog widgetVar="dgConfirm" modal="true"
+			header="Confirmação de reserva" position="center" hideEffect="slide">
+			<h:form id="formConfirm">
+				<h:panelGrid columns="1">
+					<h:outputText value="Reservar veículo:" styleClass="label" />
+					<p:panelGrid columns="3" >
+						<h:outputText value="#{bean.veiculo.marca}" />
+						<h:outputText value="#{bean.veiculo.modelo}" />
+						<h:outputText value="#{bean.veiculo.ano}" />
+					</p:panelGrid>
+					
+					<h:outputText value="Para o cliente:" styleClass="label" ></h:outputText>
+					<h:outputText value="Nome: #{bean.cliente.nome}"/>
+					<h:outputText value="CPF: #{bean.cliente.cpf}"/>
+					
+					<h:outputText value="No dia:" styleClass="label" ></h:outputText>
+					<h:outputText value="#{bean.inicio}" >
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+
+					<h:outputText value="Até o dia:" styleClass="label" ></h:outputText>
+					<h:outputText value="#{bean.fim}">
+						<f:convertDateTime pattern="dd/MM/yyyy" ></f:convertDateTime>
+					</h:outputText>
+					
+					<h:outputText value="#{bean.valorPreCalculado}" >
+						<f:convertNumber pattern="#0.00" />
+					</h:outputText>
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar" />
+					<p:commandButton value="Canccelar" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
 	</ui:define>
 </ui:composition>
 

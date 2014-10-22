@@ -21,7 +21,7 @@
 	</context-param>
 	<context-param>
 		<param-name>spring.profiles.default</param-name>
-		<param-value>producao</param-value>
+		<param-value>desenvolvimento</param-value>
 	</context-param>
 	<context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
