@@ -1,5 +1,13 @@
 package br.com.locar.app;
 
+import org.junit.Test;
+
+/*
+ * Eduardo Sutil - Reserva
+ Tuca - Locação
+ Marcelo - Veiculo
+ Eduardo shibukawa = Relatório de multas x locação!
+ */
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -16,5 +24,10 @@ import br.com.locar.config.root.SteConfig;
 @Transactional
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class })
 public class IntegrationTestConfig {
+
+	@Test
+	public void test() {
+		System.out.println("setUp profile test");
+	}
 
 }

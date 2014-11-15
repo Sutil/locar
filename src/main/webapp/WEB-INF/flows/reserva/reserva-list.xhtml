@@ -56,18 +56,18 @@
 				</p:panel>
 				<p:panel>
 					<h:panelGrid columns="6">
-						<p:inputText id="filtro" size="80"></p:inputText>
+						<p:inputText id="filtro" value="#{filtro.value}" size="80"></p:inputText>
 						<p:watermark for="filtro"
 							value="Pesquise por nome do cliente ou veículo" />
-						<p:commandButton value="pesquisar" />
+						<p:commandButton value="pesquisar" action="pesquisar" update="@form" />
 						<p:spacer width="80" height="0" />
-						<p:selectBooleanCheckbox />
-						<h:outputText value="Mostrar Cancelados" />
+						<p:selectBooleanCheckbox value="#{filtro.mostrarCancelados}" />
+						<h:outputText value="Mostrar Cancelados"  />
 					</h:panelGrid>
 				</p:panel>
 			</h:panelGrid>
 
-			<p:dataTable emptyMessage="Sem locações" value="#{reservas}"
+			<p:dataTable emptyMessage="Sem reservas" value="#{reservas}"
 				var="res">
 				<f:facet name="header">Lista de reservas</f:facet>
 				<p:column headerText="Cliente">nome</p:column>
@@ -196,7 +196,7 @@
 					</h:outputText>
 				</h:panelGrid>
 				<h:panelGrid columns="2">
-					<p:commandButton value="Salvar" action="salvar" update=":form" />
+					<p:commandButton value="Salvar" action="salvar" update=":form" oncomplete="dgConfirm.hide();" />
 					<p:commandButton value="Canccelar" onclick="dgConfirm.hide();" immediate="true"  />
 				</h:panelGrid>
 			</h:form>

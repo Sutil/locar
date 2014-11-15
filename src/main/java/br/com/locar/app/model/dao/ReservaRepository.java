@@ -6,6 +6,6 @@ import br.com.locar.app.model.entity.Reserva;
 import br.com.locar.repository.ListQueryDslPredicateExecutor;
 
 public interface ReservaRepository extends JpaRepository<Reserva, Long>, 
-ListQueryDslPredicateExecutor<Reserva>{
+ListQueryDslPredicateExecutor<Reserva>, ReservaRepositoryCustom{
 
 }

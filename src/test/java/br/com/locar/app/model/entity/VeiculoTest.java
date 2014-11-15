@@ -29,7 +29,7 @@ public class VeiculoTest {
 
 	@Test
 	public void testVeiculoHappyDay() {
-		Veiculo veiculo = Veiculo.newInstance(criaVeiculoBean(categoria, "marca", "modelo", 2000, "AAA-1111", "98745632"));
+		Veiculo veiculo = Veiculo.newInstance(criaVeiculoBean(null, "marca", "modelo", 2000, "AAA-1111", "98745632"));
 		Assert.assertNotNull(veiculo);
 	}
 	

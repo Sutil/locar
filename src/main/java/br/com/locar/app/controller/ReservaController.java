@@ -7,13 +7,12 @@ import static javax.faces.application.FacesMessage.SEVERITY_INFO;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.application.FacesMessage;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.locar.app.bean.ReservaBean;
+import br.com.locar.app.bean.ReservaFiltro;
 import br.com.locar.app.model.dao.ClienteRepository;
 import br.com.locar.app.model.dao.ReservaRepository;
 import br.com.locar.app.model.dao.VeiculoRepository;
@@ -40,6 +39,10 @@ public class ReservaController extends LocarController {
 
 	public ReservaBean newBean() {
 		return new ReservaBean();
+	}
+	
+	public ReservaFiltro newFiltro(){
+		return new ReservaFiltro();
 	}
 
 	public List<Cliente> completeCliente(String query) {
@@ -87,6 +90,11 @@ public class ReservaController extends LocarController {
 		} catch (Exception e) {
 			message(SEVERITY_ERROR, "Erro ao salvar reserva.", e.getMessage());
 		}
+	}
+	
+	@Transactional
+	public List<Reserva> pesquisar(ReservaFiltro filtro){
+		return reservaRepository.findAll(filtro.toPredicate());
 	}
 
 }

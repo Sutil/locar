@@ -8,6 +8,8 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.joda.time.DateMidnight;
 
@@ -21,8 +23,13 @@ public class Reserva extends Entidade {
 	@Id
 	@GeneratedValue
 	private Long id;
-
+	
+	@ManyToOne
+	@JoinColumn(name = "cliente_fk")
 	private Cliente cliente;
+	
+	@ManyToOne
+	@JoinColumn(name = "veiculo_fk")
 	private Veiculo veiculo;
 	private Date inicio;
 	private Date fim;

@@ -8,12 +8,16 @@
 	<view-state id="reserva-list">
 		<on-entry>
 			<evaluate expression="'Reservas'" result="viewScope.titulo"  />
+			<evaluate expression="reservaController.newFiltro()" result="viewScope.filtro"></evaluate>
 		</on-entry>
 		<transition on="novo" >
 			<evaluate expression="reservaController.newBean()" result="viewScope.bean" />
 		</transition>
 		<transition on="salvar" >
 			<evaluate expression="reservaController.salvar(bean)" />
+		</transition>
+		<transition on="pesquisar">
+			<evaluate expression="reservaController.pesquisar(filtro)" result="viewScope.reservas" result-type="dataModel" />
 		</transition>
 		
 	</view-state>
